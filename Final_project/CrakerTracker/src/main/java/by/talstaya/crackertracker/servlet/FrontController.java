@@ -26,7 +26,7 @@ import java.io.IOException;
         "/diet", "/show_diet", "/update_quantity_in_diet", "/delete_meal", "/delete_comment", "/comment",
         "/add_meal", "/show_product_details",})
 
-public class InvokerServlet extends HttpServlet { //Вызывающий сервлет
+public class FrontController extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger("name");
 

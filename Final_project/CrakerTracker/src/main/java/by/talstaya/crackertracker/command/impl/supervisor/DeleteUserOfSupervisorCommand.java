@@ -11,9 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public class DeleteUserOfSupervisorCommand implements Command {
 
-    private final String USER = "User";
-    private final String USER_ID = "userId";
-
+    private static final String USER = "User";
+    private static final String USER_ID = "userId";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {

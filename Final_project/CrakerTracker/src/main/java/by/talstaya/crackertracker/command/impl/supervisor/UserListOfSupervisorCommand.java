@@ -13,14 +13,14 @@ import java.util.List;
 
 public class UserListOfSupervisorCommand implements Command {
 
-    private final int NUMBER_USERS_PER_PAGE = 8;
-    private final String USERS_PER_PAGE = "usersPerPage";
-    private final String INDEX_OF_PAGE = "indexOfPage";
-    private final String CHANGE_PAGE = "changePage";
-    private final String START_INDEX_OF_USER_LIST = "startIndexOfUserList";
+    private static final int NUMBER_USERS_PER_PAGE = 8;
+    private static final String USERS_PER_PAGE = "usersPerPage";
+    private static final String INDEX_OF_PAGE = "indexOfPage";
+    private static final String CHANGE_PAGE = "changePage";
+    private static final String START_INDEX_OF_USER_LIST = "startIndexOfUserList";
 
-    private final String USER = "User";
-    private final String USERS_OF_SUPERVISOR = "usersOfSupervisor";
+    private static final String USER = "User";
+    private static final String USERS_OF_SUPERVISOR = "usersOfSupervisor";
 
 
     @Override

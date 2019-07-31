@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class DeleteSupervisorCommand implements Command {
 
-    private final String USER = "User";
+    private static final String USER = "User";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {

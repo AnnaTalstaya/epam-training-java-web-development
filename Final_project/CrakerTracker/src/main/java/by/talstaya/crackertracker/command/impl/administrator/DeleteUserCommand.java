@@ -11,10 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public class DeleteUserCommand implements Command {
 
-    private final String USER_ID = "userId";
-    private final String USER_DETAILS = "userDetails";
-    private final String USER_TYPE = "userType";
-    private final String OK = "ok";
+    private static final String USER_ID = "userId";
+    private static final String USER_DETAILS = "userDetails";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {

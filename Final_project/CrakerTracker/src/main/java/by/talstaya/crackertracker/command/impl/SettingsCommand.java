@@ -11,7 +11,9 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -75,7 +77,8 @@ public class SettingsCommand implements Command {
             if (!user.getEmail().equals(email) && userService.containsEmail(email)) {
                 errorMessages.put(ERROR_MAIL, "This email is taken by another account");
             }
-            if (!user.getUsername().equals(username) && !errorMessages.containsKey("errorUsername") && userService.containsUsername(username)) {
+            if (!user.getUsername().equals(username) && !errorMessages.containsKey("errorUsername")
+                    && userService.containsUsername(username)) {
                 errorMessages.put(ERROR_USERNAME, "This username is taken by another account");
             }
 

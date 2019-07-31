@@ -10,8 +10,6 @@ import by.talstaya.crackertracker.service.impl.ProductServiceImpl;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,7 +20,6 @@ public class SearchCommand implements Command {
     private static final String NAME_OR_WORD_IN_NAME = "nameOrWordInName";
     private static final String ERROR = "error";
     private static final String SEARCH = "search";
-    private static final String SEARCH_ERROR = "searchError";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {

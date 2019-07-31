@@ -22,17 +22,20 @@ public class ConnectionPool {
     private static ReentrantLock lock = new ReentrantLock();
     private static AtomicBoolean create = new AtomicBoolean(false);
 
-    private final int MAX_POOL_SIZE;
-    private final String CONNECTION_URL;
+    private static final int MAX_POOL_SIZE;
+    private static final String CONNECTION_URL;
 
     private BlockingQueue<ProxyConnection> availableConnections;
     private BlockingQueue<ProxyConnection> usedConnections;
 
+    static {
+        MAX_POOL_SIZE = ConnectorDb.obtainMaxPoolSize();
+        CONNECTION_URL = ConnectorDb.obtainConnectionURL();
+    }
+
     private ConnectionPool() throws PoolConnectionException {
         try {
             Class.forName(ConnectorDb.obtainDriver()); //register driver
-            MAX_POOL_SIZE = ConnectorDb.obtainMaxPoolSize();
-            CONNECTION_URL = ConnectorDb.obtainConnectionURL();
 
             init();
 

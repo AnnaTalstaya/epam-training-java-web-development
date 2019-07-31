@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public class DeleteRequestForSupervisorCommand implements Command {
 
-    private final String USER = "User";
-    private final String MESSAGE = "message";
+    private static final String USER = "User";
+    private static final String MESSAGE = "message";
 
 
     @Override

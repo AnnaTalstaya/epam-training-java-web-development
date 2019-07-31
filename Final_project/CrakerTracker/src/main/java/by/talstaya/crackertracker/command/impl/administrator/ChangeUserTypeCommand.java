@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ChangeUserTypeCommand implements Command {
 
-    private final String USER_ID = "userId";
-    private final String USER_DETAILS = "userDetails";
-    private final String USER_TYPE = "userType";
-    private final String OK = "ok";
+    private static final String USER_ID = "userId";
+    private static final String USER_DETAILS = "userDetails";
+    private static final String USER_TYPE = "userType";
+    private static final String OK = "ok";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {

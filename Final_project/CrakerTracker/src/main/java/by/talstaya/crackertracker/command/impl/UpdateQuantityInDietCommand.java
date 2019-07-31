@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 
 public class UpdateQuantityInDietCommand implements Command {
 
-    private final String QUANTITY = "quantity";
-    private final String MEAL_ID = "mealId";
-    private final String MEAL_DATE = "mealDate";
-    private final String OK = "ok";
+    private static final String QUANTITY = "quantity";
+    private static final String MEAL_ID = "mealId";
+    private static final String MEAL_DATE = "mealDate";
+    private static final String OK = "ok";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {

@@ -16,34 +16,26 @@ import by.talstaya.crackertracker.service.impl.ProductServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 public class AddMealCommand implements Command {
 
-    private ResourceBundle rb;
-
-    private final String USER = "User";
-    private final String PRODUCT = "product";
-    private final String PRODUCT_ID = "productId";
-    private final String MEAL_DATE = "mealDate";
-    private final String MEAL_TIME = "mealTime";
-    private final String QUANTITY = "quantity";
-    private final String OK = "ok";
-    private final String ERROR = "error";
+    private static final String USER = "User";
+    private static final String PRODUCT = "product";
+    private static final String PRODUCT_ID = "productId";
+    private static final String MEAL_DATE = "mealDate";
+    private static final String MEAL_TIME = "mealTime";
+    private static final String QUANTITY = "quantity";
+    private static final String OK = "ok";
+    private static final String ERROR = "error";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-
-        Locale locale = new Locale(String.valueOf(request.getSession().getAttribute("locale")));
-        rb = ResourceBundle.getBundle("message", locale);
 
         User user = (User) request.getSession().getAttribute(USER);
         int productId = Integer.parseInt(request.getParameter(PRODUCT_ID));
         String mealDate = request.getParameter(MEAL_DATE);
         String stringMealTime = request.getParameter(MEAL_TIME);
         int quantity = Integer.parseInt(request.getParameter(QUANTITY));
-
 
         if(productId != 0){
             ProductService productService = new ProductServiceImpl();
@@ -66,20 +58,19 @@ public class AddMealCommand implements Command {
                         .setQuantity(quantity)
                         .build();
                 mealService.insertMeal(meal);
-                request.setAttribute(OK, rb.getString("message.added"));
 
                 request.setAttribute(PRODUCT, product);
                 request.setAttribute(MEAL_DATE, mealDate);
                 request.setAttribute(MEAL_TIME, stringMealTime);
                 request.setAttribute(QUANTITY, quantity);
-                request.setAttribute(OK, rb.getString("message.added"));
+                request.setAttribute(OK, "Added successfully");
 
             } catch (ServiceException e) {
                 request.setAttribute(ERROR, e.getMessage());
                 return JspPath.ERROR.getUrl();
             }
         }else{
-            request.setAttribute(ERROR, rb.getString("product.error.product_id_not_found"));
+            request.setAttribute(ERROR, "Product with such id not found");
             return JspPath.ERROR.getUrl();
         }
 

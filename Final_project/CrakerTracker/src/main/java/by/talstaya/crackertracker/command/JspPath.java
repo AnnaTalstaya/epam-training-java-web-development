@@ -18,7 +18,6 @@ public enum JspPath {
     USER_LIST_OF_SUPERVISOR("/jsp/userListOfSupervisor.jsp"),
     REQUESTS_FOR_SUPERVISORS("/jsp/requestsForSupervisors.jsp");
 
-
     private String url;
 
     JspPath(String url) {

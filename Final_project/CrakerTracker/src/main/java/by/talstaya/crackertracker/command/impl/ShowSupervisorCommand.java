@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ShowSupervisorCommand implements Command {
 
-    private final String USER = "User";
-    private final String SUPERVISOR = "supervisor";
-    private final String RATING = "rating";
+    private static final String USER = "User";
+    private static final String SUPERVISOR = "supervisor";
+    private static final String RATING = "rating";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {

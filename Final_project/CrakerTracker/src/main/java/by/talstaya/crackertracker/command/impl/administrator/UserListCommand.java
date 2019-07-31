@@ -13,14 +13,14 @@ import java.util.List;
 
 public class UserListCommand implements Command {
 
-    private final int NUMBER_USERS_PER_PAGE = 8;
-    private final String USERS_PER_PAGE = "usersPerPage";
-    private final String INDEX_OF_PAGE = "indexOfPage";
-    private final String CHANGE_PAGE = "changePage";
-    private final String START_INDEX_OF_USER_LIST = "startIndexOfUserList";
+    private static final int NUMBER_USERS_PER_PAGE = 8;
+    private static final String USERS_PER_PAGE = "usersPerPage";
+    private static final String INDEX_OF_PAGE = "indexOfPage";
+    private static final String CHANGE_PAGE = "changePage";
+    private static final String START_INDEX_OF_USER_LIST = "startIndexOfUserList";
 
-    private final String USER_LIST = "userList";
-    private final String GREATER_THAN_ONE_ADMIN = "greaterThanOneAdmin";
+    private static final String USER_LIST = "userList";
+    private static final String GREATER_THAN_ONE_ADMIN = "greaterThanOneAdmin";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {

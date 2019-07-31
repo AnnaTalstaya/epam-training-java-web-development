@@ -9,24 +9,18 @@ import by.talstaya.crackertracker.service.impl.ProductServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 public class ShowProductDetailsCommand implements Command {
 
-    private ResourceBundle rb;
-    private final int startQuantity = 1;
+    private static final int startQuantity = 1;
 
-    private final String PRODUCT_ID = "productId";
-    private final String ERROR = "error";
-    private final String PRODUCT = "product";
-    private final String QUANTITY = "quantity";
+    private static final String PRODUCT_ID = "productId";
+    private static final String ERROR = "error";
+    private static final String PRODUCT = "product";
+    private static final String QUANTITY = "quantity";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-
-        Locale locale = new Locale(String.valueOf(request.getSession().getAttribute("locale")));
-        rb = ResourceBundle.getBundle("message", locale);
 
         int productId = Integer.parseInt(request.getParameter(PRODUCT_ID));
 
@@ -35,7 +29,7 @@ public class ShowProductDetailsCommand implements Command {
             Product product = productService.findByProductId(productId);
 
             if(product == null){
-                request.setAttribute(ERROR, rb.getString("product.error.product_id_not_found"));
+                request.setAttribute(ERROR, "Product with such id not found");
                 return JspPath.ERROR.getUrl();
             } else{
                 request.setAttribute(PRODUCT, product);
@@ -43,7 +37,7 @@ public class ShowProductDetailsCommand implements Command {
 
             }
         } else {
-            request.setAttribute(ERROR, rb.getString("product.error.not_found"));
+            request.setAttribute(ERROR, "Product not found");
             return JspPath.ERROR.getUrl();
         }
         return JspPath.PRODUCT.getUrl();

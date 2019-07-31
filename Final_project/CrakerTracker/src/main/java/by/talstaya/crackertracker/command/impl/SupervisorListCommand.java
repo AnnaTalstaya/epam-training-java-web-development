@@ -13,18 +13,18 @@ import java.util.List;
 
 public class SupervisorListCommand implements Command {
 
-    private final int NUMBER_SUPERVISORS_PER_PAGE = 8;
+    private static final int NUMBER_SUPERVISORS_PER_PAGE = 8;
 
-    private final String SUPERVISORS_PER_PAGE = "supervisorsPerPage";
-    private final String INDEX_OF_PAGE = "indexOfPage";
-    private final String CHANGE_PAGE = "changePage";
-    private final String START_INDEX_OF_SUPERVISOR_LIST = "startIndexOfSupervisorList";
+    private static final String SUPERVISORS_PER_PAGE = "supervisorsPerPage";
+    private static final String INDEX_OF_PAGE = "indexOfPage";
+    private static final String CHANGE_PAGE = "changePage";
+    private static final String START_INDEX_OF_SUPERVISOR_LIST = "startIndexOfSupervisorList";
 
-    private final String SUPERVISOR_LIST = "supervisorList";
+    private static final String SUPERVISOR_LIST = "supervisorList";
 
-    private final String USER = "User";
-    private final String CONTAINS_SUPERVISOR_OR_REQUEST_FOR_SUPERVISOR = "containsSupervisorOrRequestForSupervisor";
-    private final String REQUESTED_SUPERVISOR_ID = "requestedSupervisorId";
+    private static final String USER = "User";
+    private static final String CONTAINS_SUPERVISOR_OR_REQUEST_FOR_SUPERVISOR = "containsSupervisorOrRequestForSupervisor";
+    private static final String REQUESTED_SUPERVISOR_ID = "requestedSupervisorId";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
@@ -42,7 +42,8 @@ public class SupervisorListCommand implements Command {
         if (request.getParameter(INDEX_OF_PAGE) == null) {
             newIndex = 1;
         } else {
-            newIndex = (int) Double.parseDouble(request.getParameter(INDEX_OF_PAGE)) + Integer.parseInt(request.getParameter(CHANGE_PAGE));
+            newIndex = (int) Double.parseDouble(request.getParameter(INDEX_OF_PAGE))
+                    + Integer.parseInt(request.getParameter(CHANGE_PAGE));
         }
 
         UserService userService = new UserServiceImpl();

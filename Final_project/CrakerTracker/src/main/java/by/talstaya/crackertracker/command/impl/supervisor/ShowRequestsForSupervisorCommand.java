@@ -13,15 +13,15 @@ import java.util.List;
 
 public class ShowRequestsForSupervisorCommand implements Command {
 
-    private final String USER = "User";
+    private static final String USER = "User";
 
-    private final int NUMBER_REQUESTS_PER_PAGE = 8;
-    private final String REQUESTS_PER_PAGE = "requestsPerPage";
-    private final String INDEX_OF_PAGE = "indexOfPage";
-    private final String CHANGE_PAGE = "changePage";
-    private final String START_INDEX_OF_REQUEST_LIST = "startIndexOfRequestList";
+    private static final int NUMBER_REQUESTS_PER_PAGE = 8;
+    private static final String REQUESTS_PER_PAGE = "requestsPerPage";
+    private static final String INDEX_OF_PAGE = "indexOfPage";
+    private static final String CHANGE_PAGE = "changePage";
+    private static final String START_INDEX_OF_REQUEST_LIST = "startIndexOfRequestList";
 
-    private final String REQUEST_LIST_FOR_SUPERVISOR = "requestListForSupervisor";
+    private static final String REQUEST_LIST_FOR_SUPERVISOR = "requestListForSupervisor";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {

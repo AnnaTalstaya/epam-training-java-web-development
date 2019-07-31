@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 public class SendRequestForSupervisorCommand implements Command {
 
-    private final String USER = "User";
-    private final String SUPERVISOR_ID = "supervisorId";
-    private final String MESSAGE = "message";
-    private final String REQUESTED_SUPERVISOR_ID = "requestedSupervisorId";
+    private static final String USER = "User";
+    private static final String SUPERVISOR_ID = "supervisorId";
+    private static final String MESSAGE = "message";
+    private static final String REQUESTED_SUPERVISOR_ID = "requestedSupervisorId";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {

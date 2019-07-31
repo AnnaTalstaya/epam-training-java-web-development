@@ -1,7 +1,6 @@
 package by.talstaya.crackertracker.command.impl;
 
 import by.talstaya.crackertracker.command.Command;
-import by.talstaya.crackertracker.entity.CommentForUser;
 import by.talstaya.crackertracker.exception.ServiceException;
 import by.talstaya.crackertracker.service.CommentForUserService;
 import by.talstaya.crackertracker.service.impl.CommentForUserServiceImpl;

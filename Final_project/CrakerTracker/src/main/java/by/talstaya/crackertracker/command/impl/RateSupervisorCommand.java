@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 
 public class RateSupervisorCommand implements Command {
 
-    private final String USER = "User";
-    private final String SUPERVISOR_ID = "supervisorId";
-    private final String RATING = "rating";
-    private final String RATED = "rated";
+    private static final String USER = "User";
+    private static final String SUPERVISOR_ID = "supervisorId";
+    private static final String RATING = "rating";
+    private static final String RATED = "rated";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
