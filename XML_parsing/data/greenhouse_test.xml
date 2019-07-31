@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowers xmlns="http://www.example.com/flowers">
+
+    <plant id="A1" name="alstroemeria" soil="podzolic" multiplying="leafs">
+        <origin>
+            <country>Spain</country>
+            <cultivated>1322-11-25</cultivated>
+        </origin>
+        <visualParameter>
+            <colorStem>green</colorStem>
+            <colorLeaf>red</colorLeaf>
+            <averageSize>30</averageSize>
+        </visualParameter>
+        <growingTip>
+            <temperature>20</temperature>
+            <light>true</light>
+            <water>100</water>
+        </growingTip>
+    </plant>
+
+    <plant id="A2" name="aster" soil="unpaved" multiplying="seeds">
+        <origin>
+            <country>Russia</country>
+            <cultivated>1986-03-02</cultivated>
+        </origin>
+        <visualParameter>
+            <colorStem>white</colorStem>
+            <colorLeaf>green</colorLeaf>
+            <averageSize>15</averageSize>
+        </visualParameter>
+        <growingTip>
+            <temperature>15</temperature>
+            <light>false</light>
+            <water>70</water>
+        </growingTip>
+    </plant>
+
+    <plant id="A3" name="begonia" soil="sod-podzolic" multiplying="seeds">
+        <origin>
+            <country>Scotland</country>
+            <cultivated>1732-08-10</cultivated>
+        </origin>
+        <visualParameter>
+            <colorStem>green</colorStem>
+            <colorLeaf>green</colorLeaf>
+            <averageSize>100</averageSize>
+        </visualParameter>
+        <growingTip>
+            <temperature>10</temperature>
+            <light>false</light>
+            <water>250</water>
+        </growingTip>
+    </plant>
+
+</flowers>

@@ -1,0 +1,11 @@
+Developer Olga Nana 4 10/01/2019 JUNIOR
+Developer Alesia Rebol 5.4 17/03/2018 MIDDLE
+Developer Liza Ritutu 10 05/12/2016 SENIOR
+Developer Anton Bernik 15 09/06/2015 LEAD
+Developer Mark Rebol 5.2 22/07/2017 MIDDLE
+Developer Jack Mali 3 12/01/2018 JUNIOR
+Manager Artur Noit 3.5 13/07/2015 Hi2019s
+
+Boss Jack Peru 3.5 13/07/2015 Hi2019s
+Developer Anna Role 3a 12/01/2018 JUNIOR
+Manager Maksim Pau 3.5 13/13/2015 Hi2019s

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.com/flowers"
+        xmlns:tns="http://www.example.com/flowers" elementFormDefault="qualified">
+    <element name="flowers">
+        <complexType>
+            <sequence>
+                <element name="plant" type="tns:Plant" minOccurs="1" maxOccurs="unbounded"/>
+            </sequence>
+        </complexType>
+    </element>
+    <complexType name="Plant">
+        <sequence>
+            <element name="origin" type="tns:Origin"/>
+            <element name="visualParameter" type="tns:VisualParameter"/>
+            <element name="growingTip" type="tns:GrowingTip"/>
+        </sequence>
+        <attribute name="id" type="string" use="required"/>
+        <attribute name="name" type="string" use="required"/>
+        <attribute name="soil" use="required">
+            <simpleType>
+                <restriction base="string">
+                    <enumeration value="podzolic"/>
+                    <enumeration value="unpaved"/>
+                    <enumeration value="sod-podzolic"/>
+                </restriction>
+            </simpleType>
+        </attribute>
+        <attribute name="multiplying" use="optional">
+            <simpleType>
+                <restriction base="string">
+                    <enumeration value="leafs"/>
+                    <enumeration value="seeds"/>
+                    <enumeration value="cuttings"/>
+                </restriction>
+            </simpleType>
+        </attribute>
+    </complexType>
+    <complexType name="Origin">
+        <sequence>
+            <element name="country" type="string"/>
+            <element name="cultivated" type="string"/>
+        </sequence>
+    </complexType>
+    <complexType name="VisualParameter">
+        <all>
+            <element name="colorStem" type="string"/>
+            <element name="colorLeaf" type="string"/>
+            <element name="averageSize" type="positiveInteger"/>
+        </all>
+    </complexType>
+    <complexType name="GrowingTip">
+        <all>
+            <element name="temperature">
+                <simpleType>
+                    <restriction base="int">
+                        <maxExclusive value="60"/>
+                        <minExclusive value="-10"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="light" type="boolean"/>
+            <element name="water">
+                <simpleType>
+                    <restriction base="int">
+                        <minExclusive value="49"/>
+                        <maxExclusive value="540"/>
+                    </restriction>
+                </simpleType>
+            </element>
+        </all>
+    </complexType>
+</schema>

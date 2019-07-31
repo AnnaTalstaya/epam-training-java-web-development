@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowers xmlns="http://www.example.com/flowers">
+
+    <plant id="A1" name="alstroemeria" soil="podzolic" multiplying="leafs">
+        <origin>
+            <country>Spain</country>
+            <cultivated>1322-11-25</cultivated>
+        </origin>
+        <visualParameter>
+            <colorStem>green</colorStem>
+            <colorLeaf>red</colorLeaf>
+            <averageSize>30</averageSize>
+        </visualParameter>
+        <growingTip>
+            <temperature>20</temperature>
+            <light>true</light>
+            <water>100</water>
+        </growingTip>
+    </plant>
+
+    <plant id="A2" name="aster" soil="unpaved" multiplying="seeds">
+        <origin>
+            <country>Russia</country>
+            <cultivated>1986-03-02</cultivated>
+        </origin>
+        <visualParameter>
+            <colorStem>white</colorStem>
+            <colorLeaf>green</colorLeaf>
+            <averageSize>15</averageSize>
+        </visualParameter>
+        <growingTip>
+            <temperature>15</temperature>
+            <light>false</light>
+            <water>70</water>
+        </growingTip>
+    </plant>
+
+    <plant id="A3" name="begonia" soil="sod-podzolic" multiplying="seeds">
+        <origin>
+            <country>Scotland</country>
+            <cultivated>1732-08-10</cultivated>
+        </origin>
+        <visualParameter>
+            <colorStem>green</colorStem>
+            <colorLeaf>green</colorLeaf>
+            <averageSize>100</averageSize>
+        </visualParameter>
+        <growingTip>
+            <temperature>10</temperature>
+            <light>false</light>
+            <water>250</water>
+        </growingTip>
+    </plant>
+
+    <plant id="A4" name="crocus" soil="podzolic" multiplying="seeds">
+        <origin>
+            <country>China</country>
+            <cultivated>2000-10-10</cultivated>
+        </origin>
+        <visualParameter>
+            <colorStem>black</colorStem>
+            <colorLeaf>orange</colorLeaf>
+            <averageSize>4</averageSize>
+        </visualParameter>
+        <growingTip>
+            <temperature>18</temperature>
+            <light>true</light>
+            <water>200</water>
+        </growingTip>
+    </plant>
+
+    <plant id="A5" name="daisy" soil="unpaved">
+        <origin>
+            <country>Ukrain</country>
+            <cultivated>1956-11-07</cultivated>
+        </origin>
+        <visualParameter>
+            <colorStem>green-black</colorStem>
+            <colorLeaf>red</colorLeaf>
+            <averageSize>320</averageSize>
+        </visualParameter>
+        <growingTip>
+            <temperature>28</temperature>
+            <light>true</light>
+            <water>400</water>
+        </growingTip>
+    </plant>
+
+    <plant id="A6" name="freesia" soil="sod-podzolic" multiplying="seeds">
+        <origin>
+            <country>Kazakhstan</country>
+            <cultivated>1902-03-02</cultivated>
+        </origin>
+        <visualParameter>
+            <colorStem>white</colorStem>
+            <colorLeaf>yellow</colorLeaf>
+            <averageSize>320</averageSize>
+        </visualParameter>
+        <growingTip>
+            <temperature>15</temperature>
+            <light>true</light>
+            <water>250</water>
+        </growingTip>
+    </plant>
+
+    <plant id="A7" name="iris" soil="podzolic" multiplying="leafs">
+        <origin>
+            <country>Italy</country>
+            <cultivated>1873-04-02</cultivated>
+        </origin>
+        <visualParameter>
+            <colorStem>green</colorStem>
+            <colorLeaf>yellow</colorLeaf>
+            <averageSize>75</averageSize>
+        </visualParameter>
+        <growingTip>
+            <temperature>22</temperature>
+            <light>false</light>
+            <water>125</water>
+        </growingTip>
+    </plant>
+
+    <plant id="A8" name="jasmine" soil="unpaved" multiplying="leafs">
+        <origin>
+            <country>Brazil</country>
+            <cultivated>1234-09-24</cultivated>
+        </origin>
+        <visualParameter>
+            <colorStem>white</colorStem>
+            <colorLeaf>yellow</colorLeaf>
+            <averageSize>10</averageSize>
+        </visualParameter>
+        <growingTip>
+            <temperature>24</temperature>
+            <light>true</light>
+            <water>125</water>
+        </growingTip>
+    </plant>
+
+    <plant id="A9" name="lavender" soil="unpaved" multiplying="cuttings">
+        <origin>
+            <country>Poland</country>
+            <cultivated>1890-02-10</cultivated>
+        </origin>
+        <visualParameter>
+            <colorStem>green</colorStem>
+            <colorLeaf>pink</colorLeaf>
+            <averageSize>45</averageSize>
+        </visualParameter>
+        <growingTip>
+            <temperature>28</temperature>
+            <light>true</light>
+            <water>120</water>
+        </growingTip>
+    </plant>
+
+    <plant id="A10" name="cherry" soil="podzolic" multiplying="cuttings">
+        <origin>
+            <country>Belarus</country>
+            <cultivated>1324-06-02</cultivated>
+        </origin>
+        <visualParameter>
+            <colorStem>brown</colorStem>
+            <colorLeaf>red</colorLeaf>
+            <averageSize>17</averageSize>
+        </visualParameter>
+        <growingTip>
+            <temperature>18</temperature>
+            <light>true</light>
+            <water>95</water>
+        </growingTip>
+    </plant>
+
+    <plant id="A11" name="lily" soil="unpaved">
+        <origin>
+            <country>Brazil</country>
+            <cultivated>1560-11-20</cultivated>
+        </origin>
+        <visualParameter>
+            <colorStem>brown</colorStem>
+            <colorLeaf>yellow</colorLeaf>
+            <averageSize>400</averageSize>
+        </visualParameter>
+        <growingTip>
+            <temperature>33</temperature>
+            <light>true</light>
+            <water>210</water>
+        </growingTip>
+    </plant>
+
+    <plant id="A12" name="magnolia" soil="unpaved" multiplying="leafs">
+        <origin>
+            <country>Canada</country>
+            <cultivated>1890-02-02</cultivated>
+        </origin>
+        <visualParameter>
+            <colorStem>green</colorStem>
+            <colorLeaf>grey</colorLeaf>
+            <averageSize>38</averageSize>
+        </visualParameter>
+        <growingTip>
+            <temperature>11</temperature>
+            <light>false</light>
+            <water>50</water>
+        </growingTip>
+    </plant>
+
+    <plant id="A13" name="pansy" soil="sod-podzolic" multiplying="cuttings">
+        <origin>
+            <country>Mexico</country>
+            <cultivated>1488-01-01</cultivated>
+        </origin>
+        <visualParameter>
+            <colorStem>purple</colorStem>
+            <colorLeaf>yellow</colorLeaf>
+            <averageSize>22</averageSize>
+        </visualParameter>
+        <growingTip>
+            <temperature>23</temperature>
+            <light>true</light>
+            <water>78</water>
+        </growingTip>
+    </plant>
+
+    <plant id="A14" name="pompon" soil="sod-podzolic" multiplying="leafs">
+        <origin>
+            <country>India</country>
+            <cultivated>1720-10-12</cultivated>
+        </origin>
+        <visualParameter>
+            <colorStem>green</colorStem>
+            <colorLeaf>black</colorLeaf>
+            <averageSize>2</averageSize>
+        </visualParameter>
+        <growingTip>
+            <temperature>12</temperature>
+            <light>true</light>
+            <water>110</water>
+        </growingTip>
+    </plant>
+
+    <plant id="A15" name="rose" soil="podzolic" multiplying="seeds">
+        <origin>
+            <country>Greece</country>
+            <cultivated>1230-10-10</cultivated>
+        </origin>
+        <visualParameter>
+            <colorStem>green</colorStem>
+            <colorLeaf>green</colorLeaf>
+            <averageSize>4</averageSize>
+        </visualParameter>
+        <growingTip>
+            <temperature>33</temperature>
+            <light>true</light>
+            <water>110</water>
+        </growingTip>
+    </plant>
+
+    <plant id="A16" name="sunflower" soil="sod-podzolic" multiplying="leafs">
+        <origin>
+            <country>France</country>
+            <cultivated>1980-01-10</cultivated>
+        </origin>
+        <visualParameter>
+            <colorStem>green</colorStem>
+            <colorLeaf>white</colorLeaf>
+            <averageSize>30</averageSize>
+        </visualParameter>
+        <growingTip>
+            <temperature>19</temperature>
+            <light>true</light>
+            <water>130</water>
+        </growingTip>
+    </plant>
+
+</flowers>

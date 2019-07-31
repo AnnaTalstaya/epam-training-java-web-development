@@ -1,0 +1,11 @@
+*.idea
+*.iml
+*.doc
+*.docx
+*.pptx
+/books
+/Made_in_class
+out
+target
+META-INF
+logs
