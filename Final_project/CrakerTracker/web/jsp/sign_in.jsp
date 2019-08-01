@@ -47,6 +47,12 @@
 
 <jsp:include page="./common/header.jsp"/>
 
+<c:if test="${error != null}">
+    <div class="alert alert-danger block1" role="alert">
+            ${error}
+    </div>
+</c:if>
+
 <div class="sign-in-container">
     <div class="d-flex justify-content-center h-100">
         <div class="card">

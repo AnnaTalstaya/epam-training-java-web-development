@@ -3,12 +3,14 @@ package by.talstaya.crackertracker.command.impl;
 import by.talstaya.crackertracker.command.Command;
 import by.talstaya.crackertracker.command.JspPath;
 import by.talstaya.crackertracker.entity.Product;
+import by.talstaya.crackertracker.entity.UserType;
 import by.talstaya.crackertracker.exception.ServiceException;
 import by.talstaya.crackertracker.service.ProductService;
 import by.talstaya.crackertracker.service.impl.ProductServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 import java.util.List;
 
 public class ProductListCommand implements Command {
@@ -36,6 +38,16 @@ public class ProductListCommand implements Command {
 
     private static final String NAME_OR_WORD_IN_NAME = "nameOrWordInName";
 
+    private List<UserType> userTypeList;
+
+    public ProductListCommand() {
+        userTypeList = Arrays.asList(UserType.ANONYMOUS, UserType.USER, UserType.SUPERVISOR, UserType.ADMINISTRATOR);
+    }
+
+    @Override
+    public List<UserType> getUserTypeList() {
+        return userTypeList;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {

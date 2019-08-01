@@ -3,6 +3,7 @@ package by.talstaya.crackertracker.command.impl;
 import by.talstaya.crackertracker.command.Command;
 import by.talstaya.crackertracker.command.JspPath;
 import by.talstaya.crackertracker.entity.User;
+import by.talstaya.crackertracker.entity.UserType;
 import by.talstaya.crackertracker.exception.ServiceException;
 import by.talstaya.crackertracker.service.UserService;
 import by.talstaya.crackertracker.service.impl.UserServiceImpl;
@@ -11,6 +12,8 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Collections;
+import java.util.List;
 
 public class SignInCommand implements Command {
 
@@ -22,7 +25,18 @@ public class SignInCommand implements Command {
     private static final String ERROR_INPUT_DATA = "errorInputData";
     private static final String PAGE_IS_ACTIVATED = "page_is_activated";
     private static final String RESPONSE = "response";
-    private static final String DIET_COMMAND_URL = "/diet";
+    private static final String DIET_COMMAND_PATH = "/diet";
+
+    private List<UserType> userTypeList;
+
+    public SignInCommand() {
+        userTypeList = Collections.singletonList(UserType.ANONYMOUS);
+    }
+
+    @Override
+    public List<UserType> getUserTypeList() {
+        return userTypeList;
+    }
 
 
     @Override
@@ -53,7 +67,7 @@ public class SignInCommand implements Command {
             if(user!=null){
                 request.getSession().setAttribute(USER, user);
                 request.setAttribute(RESPONSE, true);
-                page = request.getContextPath() + DIET_COMMAND_URL;
+                page = request.getContextPath() + DIET_COMMAND_PATH;
             }else{
                 request.setAttribute(ERROR_INPUT_DATA, "Incorrect username or email or password");
                 request.setAttribute(EMAIL_OR_USERNAME, emailOrUsername);

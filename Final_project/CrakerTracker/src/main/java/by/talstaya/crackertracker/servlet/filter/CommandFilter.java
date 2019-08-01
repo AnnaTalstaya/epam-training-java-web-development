@@ -1,4 +1,4 @@
-package by.talstaya.crackertracker.servlet;
+package by.talstaya.crackertracker.servlet.filter;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -65,11 +65,11 @@ public class CommandFilter implements Filter {
             String contextPath = httpRequest.getContextPath();
             String uri = httpRequest.getRequestURI();
 
-            int beginAction = contextPath.length();
-            String actionName = uri.substring(beginAction);
-            String actionClass = commands.get(actionName);
+            int beginOfCommand = contextPath.length();
+            String commandInURI = uri.substring(beginOfCommand);
+            String command = commands.get(commandInURI);
 
-            httpRequest.setAttribute(COMMAND, actionClass);
+            httpRequest.setAttribute(COMMAND, command);
 
             chain.doFilter(request, response);
         } else {

@@ -2,10 +2,7 @@ package by.talstaya.crackertracker.command.impl;
 
 import by.talstaya.crackertracker.command.Command;
 import by.talstaya.crackertracker.command.JspPath;
-import by.talstaya.crackertracker.entity.Meal;
-import by.talstaya.crackertracker.entity.MealTime;
-import by.talstaya.crackertracker.entity.Product;
-import by.talstaya.crackertracker.entity.User;
+import by.talstaya.crackertracker.entity.*;
 import by.talstaya.crackertracker.exception.ServiceException;
 import by.talstaya.crackertracker.service.MealService;
 import by.talstaya.crackertracker.service.MealTimeService;
@@ -16,6 +13,8 @@ import by.talstaya.crackertracker.service.impl.ProductServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
+import java.util.List;
 
 public class AddMealCommand implements Command {
 
@@ -27,6 +26,17 @@ public class AddMealCommand implements Command {
     private static final String QUANTITY = "quantity";
     private static final String OK = "ok";
     private static final String ERROR = "error";
+
+    private List<UserType> userTypeList;
+
+    public AddMealCommand() {
+        userTypeList = Arrays.asList(UserType.USER, UserType.SUPERVISOR, UserType.ADMINISTRATOR);
+    }
+
+    @Override
+    public List<UserType> getUserTypeList() {
+        return userTypeList;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

@@ -38,6 +38,12 @@
 <body>
 <jsp:include page="./common/header.jsp"/>
 
+<c:if test="${error != null}">
+    <div class="alert alert-danger block1" role="alert">
+            ${error}
+    </div>
+</c:if>
+
 <div id="container">
     <div id="main">
 
