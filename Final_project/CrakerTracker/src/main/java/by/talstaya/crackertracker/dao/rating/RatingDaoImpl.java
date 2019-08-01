@@ -11,19 +11,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class RatingDaoImpl extends RatingDao {
+public class RatingDaoImpl implements RatingDao {
 
     private static final Logger LOGGER = LogManager.getLogger("name");
 
-    private final String SQL_FIND_USER_AND_SUPERVISOR = "SELECT id FROM ratings WHERE user_id=? AND supervisor_id=?";
+    private static final String SQL_FIND_USER_AND_SUPERVISOR = "SELECT id FROM ratings WHERE user_id=? AND supervisor_id=?";
 
-    private final String SQL_UPDATE_RATING = "UPDATE ratings SET rating=? WHERE user_id=? AND supervisor_id=?";
+    private static final String SQL_UPDATE_RATING = "UPDATE ratings SET rating=? WHERE user_id=? AND supervisor_id=?";
 
-    private final String SQL_INSERT = "INSERT into ratings (user_id, supervisor_id, rating) VALUES (?, ?, ?)";
+    private static final String SQL_INSERT = "INSERT into ratings (user_id, supervisor_id, rating) VALUES (?, ?, ?)";
 
-    private final String SQL_TAKE_AVERAGE_RATING = "SELECT AVG(rating) FROM ratings WHERE supervisor_id=?";
+    private static final String SQL_TAKE_AVERAGE_RATING = "SELECT AVG(rating) FROM ratings WHERE supervisor_id=?";
 
-    private final String SQL_TAKE_RATING_BY_USER = "SELECT rating FROM ratings WHERE user_id=?";
+    private static final String SQL_TAKE_RATING_BY_USER = "SELECT rating FROM ratings WHERE user_id=?";
 
     @Override
     public boolean containsUserAndSupervisor(int userId, int supervisorId) throws DaoException {

@@ -2,6 +2,7 @@ package by.talstaya.crackertracker.command.impl.supervisor;
 
 import by.talstaya.crackertracker.command.Command;
 import by.talstaya.crackertracker.command.JspPath;
+import by.talstaya.crackertracker.command.Pagination;
 import by.talstaya.crackertracker.entity.User;
 import by.talstaya.crackertracker.entity.UserType;
 import by.talstaya.crackertracker.exception.ServiceException;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
 import java.util.List;
 
-public class UserListOfSupervisorCommand implements Command {
+public class UserListOfSupervisorCommand implements Command, Pagination {
 
     private static final int NUMBER_USERS_PER_PAGE = 8;
     private static final String USERS_PER_PAGE = "usersPerPage";
@@ -38,28 +39,18 @@ public class UserListOfSupervisorCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 
-        int usersPerPage;
-        if (request.getParameter(USERS_PER_PAGE) == null) {  //if we open the jsp the first time
-            usersPerPage = NUMBER_USERS_PER_PAGE;
-        } else {
-            usersPerPage = Integer.parseInt(request.getParameter(USERS_PER_PAGE));
-        }
-
-        int newIndex;
-        if (request.getParameter(INDEX_OF_PAGE) == null) {
-            newIndex = 1;
-        } else {
-            newIndex = (int) Double.parseDouble(request.getParameter(INDEX_OF_PAGE)) + Integer.parseInt(request.getParameter(CHANGE_PAGE));
-        }
+        initPaginationParams(request,
+                NUMBER_USERS_PER_PAGE,
+                USERS_PER_PAGE,
+                INDEX_OF_PAGE,
+                START_INDEX_OF_USER_LIST,
+                CHANGE_PAGE);
 
         User supervisor = (User)request.getSession().getAttribute(USER);
         UserService userService = new UserServiceImpl();
 
         List<User> usersOfSupervisor = userService.findUsersOfSupervisor(supervisor.getUserId());
 
-        request.setAttribute(USERS_PER_PAGE, usersPerPage);
-        request.setAttribute(START_INDEX_OF_USER_LIST, (newIndex - 1) * usersPerPage);
-        request.setAttribute(INDEX_OF_PAGE, newIndex);
 
         request.setAttribute(USERS_OF_SUPERVISOR, usersOfSupervisor);
 

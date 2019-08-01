@@ -2,6 +2,7 @@ package by.talstaya.crackertracker.command.impl.administrator;
 
 import by.talstaya.crackertracker.command.Command;
 import by.talstaya.crackertracker.command.JspPath;
+import by.talstaya.crackertracker.command.Pagination;
 import by.talstaya.crackertracker.entity.User;
 import by.talstaya.crackertracker.entity.UserType;
 import by.talstaya.crackertracker.exception.ServiceException;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
 import java.util.List;
 
-public class UserListCommand implements Command {
+public class UserListCommand implements Command, Pagination {
 
     private static final int NUMBER_USERS_PER_PAGE = 8;
     private static final String USERS_PER_PAGE = "usersPerPage";
@@ -40,33 +41,22 @@ public class UserListCommand implements Command {
 
         UserService userService = new UserServiceImpl();
 
-        int usersPerPage;
-        if (request.getParameter(USERS_PER_PAGE) == null) {  //if we open the jsp for the first time
-            usersPerPage = NUMBER_USERS_PER_PAGE;
-        } else {
-            usersPerPage = Integer.parseInt(request.getParameter(USERS_PER_PAGE));
-        }
-
-        int newIndex;
-        if (request.getParameter(INDEX_OF_PAGE) == null) {
-            newIndex = 1;
-        } else {
-            newIndex = (int) Double.parseDouble(request.getParameter(INDEX_OF_PAGE)) + Integer.parseInt(request.getParameter(CHANGE_PAGE));
-        }
+        initPaginationParams(request,
+                NUMBER_USERS_PER_PAGE,
+                USERS_PER_PAGE,
+                INDEX_OF_PAGE,
+                START_INDEX_OF_USER_LIST,
+                CHANGE_PAGE);
 
         List<User> userList = userService.takeAllUsers();
 
-        if(userList.stream()
+        if (userList.stream()
                 .filter(user -> user.getUserType().name().equals("ADMINISTRATOR"))
-                .count() > 1){
+                .count() > 1) {
             request.setAttribute(GREATER_THAN_ONE_ADMIN, true);
-        } else{
+        } else {
             request.setAttribute(GREATER_THAN_ONE_ADMIN, false);
         }
-
-        request.setAttribute(USERS_PER_PAGE, usersPerPage);
-        request.setAttribute(START_INDEX_OF_USER_LIST, (newIndex - 1) * usersPerPage);
-        request.setAttribute(INDEX_OF_PAGE, newIndex);
 
         request.setAttribute(USER_LIST, userList);
 

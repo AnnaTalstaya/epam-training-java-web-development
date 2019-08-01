@@ -11,7 +11,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDaoImpl extends ProductDao {
+public class ProductDaoImpl implements ProductDao {
 
     private static final Logger LOGGER = LogManager.getLogger("name");
 
@@ -41,8 +41,6 @@ public class ProductDaoImpl extends ProductDao {
             " AND (lipids BETWEEN ? AND ?)" +
             " AND (carbohydrates BETWEEN ? AND ?)";
 
-
-    //  private final String SQL_FIND_BY_CALORIES = "SELECT id, name, image_url, description, calories, proteins, lipids, carbohydrates FROM products WHERE calories BETWEEN ? AND ?";
 
     private static final String SQL_DELETE_PRODUCT = "DELETE FROM products WHERE id=?";
     private static final String SQL_UPDATE_PRODUCT = "UPDATE products SET name=?, image_url=?, description=?, calories=?, proteins=?, lipids=?, carbohydrates=? WHERE id=?";
@@ -304,84 +302,6 @@ public class ProductDaoImpl extends ProductDao {
     public int findMaxCarbohydrates() throws DaoException {
         return findMinOrMax(SQL_FIND_MAX_CARBOHYDRATES);
     }
-
-//    @Override
-//    public List<Product> findByCalories(int minCalories, int maxCalories) throws DaoException {
-//        PreparedStatement preparedStatement = null;
-//        ResultSet resultSet = null;
-//
-//        connection = ConnectionPool.getInstance().takeConnection();
-//
-//        List<Product> products = new ArrayList<>();
-//
-//        try {
-//            preparedStatement = connection.prepareStatement(SQL_FIND_BY_CALORIES);
-//            preparedStatement.setInt(1, minCalories);
-//            preparedStatement.setInt(2, maxCalories);
-//            resultSet = preparedStatement.executeQuery();
-//            while (resultSet.next()) {
-//                products.add(new Product.Builder()
-//                        .setProductId(resultSet.getInt(1))
-//                        .setName(resultSet.getString(2))
-//                        .setImageURL(resultSet.getString(3))
-//                        .setDescription(resultSet.getString(4))
-//                        .setCalories(resultSet.getInt(5))
-//                        .setProteins(resultSet.getInt(6))
-//                        .setLipids(resultSet.getInt(7))
-//                        .setCarbohydrates(resultSet.getInt(8))
-//                        .build()
-//                );
-//            }
-//            return products;
-//
-//        } catch (SQLException e) {
-//            throw new DaoException(e);
-//        } finally {
-//            ConnectionPool.getInstance().returnConnection(connection);
-//            closeResultSet(resultSet);
-//            closePreparedStatement(preparedStatement);
-//        }
-//    }
-//
-//    @Override
-//    public List<Product> findByProteins(int minProteins, int maxProteins) {
-//        return null;//TODO
-//    }
-//
-//    @Override
-//    public List<Product> findByLipids(int minLipids, int maxLipids) {
-//        return null;//TODO
-//    }
-//
-//    @Override
-//    public List<Product> findByCarbohydrates(int minCarbohydrates, int maxCarbohydrate) {
-//        return null;//TODO
-//    }
-//
-//    @Override
-//    public List<Product> sortByName(String name) {
-//        return null;
-//    }
-//
-//    @Override
-//    public List<Product> sortByCalories(int calories) {
-//        return null;//TODO
-//    }
-//
-//    @Override
-//    public List<Product> sortByProteins(int proteins) {
-//        return null;//TODO
-//    }
-//
-//    @Override
-//    public List<Product> sortByLipids(int lipids) {
-//        return null;//TODO
-//    }
-//
-//    @Override
-//    public List<Product> sortByCarbohydrates(int carbohydrates) {
-//        return null;//TODO
-//    }
 
     @Override
     public void insert(Product product) throws DaoException {

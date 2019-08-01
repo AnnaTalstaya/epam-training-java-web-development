@@ -25,7 +25,8 @@ public class SignInCommand implements Command {
     private static final String ERROR_INPUT_DATA = "errorInputData";
     private static final String PAGE_IS_ACTIVATED = "page_is_activated";
     private static final String RESPONSE = "response";
-    private static final String DIET_COMMAND_PATH = "/diet";
+    private static final String PRODUCT_LIST_PATH = "/product_list";
+    private static final String ERROR = "error";
 
     private List<UserType> userTypeList;
 
@@ -41,6 +42,11 @@ public class SignInCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+
+        if (request.getSession().getAttribute(ERROR) != null) {
+            request.setAttribute(ERROR, request.getSession().getAttribute(ERROR));
+            request.getSession().setAttribute(ERROR, null);
+        }
 
         String page;
 
@@ -67,7 +73,7 @@ public class SignInCommand implements Command {
             if(user!=null){
                 request.getSession().setAttribute(USER, user);
                 request.setAttribute(RESPONSE, true);
-                page = request.getContextPath() + DIET_COMMAND_PATH;
+                page = request.getContextPath() + PRODUCT_LIST_PATH;
             }else{
                 request.setAttribute(ERROR_INPUT_DATA, "Incorrect username or email or password");
                 request.setAttribute(EMAIL_OR_USERNAME, emailOrUsername);

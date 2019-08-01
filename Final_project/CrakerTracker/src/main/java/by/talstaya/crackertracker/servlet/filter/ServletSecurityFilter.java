@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = { "/*" })
+@WebFilter(urlPatterns = {"/*"})
 public class ServletSecurityFilter implements Filter {
 
     private static final Logger LOGGER = LogManager.getLogger("name");
@@ -23,6 +23,7 @@ public class ServletSecurityFilter implements Filter {
     private static final String ERROR = "error";
 
     private static final String SIGN_IN_PATH = "/sign_in";
+    private static final String PRODUCT_LIST_PATH = "/product_list";
 
     public void init(FilterConfig config) throws ServletException {
 
@@ -30,7 +31,7 @@ public class ServletSecurityFilter implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
 
-        if(request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
+        if (request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
 
             HttpServletRequest httpRequest = (HttpServletRequest) request;
             HttpServletResponse httpResponse = (HttpServletResponse) response;
@@ -38,21 +39,21 @@ public class ServletSecurityFilter implements Filter {
             User user = (User) httpRequest.getSession().getAttribute(USER);
 
             CommandFactory commandFactory = CommandFactory.getInstance();
-            Command command = commandFactory.receiveCommand((String)httpRequest.getAttribute(COMMAND));
 
-            if(command != null) {
-                if(user != null) {
-                    if(command.getUserTypeList().contains(user.getUserType())){
+            if (httpRequest.getAttribute(COMMAND) != null) {
+                Command command = commandFactory.receiveCommand((String) httpRequest.getAttribute(COMMAND));
+                if (user != null) {
+                    if (command.getUserTypeList().contains(user.getUserType())) {
                         chain.doFilter(request, response);
                     } else {
-                        httpRequest.setAttribute(ERROR, "Sorry! You have no rights to visit this page.");
-                        httpResponse.sendRedirect(httpRequest.getContextPath());
+                        httpRequest.getSession().setAttribute(ERROR, "Sorry! You have no rights to visit this page.");
+                        httpResponse.sendRedirect(httpRequest.getContextPath() + PRODUCT_LIST_PATH);
                     }
                 } else {
-                    if(command.getUserTypeList().contains(UserType.ANONYMOUS)) {
+                    if (command.getUserTypeList().contains(UserType.ANONYMOUS)) {
                         chain.doFilter(request, response);
                     } else {
-                        httpRequest.setAttribute(ERROR, "Sign in for visiting this page");
+                        httpRequest.getSession().setAttribute(ERROR, "Sign in for visiting this page");
                         httpResponse.sendRedirect(httpRequest.getContextPath() + SIGN_IN_PATH);
                     }
                 }

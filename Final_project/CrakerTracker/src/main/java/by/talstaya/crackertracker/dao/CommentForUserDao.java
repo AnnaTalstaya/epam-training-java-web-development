@@ -5,7 +5,7 @@ import by.talstaya.crackertracker.exception.DaoException;
 
 import java.util.List;
 
-public abstract class CommentForUserDao extends BasicDao<CommentForUser> {
+public interface CommentForUserDao extends BasicDao<CommentForUser> {
 
-    public abstract List<CommentForUser> findComments(int userId, String mealDate) throws DaoException;
+    List<CommentForUser> findComments(int userId, String mealDate) throws DaoException;
 }

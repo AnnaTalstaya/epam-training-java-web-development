@@ -10,10 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class MealTimeDaoImpl extends MealTimeDao {
+public class MealTimeDaoImpl implements MealTimeDao {
 
     private static final String SQL_FIND_BY_MEAL_TIME = "SELECT id, meal_time FROM meal_time WHERE meal_time = ?";
-    private final String SQL_FIND_BY_ID = "SELECT id, meal_time FROM meal_time WHERE id=?";
+    private static final String SQL_FIND_BY_ID = "SELECT id, meal_time FROM meal_time WHERE id=?";
 
 
     @Override

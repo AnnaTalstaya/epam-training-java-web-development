@@ -1,4 +1,5 @@
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  <%--jstl tag--%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  <%--jstl tag--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <fmt:setBundle basename="text"/>
@@ -37,12 +38,6 @@
 </head>
 <body>
 <jsp:include page="./common/header.jsp"/>
-
-<c:if test="${error != null}">
-    <div class="alert alert-danger block1" role="alert">
-            ${error}
-    </div>
-</c:if>
 
 <div id="container">
     <div id="main">

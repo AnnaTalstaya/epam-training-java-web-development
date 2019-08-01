@@ -3,7 +3,6 @@ package by.talstaya.crackertracker.dao.comment;
 import by.talstaya.crackertracker.connection.ConnectionPool;
 import by.talstaya.crackertracker.dao.CommentForUserDao;
 import by.talstaya.crackertracker.entity.CommentForUser;
-import by.talstaya.crackertracker.entity.Entity;
 import by.talstaya.crackertracker.entity.User;
 import by.talstaya.crackertracker.exception.DaoException;
 import by.talstaya.crackertracker.exception.ServiceException;
@@ -16,10 +15,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
-public class CommentForUserDaoImpl extends CommentForUserDao {
+public class CommentForUserDaoImpl implements CommentForUserDao {
 
     private static final String SQL_FIND_COMMENTS = "SELECT id, date_of_comment, meal_date, user_id, commentator_id, comment" +
             " FROM comments_for_users" +

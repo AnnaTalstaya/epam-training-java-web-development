@@ -16,68 +16,68 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDaoImpl extends UserDao {
+public class UserDaoImpl implements UserDao {
 
     private static final Logger LOGGER = LogManager.getLogger("name");
 
-    private final String SQL_INSERT_USER = "INSERT into users (userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id)" +
+    private static final String SQL_INSERT_USER = "INSERT into users (userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id)" +
             " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    private final String SQL_DELETE_USER = "DELETE FROM users WHERE id=?";
+    private static final String SQL_DELETE_USER = "DELETE FROM users WHERE id=?";
 
-    private final String SQL_TAKE_ALL_USERS =
+    private static final String SQL_TAKE_ALL_USERS =
             "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
                     " FROM users";
 
-    private final String SQL_FIND_ALL_SUPERVISORS =
+    private static final String SQL_FIND_ALL_SUPERVISORS =
             "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
                     " FROM users" +
                     " WHERE userType='SUPERVISOR'";
 
-    private final String SQL_FIND_USER_BY_USERNAME_AND_PASS = "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
+    private static final String SQL_FIND_USER_BY_USERNAME_AND_PASS = "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
             " FROM users WHERE username = ? AND password = ? ";
 
-    private final String SQL_FIND_USER_BY_EMAIL_AND_PASS = "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
+    private static final String SQL_FIND_USER_BY_EMAIL_AND_PASS = "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
             " FROM users WHERE email = ? AND password = ? ";
 
-    private final String SQL_FIND_USER_BY_EMAIL = "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
+    private static final String SQL_FIND_USER_BY_EMAIL = "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
             " FROM users WHERE email = ?";
 
-    private final String SQL_FIND_USER_BY_USERNAME = "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
+    private static final String SQL_FIND_USER_BY_USERNAME = "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
             " FROM users WHERE username = ?";
 
-    private final String SQL_FIND_USER_BY_ID = "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
+    private static final String SQL_FIND_USER_BY_ID = "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
             " FROM users WHERE id=?";
 
-    private final String SQL_FIND_BY_USERNAME = "SELECT password FROM users WHERE username = ?";
+    private static final String SQL_FIND_BY_USERNAME = "SELECT password FROM users WHERE username = ?";
 
-    private final String SQL_FIND_BY_EMAIl = "SELECT password FROM users WHERE email = ?";
+    private static final String SQL_FIND_BY_EMAIl = "SELECT password FROM users WHERE email = ?";
 
-    private final String SQL_UPDATE = "UPDATE users" +
+    private static final String SQL_UPDATE = "UPDATE users" +
             " SET userType=?, first_name=?, surname=?, email=?, username=?, password=?, date_of_birth=?, weight=?, height=?, rating=?" +
             " WHERE id=?";
 
-    private final String SQL_UPDATE_USER_TYPE = "UPDATE users SET userType=? WHERE id=?";
+    private static final String SQL_UPDATE_USER_TYPE = "UPDATE users SET userType=? WHERE id=?";
 
-    private final String SQL_UPDATE_RATING = "UPDATE users SET rating=? WHERE id=?";
+    private static final String SQL_UPDATE_RATING = "UPDATE users SET rating=? WHERE id=?";
 
-    private final String SQL_UPDATE_REQUEST_FOR_SUPERVISOR = "UPDATE users SET requested_supervisor_id=? WHERE id=?";
+    private static final String SQL_UPDATE_REQUEST_FOR_SUPERVISOR = "UPDATE users SET requested_supervisor_id=? WHERE id=?";
 
-    private final String SQL_UPDATE_SUPERVISOR_ID = "UPDATE users SET supervisor_id=? WHERE id=?";
+    private static final String SQL_UPDATE_SUPERVISOR_ID = "UPDATE users SET supervisor_id=? WHERE id=?";
 
-    private final String SQL_SELECT_SUPERVISOR_OF_USER = "SELECT supervisor_id FROM users WHERE id=?";
+    private static final String SQL_SELECT_SUPERVISOR_OF_USER = "SELECT supervisor_id FROM users WHERE id=?";
 
-    private final String SQL_DELETE_REQUEST_FOR_SUPERVISOR = "UPDATE users SET requested_supervisor_id=NULL WHERE id=?";
+    private static final String SQL_DELETE_REQUEST_FOR_SUPERVISOR = "UPDATE users SET requested_supervisor_id=NULL WHERE id=?";
 
-    private final String SQL_FIND_USERS_OF_SUPERVISOR = "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
+    private static final String SQL_FIND_USERS_OF_SUPERVISOR = "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
             " FROM users WHERE supervisor_id=?";
 
-    private final String SQL_FIND_REQUESTS_FOR_SUPERVISOR = "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
+    private static final String SQL_FIND_REQUESTS_FOR_SUPERVISOR = "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
             " FROM users WHERE requested_supervisor_id=?";
 
-    private final String SQL_FIND_REQUESTED_SUPERVISOR_ID = "SELECT requested_supervisor_id FROM users WHERE id=?";
+    private static final String SQL_FIND_REQUESTED_SUPERVISOR_ID = "SELECT requested_supervisor_id FROM users WHERE id=?";
 
-    private final String SQL_FIND_SUPERVISOR_ID = "SELECT supervisor_id FROM users WHERE id=?";
+    private static final String SQL_FIND_SUPERVISOR_ID = "SELECT supervisor_id FROM users WHERE id=?";
 
 
     @Override

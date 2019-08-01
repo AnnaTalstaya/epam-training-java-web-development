@@ -24,49 +24,49 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class MealDaoImpl extends MealDao {
+public class MealDaoImpl implements MealDao {
 
-    private final String SQL_INSERT = "INSERT INTO meals (user_id, product_id, date, meal_time_id, quantity) VALUES (?, ?, ?, ?, ?)";
-    private final String SQL_DELETE_MEAL = "DELETE FROM meals WHERE id=?";
-    private final String SQL_UPDATE_MEAL = "UPDATE meals SET user_id=?, product_id=?, date=?, meal_time_id=?, quantity=? WHERE id=?";
-    private final String SQL_UPDATE_QUANTITY = "UPDATE meals SET quantity=? WHERE id=?";
+    private static final String SQL_INSERT = "INSERT INTO meals (user_id, product_id, date, meal_time_id, quantity) VALUES (?, ?, ?, ?, ?)";
+    private static final String SQL_DELETE_MEAL = "DELETE FROM meals WHERE id=?";
+    private static final String SQL_UPDATE_MEAL = "UPDATE meals SET user_id=?, product_id=?, date=?, meal_time_id=?, quantity=? WHERE id=?";
+    private static final String SQL_UPDATE_QUANTITY = "UPDATE meals SET quantity=? WHERE id=?";
 
 
-    private final String SQL_FIND_DATE_BY_USER_ID = "SELECT date FROM meals WHERE user_id = ?";
-    private final String SQL_FIND_MEAL_BY_USER_ID_AND_MEAL_DATE_AND_MEAL_TIME =
+    private static final String SQL_FIND_DATE_BY_USER_ID = "SELECT date FROM meals WHERE user_id = ?";
+    private static final String SQL_FIND_MEAL_BY_USER_ID_AND_MEAL_DATE_AND_MEAL_TIME =
             "SELECT meals.id, meals.user_id, meals.product_id, meals.date, meals.meal_time_id, quantity" +
                     " FROM meals" +
                     " INNER JOIN meal_time ON meals.meal_time_id = meal_time.id" +
                     " WHERE user_id=? AND date=? AND meal_time=?";
 
-    private final String SQL_FIND_MEAL_BY_USER_ID_MEAL_DATE_MEAL_TIME_PRODUCT_ID =
+    private static final String SQL_FIND_MEAL_BY_USER_ID_MEAL_DATE_MEAL_TIME_PRODUCT_ID =
             "SELECT id, user_id, product_id, date, meal_time_id, quantity" +
                     " FROM meals" +
                     " WHERE user_id=? AND product_id=? AND date=? AND meal_time_id=?";
 
 
-    private final String SQL_COUNT_TOTAL_CALORIES_BY_USER_ID_AND_MEAL_DATE =
+    private static final String SQL_COUNT_TOTAL_CALORIES_BY_USER_ID_AND_MEAL_DATE =
             "SELECT SUM(calories*quantity)" +
                     " FROM products" +
                     " INNER JOIN" +
                     " (SELECT product_id, quantity FROM meals WHERE user_id=? AND date=?) meals_id_table" +
                     " ON products.id=meals_id_table.product_id";
 
-    private final String SQL_COUNT_TOTAL_PROTEINS_BY_USER_ID_AND_MEAL_DATE =
+    private static final String SQL_COUNT_TOTAL_PROTEINS_BY_USER_ID_AND_MEAL_DATE =
             "SELECT SUM(proteins*quantity)" +
                     " FROM products" +
                     " INNER JOIN" +
                     " (SELECT product_id, quantity FROM meals WHERE user_id=? AND date=?) meals_id_table" +
                     " ON products.id=meals_id_table.product_id";
 
-    private final String SQL_COUNT_TOTAL_LIPIDS_BY_USER_ID_AND_MEAL_DATE =
+    private static final String SQL_COUNT_TOTAL_LIPIDS_BY_USER_ID_AND_MEAL_DATE =
             "SELECT SUM(lipids*quantity)" +
                     " FROM products" +
                     " INNER JOIN" +
                     " (SELECT product_id, quantity FROM meals WHERE user_id=? AND date=?) meals_id_table" +
                     " ON products.id=meals_id_table.product_id";
 
-    private final String SQL_COUNT_TOTAL_CARBOHYDRATES_BY_USER_ID_AND_MEAL_DATE =
+    private static final String SQL_COUNT_TOTAL_CARBOHYDRATES_BY_USER_ID_AND_MEAL_DATE =
             "SELECT SUM(carbohydrates*quantity)" +
                     " FROM products" +
                     " INNER JOIN" +
