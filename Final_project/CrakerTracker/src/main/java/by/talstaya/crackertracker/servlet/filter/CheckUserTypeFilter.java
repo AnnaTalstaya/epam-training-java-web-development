@@ -41,7 +41,7 @@ public class CheckUserTypeFilter implements Filter {
                 }
 
             } catch (ServiceException e) {
-                e.printStackTrace();
+                e.printStackTrace(); //log
             }
 
             chain.doFilter(request, response);

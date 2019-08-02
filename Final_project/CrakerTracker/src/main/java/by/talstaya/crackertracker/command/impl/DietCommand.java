@@ -27,6 +27,8 @@ public class DietCommand implements Command {
     private final static String USER_ID = "userId";
     private final static String USER_ID_FOR_SUPERVISOR = "userIdForSupervisor";
 
+    private static final String PAGE_PATH_PARAM = "pagePath";
+
     private List<UserType> userTypeList;
 
     public DietCommand() {
@@ -70,6 +72,11 @@ public class DietCommand implements Command {
             request.setAttribute(NO_MEAL, "You have not added anything to your diet");
         }
 
-        return JspPath.DIET.getUrl();
+        if(request.getAttribute(PAGE_PATH_PARAM) != null){
+            return (String)request.getAttribute(PAGE_PATH_PARAM);
+        } else {
+            return JspPath.DIET.getUrl();
+        }
+
     }
 }

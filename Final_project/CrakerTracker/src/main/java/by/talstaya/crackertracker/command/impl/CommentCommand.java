@@ -19,6 +19,9 @@ public class CommentCommand implements Command {
     private static final String MEAL_DATE = "mealDate";
     private static final String USER_ID_FOR_SUPERVISOR = "userIdForSupervisor";
     private static final String COMMENT = "comment";
+    private static final String RESPONSE = "response";
+    private static final String PAGE_PATH_PARAM = "pagePath";
+    private static final String PAGE_PATH = "/show_diet";
 
     private List<UserType> userTypeList;
 
@@ -55,7 +58,9 @@ public class CommentCommand implements Command {
 
         //todo validation of comment
 
-
+        request.setAttribute(MEAL_DATE, selectedDate);
+        request.setAttribute(RESPONSE, true);
+        request.setAttribute(PAGE_PATH_PARAM, request.getContextPath() + PAGE_PATH);
 
         return new ShowDietCommand().execute(request, response);
     }

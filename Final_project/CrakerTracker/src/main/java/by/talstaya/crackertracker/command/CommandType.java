@@ -30,5 +30,6 @@ public enum CommandType {
     DELETE_SUPERVISOR,
     RATE_SUPERVISOR,
     COMMENT,
-    DELETE_COMMENT
+    DELETE_COMMENT;
+
 }

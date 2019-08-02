@@ -75,7 +75,7 @@ public class CommandFactory {
 
         try {
             command = commandMap.get(CommandType.valueOf(commandType.toUpperCase()));
-        } catch (IllegalArgumentException | NullPointerException e) {
+        } catch (IllegalArgumentException | NullPointerException e) {// FIXME: 01.08.2019 
             LOGGER.error(e.getMessage(), e);
         }
 

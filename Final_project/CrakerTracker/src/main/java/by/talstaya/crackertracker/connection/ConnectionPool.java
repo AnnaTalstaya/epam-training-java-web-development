@@ -65,7 +65,6 @@ public class ConnectionPool {
 
     private void startCheckingTimer() {
 
-        lock.lock();
         TimerTask check = new TimerTask() {
             public void run() {
                 if (availableConnections.size() + usedConnections.size() != MAX_POOL_SIZE) {
@@ -73,7 +72,6 @@ public class ConnectionPool {
                 }
             }
         };
-        lock.unlock();
 
         Timer timer = new Timer("Timer");
 
