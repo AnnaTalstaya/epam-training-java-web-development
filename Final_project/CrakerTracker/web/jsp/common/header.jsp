@@ -38,7 +38,8 @@
         <!--SearchCommand-->
         <form class="form-inline" action="search">
             <input type="hidden" name="command" value="search">
-            <input name="nameOrWordInName" value="${nameOrWordInName}" maxlength="100" pattern="^.{0,100}$"
+            <input name="nameOrWordInName" value="${nameOrWordInName}"
+                   maxlength="100" pattern="^.{0,100}$"
                    class="form-control mr-sm-2" type="text" placeholder="<fmt:message key="header.search_text"/>">
             <button type="submit" class="btn btn-primary"><fmt:message key="header.search_button"/></button>
         </form>
@@ -96,7 +97,7 @@
             <c:if test="${User == null}">
                 <li class="nav-item">
                     <form id="signInFormId" method="post" action="sign_in">
-                        <input type="hidden" name="command" value="sign_in">
+                        <input type="hidden" name="command" value="visit_sign_in">
                         <a class="nav-link" onclick="document.getElementById('signInFormId').submit();">
                             <fmt:message key="header.sign_in"/>
                         </a>
@@ -122,7 +123,7 @@
 
                         <!--Settings-->
                         <form id="settingsFormId" method="post" action="settings">
-                            <input type="hidden" name="command" value="settings">
+                            <input type="hidden" name="command" value="visit_settings">
                             <a class="dropdown-item" onclick="document.getElementById('settingsFormId').submit();">
                                 <fmt:message key="header.profile.settings"/>
                             </a>

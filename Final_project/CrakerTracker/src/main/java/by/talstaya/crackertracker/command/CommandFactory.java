@@ -4,6 +4,10 @@ import by.talstaya.crackertracker.command.impl.*;
 import by.talstaya.crackertracker.command.impl.administrator.ChangeUserTypeCommand;
 import by.talstaya.crackertracker.command.impl.administrator.DeleteUserCommand;
 import by.talstaya.crackertracker.command.impl.administrator.UserListCommand;
+import by.talstaya.crackertracker.command.impl.anonymous.RegistrationCommand;
+import by.talstaya.crackertracker.command.impl.anonymous.SignInCommand;
+import by.talstaya.crackertracker.command.impl.anonymous.VisitRegistrationCommand;
+import by.talstaya.crackertracker.command.impl.anonymous.VisitSignInCommand;
 import by.talstaya.crackertracker.command.impl.supervisor.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,10 +27,13 @@ public class CommandFactory {
     private EnumMap<CommandType, Command> commandMap = new EnumMap<CommandType, Command>(CommandType.class);
 
     private CommandFactory() {
+        commandMap.put(CommandType.VISIT_SIGN_IN, new VisitSignInCommand());
         commandMap.put(CommandType.SIGN_IN, new SignInCommand());
         commandMap.put(CommandType.SIGN_OUT, new SignOutCommand());
+        commandMap.put(CommandType.VISIT_REGISTRATION, new VisitRegistrationCommand());
         commandMap.put(CommandType.REGISTRATION, new RegistrationCommand());
         commandMap.put(CommandType.TRANSLATE, new TranslateCommand());
+        commandMap.put(CommandType.VISIT_SETTINGS, new VisitSettingsCommand());
         commandMap.put(CommandType.SETTINGS, new SettingsCommand());
         commandMap.put(CommandType.ADD_MEAL, new AddMealCommand());
         commandMap.put(CommandType.PRODUCT_LIST, new ProductListCommand());

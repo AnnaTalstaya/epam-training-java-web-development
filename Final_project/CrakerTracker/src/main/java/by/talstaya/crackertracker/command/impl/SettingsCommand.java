@@ -21,8 +21,6 @@ public class SettingsCommand implements Command {
 
     private Map<String, String> errorMessages;
 
-    private static final String PAGE_IS_ACTIVATED = "page_is_activated";
-
     private static final String STRING_REGEX_ALPHABETIC_STRING = "\\p{IsAlphabetic}+";
     private static final String STRING_REGEX_USERNAME = "[A-Za-z0-9_][.A-Za-z0-9_]{2,48}[A-Za-z0-9_]";
     private static final String STRING_REGEX_POSITIVE_NUMBER = "[0-9]+(\\.[0-9]+)?";
@@ -60,95 +58,93 @@ public class SettingsCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 
-        if(request.getParameter(PAGE_IS_ACTIVATED) != null) {
-            boolean fail = false;
-            errorMessages = new HashMap<>();
+        boolean fail = false;
+        errorMessages = new HashMap<>();
 
-            User user = (User) request.getSession().getAttribute(USER);
-            UserService userService = new UserServiceImpl();
+        User user = (User) request.getSession().getAttribute(USER);
+        UserService userService = new UserServiceImpl();
 
-            String firstName = request.getParameter(FIRST_NAME);
-            String surname = request.getParameter(SURNAME);
-            String email = request.getParameter(EMAIL);
-            String username = request.getParameter(USERNAME);
-            String dateOfBirth = request.getParameter(DATE_OF_BIRTH);
-            String weight = request.getParameter(WEIGHT);
-            String height = request.getParameter(HEIGHT);
+        String firstName = request.getParameter(FIRST_NAME);
+        String surname = request.getParameter(SURNAME);
+        String email = request.getParameter(EMAIL);
+        String username = request.getParameter(USERNAME);
+        String dateOfBirth = request.getParameter(DATE_OF_BIRTH);
+        String weight = request.getParameter(WEIGHT);
+        String height = request.getParameter(HEIGHT);
 
-            String currentPassword = request.getParameter(CURRENT_PASSWORD);
-            String newPassword = request.getParameter(NEW_PASSWORD);
-            String confirmedNewPassword = request.getParameter(CONFIRMED_PASSWORD);
+        String currentPassword = request.getParameter(CURRENT_PASSWORD);
+        String newPassword = request.getParameter(NEW_PASSWORD);
+        String confirmedNewPassword = request.getParameter(CONFIRMED_PASSWORD);
 
-            validateValues(firstName, surname, username, weight, height);
+        validateValues(firstName, surname, username, weight, height);
 
-            boolean updatePass = false;
+        boolean updatePass = false;
 
-            if (!user.getEmail().equals(email) && userService.containsEmail(email)) {
-                errorMessages.put(ERROR_MAIL, "This email is taken by another account");
-            }
-            if (!user.getUsername().equals(username) && !errorMessages.containsKey("errorUsername")
-                    && userService.containsUsername(username)) {
-                errorMessages.put(ERROR_USERNAME, "This username is taken by another account");
-            }
+        if (!user.getEmail().equals(email) && userService.containsEmail(email)) {
+            errorMessages.put(ERROR_MAIL, "This email is taken by another account");
+        }
+        if (!user.getUsername().equals(username) && !errorMessages.containsKey("errorUsername")
+                && userService.containsUsername(username)) {
+            errorMessages.put(ERROR_USERNAME, "This username is taken by another account");
+        }
 
-            if (!newPassword.isEmpty()) {
-                if(!confirmedNewPassword.isEmpty()) {
-                    if (currentPassword.equals(user.getPassword())){
-                        if(!validatePass(newPassword) || !validatePass(confirmedNewPassword)) {
-                            errorMessages.put(ERROR_PASSWORD, "Password does not match the requirements");
-                        }else {
-                            if (Objects.equals(newPassword, confirmedNewPassword)) {
-                                updatePass = true;
-                            } else {
-                                errorMessages.put(ERROR_PASS_AND_CONFIRMED_PASS, "Password and confirmed password do not match");
-                            }
+        if (!newPassword.isEmpty()) {
+            if (!confirmedNewPassword.isEmpty()) {
+                if (currentPassword.equals(user.getPassword())) {
+                    if (!validatePass(newPassword) || !validatePass(confirmedNewPassword)) {
+                        errorMessages.put(ERROR_PASSWORD, "Password does not match the requirements");
+                    } else {
+                        if (Objects.equals(newPassword, confirmedNewPassword)) {
+                            updatePass = true;
+                        } else {
+                            errorMessages.put(ERROR_PASS_AND_CONFIRMED_PASS, "Password and confirmed password do not match");
                         }
-                    } else{
-                        errorMessages.put(ERROR_PASSWORD, "Wrong password");
                     }
-
-                }else{
-                    errorMessages.put(ERROR_PASS_AND_CONFIRMED_PASS, "Password and confirmed password do not match");
-                }
-            }
-
-            if(errorMessages.isEmpty()) {
-                User.Builder userBuilder = new User.Builder()
-                        .setFirstName(firstName)
-                        .setSurname(surname)
-                        .setEmail(email)
-                        .setUsername(username)
-                        .setDateOfBirth(dateOfBirth)
-                        .setWeight(Double.parseDouble(weight))
-                        .setHeight(Double.parseDouble(height));
-
-                if(updatePass){
-                    userBuilder.setPassword(newPassword);
+                } else {
+                    errorMessages.put(ERROR_PASSWORD, "Wrong password");
                 }
 
-                user = userBuilder.build();
-            }else{
-                fail = true;
+            } else {
+                errorMessages.put(ERROR_PASS_AND_CONFIRMED_PASS, "Password and confirmed password do not match");
+            }
+        }
+
+        if (errorMessages.isEmpty()) {
+            User.Builder userBuilder = new User.Builder()
+                    .setFirstName(firstName)
+                    .setSurname(surname)
+                    .setEmail(email)
+                    .setUsername(username)
+                    .setDateOfBirth(dateOfBirth)
+                    .setWeight(Double.parseDouble(weight))
+                    .setHeight(Double.parseDouble(height));
+
+            if (updatePass) {
+                userBuilder.setPassword(newPassword);
             }
 
-            request.setAttribute(FIRST_NAME, firstName);
-            request.setAttribute(SURNAME, surname);
-            request.setAttribute(EMAIL, email);
-            request.setAttribute(USERNAME, username);
-            request.setAttribute(DATE_OF_BIRTH, dateOfBirth);
-            request.setAttribute(WEIGHT, weight);
-            request.setAttribute(HEIGHT, height);
+            user = userBuilder.build();
+        } else {
+            fail = true;
+        }
 
-            if(fail) {
-                errorMessages.forEach(request::setAttribute);
-                request.setAttribute(ERROR_DATA, "Changes not saved");
-            }else{
-                request.setAttribute(CURRENT_PASSWORD, currentPassword);
-                request.setAttribute(NEW_PASSWORD, newPassword);
-                request.setAttribute(CONFIRMED_PASSWORD, confirmedNewPassword);
+        request.setAttribute(FIRST_NAME, firstName);
+        request.setAttribute(SURNAME, surname);
+        request.setAttribute(EMAIL, email);
+        request.setAttribute(USERNAME, username);
+        request.setAttribute(DATE_OF_BIRTH, dateOfBirth);
+        request.setAttribute(WEIGHT, weight);
+        request.setAttribute(HEIGHT, height);
 
-                request.setAttribute(OK, "Changes saved");
-            }
+        if (fail) {
+            errorMessages.forEach(request::setAttribute);
+            request.setAttribute(ERROR_DATA, "Changes not saved");
+        } else {
+            request.setAttribute(CURRENT_PASSWORD, currentPassword);
+            request.setAttribute(NEW_PASSWORD, newPassword);
+            request.setAttribute(CONFIRMED_PASSWORD, confirmedNewPassword);
+
+            request.setAttribute(OK, "Changes saved");
         }
 
         return JspPath.SETTINGS.getUrl();

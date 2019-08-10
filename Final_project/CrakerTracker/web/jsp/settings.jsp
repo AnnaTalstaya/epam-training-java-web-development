@@ -68,7 +68,6 @@
 
             <form action="settings" method="post" class="form-horizontal" role="form">
                 <input type="hidden" name="command" value="settings">
-                <input type="hidden" name="page_is_activated" value="true">
 
                 <div class="form-group">
                     <label for="firstName" class="col-sm-7 control-label"><fmt:message key="registration.first_name"/> </label>
@@ -147,7 +146,7 @@
                     <div class="col-sm-11">
                         <input type="password" name="currentPassword" minlength="7" maxlength="16"
                                id="password"
-                               placeholder="<fmt:message key="registration.password"/>" class="form-control">
+                               placeholder="<fmt:message key="settings.current_password"/>" class="form-control">
                         <small class="form-text text-muted">
                             <fmt:message key="registration.password.title"/>
                         </small>

@@ -5,14 +5,14 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RegistrationDataValidator {
+public class UserDataValidator {
 
     private Map<String, String> errorMessages = new HashMap<>();
 
-    private static final String STRING_REGEX_ALPHABETIC_STRING = "\\p{IsAlphabetic}+";
-    private static final String STRING_REGEX_USERNAME = "[A-Za-z0-9_][.A-Za-z0-9_]{2,48}[A-Za-z0-9_]";
-    private static final String STRING_REGEX_POSITIVE_NUMBER = "[0-9]+(\\.[0-9]+)?";
-    private static final String STRING_REGEX_PASSWORD = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{7,16}";
+    private static final String STRING_REGEX_ALPHABETIC_STRING = "^(\\p{IsAlphabetic}+){1,50}$";
+    private static final String STRING_REGEX_USERNAME = "^[\\w][.\\w]{2,48}[\\w]$";
+    private static final String STRING_REGEX_POSITIVE_NUMBER = "^[1-9]\\d{1,2}(\\.[\\d])?$";
+    private static final String STRING_REGEX_PASSWORD = "(?=.*[\\d])(?=.*[a-z])(?=.*[A-Z]).{7,16}";
 
     public Map<String, String> validateData(String firstName,
                            String surname,
@@ -61,4 +61,6 @@ public class RegistrationDataValidator {
 
         return errorMessages;
     }
+
+
 }

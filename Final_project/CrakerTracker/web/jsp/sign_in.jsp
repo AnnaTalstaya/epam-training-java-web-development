@@ -62,7 +62,6 @@
             <div class="card-body">
                 <form method="post" action="sign_in">
                     <input type="hidden" name="command" value="sign_in">
-                    <input type="hidden" name="page_is_activated" value="true">
 
                     <!-- email or username-->
                     <div class="input-group form-group">
@@ -70,6 +69,7 @@
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                         </div>
                         <input type="text" name="emailOrUsername" value="${emailOrUsername}" class="form-control"
+                               maxlength="50"
                                placeholder="<fmt:message key="header.sign_in.email_or_username"/>">
 
                     </div>
@@ -80,6 +80,7 @@
                             <span class="input-group-text"><i class="fas fa-key"></i></span>
                         </div>
                         <input type="password" name="password" class="form-control"
+                               maxlength="16"
                                placeholder="<fmt:message key="header.sign_in.password"/>">
                     </div>
 
@@ -96,7 +97,7 @@
                 <div class="d-flex justify-content-center links">
                     <fmt:message key="header.sign_in.reg_message"/>
                     <form id="registrationFormId" method="post" action="registration">
-                        <input type="hidden" name="command" value="registration">
+                        <input type="hidden" name="command" value="visit_registration">
                         <a onclick="document.getElementById('registrationFormId').submit();" class="sign-in-text">
                             <fmt:message key="header.sign_in.registration"/>
                         </a>

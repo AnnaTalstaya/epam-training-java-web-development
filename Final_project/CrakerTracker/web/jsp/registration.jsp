@@ -52,13 +52,13 @@
 
     <form method="post" action="registration" class="form-horizontal" role="form">
         <input type="hidden" name="command" value="registration">
-        <input type="hidden" name="page_is_activated" value="true">
 
         <h2><fmt:message key="registration.registration"/></h2>
         <div class="form-group">
             <label for="firstName" class="col-sm-7 control-label"><fmt:message key="registration.first_name"/>* </label>
             <div class="col-sm-11">
-                <input type="text" name="firstName" value="${firstName}" maxlength="50" id="firstName"
+                <input type="text" name="firstName" value="${firstName}" maxlength="50"
+                       id="firstName"
                        placeholder="<fmt:message key="registration.first_name"/> "
                        class="form-control" required autofocus>
                 <span style="color:red;">${errorFirstName}</span>
@@ -68,7 +68,8 @@
         <div class="form-group">
             <label for="lastName" class="col-sm-7 control-label"><fmt:message key="registration.surname"/>* </label>
             <div class="col-sm-11">
-                <input type="text" name="surname" value="${surname}" maxlength="50" id="lastName"
+                <input type="text" name="surname" value="${surname}" maxlength="50"
+                       id="lastName"
                        placeholder="<fmt:message key="registration.surname"/> " required
                        class="form-control">
                 <span style="color:red;">${errorSurname}</span>
@@ -78,7 +79,9 @@
         <div class="form-group">
             <label for="email" class="col-sm-7 control-label"><fmt:message key="registration.email"/>* </label>
             <div class="col-sm-11">
-                <input type="email" name="email" value="${email}" maxlength="50" id="email"
+                <input type="email" name="email" value="${email}"
+                       maxlength="50"
+                       id="email"
                        placeholder="<fmt:message key="registration.email"/>" class="form-control"
                        required>
                 <span style="color:red;">${errorEmail}</span>
@@ -88,7 +91,9 @@
         <div class="form-group">
             <label for="username" class="col-sm-7 control-label"><fmt:message key="registration.username"/>*</label>
             <div class="col-sm-11">
-                <input type="text" name="username" value="${username}" minlength="4" maxlength="50" id="username"
+                <input type="text" name="username" value="${username}"
+                       pattern="^[\w][.\w]{2,48}[\w]$" minlength="4" maxlength="50"
+                       id="username"
                        placeholder="<fmt:message key="registration.username"/>"
                        class="form-control" required>
                 <small class="form-text text-muted">
@@ -102,7 +107,9 @@
             <label for="dateOfBirth" class="col-sm-7 control-label"><fmt:message
                     key="registration.date_of_birth"/> </label>
             <div class="col-sm-11">
-                <input type="date" name="dateOfBirth" value="${dateOfBirth}" maxlength="20" id="dateOfBirth"
+                <input type="date" name="dateOfBirth" value="${dateOfBirth}"
+                       maxlength="20"
+                       id="dateOfBirth"
                        class="form-control">
             </div>
         </div>
@@ -110,9 +117,14 @@
         <div class="form-group">
             <label for="Height" class="col-sm-7 control-label"><fmt:message key="registration.height"/> </label>
             <div class="col-sm-11">
-                <input name="height" value="${height}" maxlength="4" id="height"
+                <input name="height" value="${height}"
+                       pattern="^[1-9]\d{1,2}(\.[\d])?$" maxlength="5" min="0"
+                       id="height"
                        placeholder="<fmt:message key="registration.height_message"/>"
                        class="form-control">
+                <small class="form-text text-muted">
+                    <fmt:message key="registration.height.title"/>
+                </small>
                 <span style="color:red;">${errorHeight}</span>
             </div>
         </div>
@@ -120,9 +132,14 @@
         <div class="form-group">
             <label for="weight" class="col-sm-7 control-label"><fmt:message key="registration.weight"/></label>
             <div class="col-sm-11">
-                <input name="weight" value="${weight}" maxlength="4" id="weight"
+                <input name="weight" value="${weight}"
+                       pattern="^[1-9]\d{1,2}(\.[\d])?$" maxlength="5" min="0"
+                       id="weight"
                        placeholder="<fmt:message key="registration.weight_message"/> "
                        class="form-control">
+                <small class="form-text text-muted">
+                    <fmt:message key="registration.weight.title"/>
+                </small>
                 <span style="color:red;">${errorWeight}</span>
             </div>
         </div>
@@ -130,7 +147,8 @@
         <div class="form-group">
             <label for="password" class="col-sm-7 control-label"><fmt:message key="registration.password"/>*</label>
             <div class="col-sm-11">
-                <input type="password" name="password" minlength="7" maxlength="16"
+                <input type="password" name="password"
+                       pattern="(?=.*[\d])(?=.*[a-z])(?=.*[A-Z]).{7,16}" minlength="7" maxlength="16"
                        id="password"
                        placeholder="<fmt:message key="registration.password"/>" class="form-control"
                        required>
@@ -146,7 +164,8 @@
             <label for="confirmedPassword" class="col-sm-7 control-label"><fmt:message
                     key="registration.confirm_password"/>*</label>
             <div class="col-sm-11">
-                <input type="password" name="confirmedPassword" minlength="7" maxlength="16"
+                <input type="password" name="confirmedPassword"
+                       pattern="(?=.*[\d])(?=.*[a-z])(?=.*[A-Z]).{7,16}" minlength="7" maxlength="16"
                        id="confirmedPassword"
                        placeholder="<fmt:message key="registration.password"/>"
                        class="form-control" required>

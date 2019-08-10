@@ -139,6 +139,7 @@ public class MealDaoImpl implements MealDao {
             preparedStatement.setString(3, meal.getDate());
             preparedStatement.setInt(4, meal.getMealTime().getMealTimeId());
             preparedStatement.setInt(5, meal.getQuantity());
+            preparedStatement.setInt(6, meal.getMealId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

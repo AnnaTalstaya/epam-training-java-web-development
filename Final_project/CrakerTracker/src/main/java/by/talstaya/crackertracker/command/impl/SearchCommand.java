@@ -7,17 +7,14 @@ import by.talstaya.crackertracker.entity.UserType;
 import by.talstaya.crackertracker.exception.ServiceException;
 import by.talstaya.crackertracker.service.ProductService;
 import by.talstaya.crackertracker.service.impl.ProductServiceImpl;
+import by.talstaya.crackertracker.validator.ProductDataValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class SearchCommand implements Command {
-
-    private static final String STRING_REGEX_LENGTH = "^.{0,100}$";
 
     private static final String NAME_OR_WORD_IN_NAME = "nameOrWordInName";
     private static final String ERROR = "error";
@@ -39,9 +36,9 @@ public class SearchCommand implements Command {
 
         String nameOrWordInName = request.getParameter(NAME_OR_WORD_IN_NAME).trim();
 
-        Pattern regexLength = Pattern.compile(STRING_REGEX_LENGTH);
-        Matcher matcherLength = regexLength.matcher(nameOrWordInName);
-        if (!matcherLength.matches()){
+        boolean dataIsCorrect = new ProductDataValidator().validateData(nameOrWordInName);
+
+        if (!dataIsCorrect){
             request.setAttribute(ERROR, "Length of search query is too big");
             return JspPath.ERROR.getUrl();
 

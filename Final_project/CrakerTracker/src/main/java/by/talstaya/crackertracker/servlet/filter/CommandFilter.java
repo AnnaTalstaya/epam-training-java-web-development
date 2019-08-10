@@ -20,10 +20,9 @@ public class CommandFilter implements Filter {
     private static Map<String, String> commands = new HashMap<>();
 
     static {
-        commands.put("/registration", "registration");
-        commands.put("/sign_in", "sign_in");
-        commands.put("/sign_out", "sign_out");
-        commands.put("/settings", "settings");
+        commands.put("/registration", "visit_registration");
+        commands.put("/sign_in", "visit_sign_in");
+        commands.put("/settings", "visit_settings");
         commands.put("/search", "search");
         commands.put("/product_list", "product_list");
         commands.put("/translate", "translate");

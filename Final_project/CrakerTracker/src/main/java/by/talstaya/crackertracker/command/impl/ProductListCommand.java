@@ -8,9 +8,11 @@ import by.talstaya.crackertracker.entity.UserType;
 import by.talstaya.crackertracker.exception.ServiceException;
 import by.talstaya.crackertracker.service.ProductService;
 import by.talstaya.crackertracker.service.impl.ProductServiceImpl;
+import by.talstaya.crackertracker.validator.ProductDataValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,20 +30,20 @@ public class ProductListCommand implements Command, Pagination {
     private static final String START_INDEX_OF_PRODUCT_LIST = "startIndexOfProductList";
     private static final String CHANGE_PAGE = "changePage";
 
+    private static final String NAME_OR_WORD_IN_NAME = "nameOrWordInName";
     private static final String MIN_CALORIES = "minCalories";
     private static final String MIN_PROTEINS = "minProteins";
     private static final String MIN_LIPIDS = "minLipids";
     private static final String MIN_CARBOHYDRATES = "minCarbohydrates";
-
     private static final String MAX_CALORIES = "maxCalories";
     private static final String MAX_PROTEINS = "maxProteins";
     private static final String MAX_LIPIDS = "maxLipids";
     private static final String MAX_CARBOHYDRATES = "maxCarbohydrates";
 
-    private static final String NAME_OR_WORD_IN_NAME = "nameOrWordInName";
+    private static final String RESPONSE = "response";
+    private static final String PAGE_PATH = "/product_list";
 
     private static final String ERROR = "error";
-
 
     private List<UserType> userTypeList;
 
@@ -62,37 +64,23 @@ public class ProductListCommand implements Command, Pagination {
             request.getSession().setAttribute(ERROR, null);
         }
 
-        initPaginationParams(request, NUMBER_PRODUCTS_PER_PAGE, PRODUCTS_PER_PAGE, INDEX_OF_PAGE, START_INDEX_OF_PRODUCT_LIST, CHANGE_PAGE);
+        initPaginationParams(request,
+                NUMBER_PRODUCTS_PER_PAGE,
+                PRODUCTS_PER_PAGE,
+                INDEX_OF_PAGE,
+                START_INDEX_OF_PRODUCT_LIST,
+                CHANGE_PAGE);
 
         ProductService productService = new ProductServiceImpl();
 
-        List<Product> products;
-        if (request.getAttribute(SEARCH) != null) {
+        List<Product> products = new ArrayList<>();
+        if (request.getAttribute(SEARCH) != null) { //if we search products by header, SEARCH - found products
             products = (List<Product>) request.getAttribute(SEARCH);
             if (!products.isEmpty()) {
-                request.setAttribute(MIN_CALORIES, productService.findMinCalories());
-                request.setAttribute(MIN_PROTEINS, productService.findMinProteins());
-                request.setAttribute(MIN_LIPIDS, productService.findMinLipids());
-                request.setAttribute(MIN_CARBOHYDRATES, productService.findMinCarbohydrates());
-
-                request.setAttribute(MAX_CALORIES, productService.findMaxCalories());
-                request.setAttribute(MAX_PROTEINS, productService.findMaxProteins());
-                request.setAttribute(MAX_LIPIDS, productService.findMaxLipids());
-                request.setAttribute(MAX_CARBOHYDRATES, productService.findMaxCarbohydrates());
+                attributeSettingWithDataFromDb(request, productService);
             } else {
                 request.setAttribute(NAME_OR_WORD_IN_NAME, request.getParameter(NAME_OR_WORD_IN_NAME));
-                request.setAttribute(MIN_CALORIES, productService.findMinCalories());
-                request.setAttribute(MIN_PROTEINS, productService.findMinProteins());
-                request.setAttribute(MIN_LIPIDS, productService.findMinLipids());
-                request.setAttribute(MIN_CARBOHYDRATES, productService.findMinCarbohydrates());
-
-                request.setAttribute(MAX_CALORIES, productService.findMaxCalories());
-                request.setAttribute(MAX_PROTEINS, productService.findMaxProteins());
-                request.setAttribute(MAX_LIPIDS, productService.findMaxLipids());
-                request.setAttribute(MAX_CARBOHYDRATES, productService.findMaxCarbohydrates());
-
-                request.setAttribute(SEARCH_ERROR, "Product not found");
-
+                attributeSettingWithDataFromDb(request, productService);
             }
         } else {
             if (request.getParameter(NAME_OR_WORD_IN_NAME) != null
@@ -105,52 +93,92 @@ public class ProductListCommand implements Command, Pagination {
                     && request.getParameter(MAX_LIPIDS) != null
                     && request.getParameter(MAX_CARBOHYDRATES) != null) {
 
+                List<String> list = new ArrayList(){
+                    {
+                        add(NAME_OR_WORD_IN_NAME);
+                    }
+                };
+
+                for(int i = 0; i < list.size(); i++) {
+                    list.set(i, request.getParameter(list.get(i)));
+                }
+
+
+
                 String nameOrWordInName = request.getParameter(NAME_OR_WORD_IN_NAME);
+                String strMinCalories = request.getParameter(MIN_CALORIES);
+                String strMinProteins = request.getParameter(MIN_PROTEINS);
+                String strMinLipids = request.getParameter(MIN_LIPIDS);
+                String strMinCarbohydrates = request.getParameter(MIN_CARBOHYDRATES);
 
-                int minCalories = Integer.parseInt(request.getParameter(MIN_CALORIES));
-                int minProteins = Integer.parseInt(request.getParameter(MIN_PROTEINS));
-                int minLipids = Integer.parseInt(request.getParameter(MIN_LIPIDS));
-                int minCarbohydrates = Integer.parseInt(request.getParameter(MIN_CARBOHYDRATES));
+                String strMaxCalories = request.getParameter(MAX_CALORIES);
+                String strMaxProteins = request.getParameter(MAX_PROTEINS);
+                String strMaxLipids = request.getParameter(MAX_LIPIDS);
+                String strMaxCarbohydrates = request.getParameter(MAX_CARBOHYDRATES);
 
-                int maxCalories = Integer.parseInt(request.getParameter(MAX_CALORIES));
-                int maxProteins = Integer.parseInt(request.getParameter(MAX_PROTEINS));
-                int maxLipids = Integer.parseInt(request.getParameter(MAX_LIPIDS));
-                int maxCarbohydrates = Integer.parseInt(request.getParameter(MAX_CARBOHYDRATES));
+                ProductDataValidator productDataValidator = new ProductDataValidator();
 
-                products = productService.findProductsByFilter(
-                        nameOrWordInName,
-                        minCalories, maxCalories,
-                        minProteins, maxProteins,
-                        minLipids, maxLipids,
-                        minCarbohydrates, maxCarbohydrates);
+                if (productDataValidator.validateData(nameOrWordInName,
+                        strMinCalories, strMaxCalories,
+                        strMinProteins, strMaxProteins,
+                        strMinLipids, strMaxLipids,
+                        strMinCarbohydrates, strMaxCarbohydrates
+                )) {
+                    int minCalories = productService.checkCalories(Integer.parseInt(strMinCalories));
+                    int minProteins = productService.checkProteins(Integer.parseInt(strMinProteins));
+                    int minLipids = productService.checkLipids(Integer.parseInt(strMinLipids));
+                    int minCarbohydrates = productService.checkCarbohydrates(Integer.parseInt(strMinCarbohydrates));
 
-                request.setAttribute(NAME_OR_WORD_IN_NAME, nameOrWordInName);
-                request.setAttribute(MIN_CALORIES, minCalories);
-                request.setAttribute(MIN_PROTEINS, minProteins);
-                request.setAttribute(MIN_LIPIDS, minLipids);
-                request.setAttribute(MIN_CARBOHYDRATES, minCarbohydrates);
+                    int maxCalories = productService.checkCalories(Integer.parseInt(strMaxCalories));
+                    int maxProteins = productService.checkProteins(Integer.parseInt(strMaxProteins));
+                    int maxLipids = productService.checkLipids(Integer.parseInt(strMaxLipids));
+                    int maxCarbohydrates = productService.checkCarbohydrates(Integer.parseInt(strMaxCarbohydrates));
 
-                request.setAttribute(MAX_CALORIES, maxCalories);
-                request.setAttribute(MAX_PROTEINS, maxProteins);
-                request.setAttribute(MAX_LIPIDS, maxLipids);
-                request.setAttribute(MAX_CARBOHYDRATES, maxCarbohydrates);
+
+                    if(minCalories > maxCalories){
+                        minCalories = maxCalories;
+                    }
+                    if(minProteins > maxProteins){
+                        minProteins = maxProteins;
+                    }
+                    if(minLipids > maxLipids){
+                        minLipids = maxLipids;
+                    }
+                    if(minCarbohydrates > maxCarbohydrates){
+                        minCarbohydrates = maxCarbohydrates;
+                    }
+
+                    products = productService.findProductsByFilter(
+                            nameOrWordInName,
+                            minCalories, maxCalories,
+                            minProteins, maxProteins,
+                            minLipids, maxLipids,
+                            minCarbohydrates, maxCarbohydrates);
+
+                    request.setAttribute(NAME_OR_WORD_IN_NAME, nameOrWordInName);
+                    request.setAttribute(MIN_CALORIES, minCalories);
+                    request.setAttribute(MIN_PROTEINS, minProteins);
+                    request.setAttribute(MIN_LIPIDS, minLipids);
+                    request.setAttribute(MIN_CARBOHYDRATES, minCarbohydrates);
+
+                    request.setAttribute(MAX_CALORIES, maxCalories);
+                    request.setAttribute(MAX_PROTEINS, maxProteins);
+                    request.setAttribute(MAX_LIPIDS, maxLipids);
+                    request.setAttribute(MAX_CARBOHYDRATES, maxCarbohydrates);
+                } else {
+                    request.setAttribute(RESPONSE, true);
+                    //request.setAttribute(NAME_OR_WORD_IN_NAME, request.getParameter(NAME_OR_WORD_IN_NAME));
+                    //attributeSettingWithDataFromDb(request, productService);
+                    return request.getContextPath() + PAGE_PATH;
+                }
 
             } else {   //if page is opened for the first time
                 products = productService.takeAllProducts();
 
                 if (!products.isEmpty()) {
-                    request.setAttribute(MIN_CALORIES, productService.findMinCalories());
-                    request.setAttribute(MIN_PROTEINS, productService.findMinProteins());
-                    request.setAttribute(MIN_LIPIDS, productService.findMinLipids());
-                    request.setAttribute(MIN_CARBOHYDRATES, productService.findMinCarbohydrates());
-
-                    request.setAttribute(MAX_CALORIES, productService.findMaxCalories());
-                    request.setAttribute(MAX_PROTEINS, productService.findMaxProteins());
-                    request.setAttribute(MAX_LIPIDS, productService.findMaxLipids());
-                    request.setAttribute(MAX_CARBOHYDRATES, productService.findMaxCarbohydrates());
+                    attributeSettingWithDataFromDb(request, productService);
                 }
             }
-
         }
 
         if (products.isEmpty()) {
@@ -159,8 +187,20 @@ public class ProductListCommand implements Command, Pagination {
             request.setAttribute(PRODUCTS, products);
         }
 
-
         return JspPath.PRODUCT_LIST.getUrl();
     }
+
+    private void attributeSettingWithDataFromDb(HttpServletRequest request, ProductService productService) throws ServiceException {
+        request.setAttribute(MIN_CALORIES, productService.findMinCalories());
+        request.setAttribute(MIN_PROTEINS, productService.findMinProteins());
+        request.setAttribute(MIN_LIPIDS, productService.findMinLipids());
+        request.setAttribute(MIN_CARBOHYDRATES, productService.findMinCarbohydrates());
+
+        request.setAttribute(MAX_CALORIES, productService.findMaxCalories());
+        request.setAttribute(MAX_PROTEINS, productService.findMaxProteins());
+        request.setAttribute(MAX_LIPIDS, productService.findMaxLipids());
+        request.setAttribute(MAX_CARBOHYDRATES, productService.findMaxCarbohydrates());
+    }
+
 }
 

@@ -3,6 +3,7 @@
 *.doc
 *.docx
 *.pptx
+*.txt
 /books
 /Made_in_class
 out

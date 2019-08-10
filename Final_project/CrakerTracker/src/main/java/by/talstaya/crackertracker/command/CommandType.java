@@ -1,10 +1,13 @@
 package by.talstaya.crackertracker.command;
 
 public enum CommandType {
+    VISIT_SIGN_IN,
     SIGN_IN,
     SIGN_OUT,
+    VISIT_REGISTRATION,
     REGISTRATION,
     TRANSLATE,
+    VISIT_SETTINGS,
     SETTINGS,
     ADD_MEAL,
     PRODUCT_LIST,

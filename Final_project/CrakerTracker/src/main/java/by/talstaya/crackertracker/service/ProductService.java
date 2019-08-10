@@ -36,4 +36,13 @@ public interface ProductService {
 
     int findMaxCarbohydrates() throws ServiceException;
 
+    int checkCalories(int minCalories) throws ServiceException;
+
+    int checkProteins(int minProteins) throws ServiceException;
+
+    int checkLipids(int minLipids) throws ServiceException;
+
+    int checkCarbohydrates(int minCarbohydrates) throws ServiceException;
+
+
 }

@@ -135,5 +135,78 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    @Override
+    public int checkCalories(int minCalories) throws ServiceException {
+        try {
+            int minPossible = productDao.findMinCalories();
+            int maxPossible = productDao.findMaxCalories();
+
+            if (minCalories < minPossible) {
+                return minPossible;
+            } else if (minCalories > maxPossible) {
+                return maxPossible;
+            } else {
+                return minCalories;
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public int checkProteins(int minProteins) throws ServiceException {
+        try{
+            int minPossible = productDao.findMinProteins();
+            int maxPossible = productDao.findMaxProteins();
+
+            if (minProteins < minPossible) {
+                return minPossible;
+            } else if (minProteins > maxPossible) {
+                return maxPossible;
+            } else {
+                return minProteins;
+            }
+
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public int checkLipids(int minLipids) throws ServiceException {
+        try{
+            int minPossible = productDao.findMinLipids();
+            int maxPossible = productDao.findMaxLipids();
+
+            if (minLipids < minPossible) {
+                return minPossible;
+            } else if (minLipids > maxPossible) {
+                return maxPossible;
+            } else {
+                return minLipids;
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public int checkCarbohydrates(int minCarbohydrates) throws ServiceException {
+        try{
+            int minPossible = productDao.findMinCarbohydrates();
+            int maxPossible = productDao.findMaxCarbohydrates();
+
+            if (minCarbohydrates < minPossible) {
+                return minPossible;
+            } else if (minCarbohydrates > maxPossible) {
+                return maxPossible;
+            } else {
+                return minCarbohydrates;
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
 
 }
