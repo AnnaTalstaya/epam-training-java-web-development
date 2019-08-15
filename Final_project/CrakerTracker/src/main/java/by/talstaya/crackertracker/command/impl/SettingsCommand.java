@@ -7,8 +7,10 @@ import by.talstaya.crackertracker.entity.UserType;
 import by.talstaya.crackertracker.exception.ServiceException;
 import by.talstaya.crackertracker.service.UserService;
 import by.talstaya.crackertracker.service.impl.UserServiceImpl;
+import by.talstaya.crackertracker.validator.UserDataValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -77,7 +79,8 @@ public class SettingsCommand implements Command {
         String newPassword = request.getParameter(NEW_PASSWORD);
         String confirmedNewPassword = request.getParameter(CONFIRMED_PASSWORD);
 
-        validateValues(firstName, surname, username, weight, height);
+        UserDataValidator userDataValidator = new UserDataValidator();
+        errorMessages = userDataValidator.validateData(firstName, surname, username, weight, height);
 
         boolean updatePass = false;
 
@@ -91,7 +94,7 @@ public class SettingsCommand implements Command {
 
         if (!newPassword.isEmpty()) {
             if (!confirmedNewPassword.isEmpty()) {
-                if (currentPassword.equals(user.getPassword())) {
+                if (BCrypt.checkpw(currentPassword, user.getPassword())) {
                     if (!validatePass(newPassword) || !validatePass(confirmedNewPassword)) {
                         errorMessages.put(ERROR_PASSWORD, "Password does not match the requirements");
                     } else {
@@ -111,34 +114,36 @@ public class SettingsCommand implements Command {
         }
 
         if (errorMessages.isEmpty()) {
-            User.Builder userBuilder = new User.Builder()
-                    .setFirstName(firstName)
-                    .setSurname(surname)
-                    .setEmail(email)
-                    .setUsername(username)
-                    .setWeight(Double.parseDouble(weight))
-                    .setHeight(Double.parseDouble(height));
+            user.setFirstName(firstName);
+            user.setSurname(surname);
+            user.setEmail(email);
+            user.setUsername(username);
+            if (!dateOfBirth.isEmpty()) {
+                user.setDateOfBirth(LocalDate.parse(dateOfBirth));
+            }else{
+                user.setDateOfBirth(null);
+            }
+            if(!weight.isEmpty()){
+                user.setWeight(Double.parseDouble(weight));
+            }else{
+                user.setWeight(0);
+            }
+            if(!height.isEmpty()){
+                user.setHeight(Double.parseDouble(height));
+            }else{
+                user.setHeight(0);
+            }
 
             if (updatePass) {
-                userBuilder.setPassword(newPassword);
+                user.setPassword(newPassword);
             }
 
-            if(!dateOfBirth.isEmpty()) {
-                userBuilder.setDateOfBirth(LocalDate.parse(dateOfBirth));
-            }
-
-            user = userBuilder.build();
+            userService.update(user);
         } else {
             fail = true;
         }
 
-        request.setAttribute(FIRST_NAME, firstName);
-        request.setAttribute(SURNAME, surname);
-        request.setAttribute(EMAIL, email);
-        request.setAttribute(USERNAME, username);
-        request.setAttribute(DATE_OF_BIRTH, dateOfBirth);
-        request.setAttribute(WEIGHT, weight);
-        request.setAttribute(HEIGHT, height);
+        request.getSession().setAttribute(USER, user);
 
         if (fail) {
             errorMessages.forEach(request::setAttribute);
@@ -165,41 +170,4 @@ public class SettingsCommand implements Command {
         return true;
     }
 
-    private void validateValues(String firstName,
-                                String surname,
-                                String username,
-                                String weight,
-                                String height) {
-
-        Pattern regexAlphabeticString = Pattern.compile(STRING_REGEX_ALPHABETIC_STRING);
-        Pattern regexPositiveNumber = Pattern.compile(STRING_REGEX_POSITIVE_NUMBER);
-        Pattern regexUsername = Pattern.compile(STRING_REGEX_USERNAME);
-
-        Matcher matcherFirstName = regexAlphabeticString.matcher(firstName);
-        Matcher matcherSurname = regexAlphabeticString.matcher(surname);
-        Matcher matcherUsername = regexUsername.matcher(username);
-        Matcher matcherWeight = regexPositiveNumber.matcher(weight);
-        Matcher matcherHeight = regexPositiveNumber.matcher(height);
-
-        if (!matcherFirstName.matches()) {
-            errorMessages.put("errorFirstName", "First name can only use letters");
-        }
-
-        if (!matcherSurname.matches()) {
-            errorMessages.put("errorSurname", "Surname can only use letters");
-        }
-
-        if (!matcherUsername.matches()) {
-            errorMessages.put("errorUsername", "Username does not match the requirements");
-        }
-
-        if (!weight.isEmpty() && !matcherWeight.matches()) {
-            errorMessages.put("errorWeight", "Weight can use only positive integers or float numbers");
-        }
-
-        if (!height.isEmpty() && !matcherHeight.matches()) {
-            errorMessages.put("errorHeight", "Height can use only positive integers or float numbers");
-        }
-
-    }
 }

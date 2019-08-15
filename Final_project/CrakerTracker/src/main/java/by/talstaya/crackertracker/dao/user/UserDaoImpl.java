@@ -13,6 +13,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.sql.Types.NULL;
+
 public class UserDaoImpl implements UserDao {
 
     private static final Logger LOGGER = LogManager.getLogger("name");
@@ -51,7 +53,8 @@ public class UserDaoImpl implements UserDao {
     private static final String SQL_FIND_BY_EMAIl = "SELECT password FROM users WHERE email = ?";
 
     private static final String SQL_UPDATE = "UPDATE users" +
-            " SET userType=?, first_name=?, surname=?, email=?, username=?, password=?, date_of_birth=?, weight=?, height=?, rating=?" +
+            " SET userType=?, first_name=?, surname=?, email=?, username=?, password=?, date_of_birth=?, weight=?, height=?" +
+            ", rating=?, supervisor_id=?" +
             " WHERE id=?";
 
     private static final String SQL_UPDATE_USER_TYPE = "UPDATE users SET userType=? WHERE id=?";
@@ -118,11 +121,16 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(4, user.getEmail());
             preparedStatement.setString(5, user.getUsername());
             preparedStatement.setString(6, user.getPassword());
-            preparedStatement.setDate(7, Date.valueOf(user.getDateOfBirth()));
+            if(user.getDateOfBirth()!=null){
+                preparedStatement.setDate(7, Date.valueOf(user.getDateOfBirth()));
+            }else{
+                preparedStatement.setNull(7, NULL);
+            }
             preparedStatement.setDouble(8, user.getWeight());
             preparedStatement.setDouble(9, user.getHeight());
             preparedStatement.setDouble(10, user.getRating());
             preparedStatement.setInt(11, user.getSupervisorId());
+            preparedStatement.setInt(12, user.getUserId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

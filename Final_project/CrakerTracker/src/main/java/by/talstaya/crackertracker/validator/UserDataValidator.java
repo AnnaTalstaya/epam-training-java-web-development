@@ -22,9 +22,28 @@ public class UserDataValidator {
                            String password,
                            String confirmedPassword) {
 
+        errorMessages = validateData(firstName, surname, username, weight, height);
+
+        Pattern regexPassword = Pattern.compile(STRING_REGEX_PASSWORD);
+
+        Matcher matcherPassword = regexPassword.matcher(password);
+        Matcher matcherConfirmedPassword = regexPassword.matcher(confirmedPassword);
+
+        if (!matcherPassword.matches() || !matcherConfirmedPassword.matches()) {
+            errorMessages.put("errorPassword", "Password does not match the requirements");
+        }
+
+        return errorMessages;
+    }
+
+    public Map<String, String> validateData(String firstName,
+                                            String surname,
+                                            String username,
+                                            String weight,
+                                            String height) {
+
         Pattern regexAlphabeticString = Pattern.compile(STRING_REGEX_ALPHABETIC_STRING);
         Pattern regexPositiveNumber = Pattern.compile(STRING_REGEX_POSITIVE_NUMBER);
-        Pattern regexPassword = Pattern.compile(STRING_REGEX_PASSWORD);
         Pattern regexUsername = Pattern.compile(STRING_REGEX_USERNAME);
 
         Matcher matcherFirstName = regexAlphabeticString.matcher(firstName);
@@ -32,8 +51,6 @@ public class UserDataValidator {
         Matcher matcherUsername = regexUsername.matcher(username);
         Matcher matcherWeight = regexPositiveNumber.matcher(weight);
         Matcher matcherHeight = regexPositiveNumber.matcher(height);
-        Matcher matcherPassword = regexPassword.matcher(password);
-        Matcher matcherConfirmedPassword = regexPassword.matcher(confirmedPassword);
 
         if (!matcherFirstName.matches()) {
             errorMessages.put("errorFirstName", "First name can only use letters");
@@ -55,12 +72,10 @@ public class UserDataValidator {
             errorMessages.put("errorHeight", "Height can use only positive integers or float numbers");
         }
 
-        if (!matcherPassword.matches() || !matcherConfirmedPassword.matches()) {
-            errorMessages.put("errorPassword", "Password does not match the requirements");
-        }
-
         return errorMessages;
+
     }
+
 
 
 }

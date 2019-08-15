@@ -124,14 +124,29 @@
 
 
                 <div class="form-group">
-                    <label for="Height" class="col-sm-7 control-label"><fmt:message
+                    <label for="height" class="col-sm-7 control-label"><fmt:message
                             key="registration.height"/> </label>
                     <div class="col-sm-11">
-                        <input name="height" value="${User.height}"
-                               pattern="^[1-9]\d{1,2}(\.[\d])?$" maxlength="5" min="0"
-                               id="height"
-                               placeholder="<fmt:message key="registration.height_message"/>"
-                               class="form-control">
+                        <c:choose>
+                            <c:when test="${User.height != 0}">
+                                <input name="height" value="${User.height}"
+                                       pattern="^[1-9]\d{1,2}(\.[\d])?$" maxlength="5" min="0"
+                                       id="height"
+                                       placeholder="<fmt:message key="registration.height_message"/>"
+                                       class="form-control">
+                            </c:when>
+                            <c:otherwise>
+                                <input name="height"
+                                       pattern="^[1-9]\d{1,2}(\.[\d])?$" maxlength="5" min="0"
+                                       id="height"
+                                       placeholder="<fmt:message key="registration.height_message"/>"
+                                       class="form-control">
+                            </c:otherwise>
+                        </c:choose>
+
+                        <small class="form-text text-muted">
+                            <fmt:message key="registration.height.title"/>
+                        </small>
                         <span style="color:red;">${errorHeight}</span>
                     </div>
                 </div>
@@ -140,11 +155,26 @@
                     <label for="weight" class="col-sm-7 control-label"><fmt:message
                             key="registration.weight"/></label>
                     <div class="col-sm-11">
-                        <input name="weight" value="${User.weight} "
-                               pattern="^[1-9]\d{1,2}(\.[\d])?$" maxlength="5" min="0"
-                               id="weight"
-                               placeholder="<fmt:message key="registration.weight_message"/> "
-                               class="form-control">
+                        <c:choose>
+                            <c:when test="${User.weight != 0}">
+                                <input name="weight" value="${User.weight}"
+                                       pattern="^[1-9]\d{1,2}(\.[\d])?$" maxlength="5" min="0"
+                                       id="weight"
+                                       placeholder="<fmt:message key="registration.weight_message"/> "
+                                       class="form-control">
+                            </c:when>
+                            <c:otherwise>
+                                <input name="weight"
+                                       pattern="^[1-9]\d{1,2}(\.[\d])?$" maxlength="5" min="0"
+                                       id="weight"
+                                       placeholder="<fmt:message key="registration.weight_message"/> "
+                                       class="form-control">
+                            </c:otherwise>
+                        </c:choose>
+
+                        <small class="form-text text-muted">
+                            <fmt:message key="registration.weight.title"/>
+                        </small>
                         <span style="color:red;">${errorWeight}</span>
                     </div>
                 </div>
