@@ -13,6 +13,7 @@ import by.talstaya.crackertracker.service.impl.ProductServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -67,7 +68,7 @@ public class AddMealCommand implements Command {
                 Meal meal = new Meal.Builder()
                         .setUser(user)
                         .setProduct(product)
-                        .setDate(mealDate)
+                        .setDate(LocalDate.parse(mealDate))
                         .setMealTime(new MealTime.Builder()
                                 .setMealTimeId(idMealTime)
                                 .setMealTimeValue(stringMealTime)

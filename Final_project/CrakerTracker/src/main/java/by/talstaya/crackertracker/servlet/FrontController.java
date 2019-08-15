@@ -33,6 +33,7 @@ public class FrontController extends HttpServlet {
 
     private static final String COMMAND = "command";
     private static final String ERROR = "error";
+    private static final String STATUS_CODE = "statusCode";
     private static final String RESPONSE = "response";
 
     @Override
@@ -50,7 +51,7 @@ public class FrontController extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String page = null;
+        String page;
 
         CommandFactory commandFactory = CommandFactory.getInstance();
         try {
@@ -67,17 +68,13 @@ public class FrontController extends HttpServlet {
             } else {
                 LOGGER.error("Command not received");
                 request.setAttribute(ERROR, "Command not received");
+                request.setAttribute(STATUS_CODE, 404);
                 page = JspPath.ERROR.getUrl();
             }
         } catch (ServiceException e) {
             LOGGER.error(e.getMessage(), e);
             request.setAttribute(ERROR, e.getMessage());
-            page = JspPath.ERROR.getUrl();
-        }
-
-        if (page == null) {
-            LOGGER.error("Page not found");
-            request.setAttribute(ERROR, "Page not found");
+            request.setAttribute(STATUS_CODE, 500);
             page = JspPath.ERROR.getUrl();
         }
 

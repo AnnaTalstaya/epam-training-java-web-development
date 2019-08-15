@@ -29,12 +29,12 @@ CREATE TABLE IF NOT EXISTS products
 
 CREATE TABLE IF NOT EXISTS meals
 (
-  id           INT         NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  user_id      INT         NOT NULL,
-  product_id   INT         NOT NULL,
-  date         VARCHAR(20) NOT NULL,
-  meal_time_id INT         NOT NULL,
-  quantity     INT         NOT NULL,
+  id           INT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  user_id      INT  NOT NULL,
+  product_id   INT  NOT NULL,
+  date         DATE NOT NULL,
+  meal_time_id INT  NOT NULL,
+  quantity     INT  NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users (id),
   FOREIGN KEY (product_id) REFERENCES products (id),
   FOREIGN KEY (meal_time_id) REFERENCES meal_time (id)

@@ -44,11 +44,6 @@ public class CommandFilter implements Filter {
         commands.put("/delete_user_of_supervisor", "delete_user_of_supervisor");
         commands.put("/diet", "diet");
         commands.put("/show_diet", "show_diet");
-        commands.put("/update_quantity_in_diet", "update_quantity_in_diet");
-        commands.put("/delete_meal", "delete_meal");
-        commands.put("/delete_comment", "delete_comment");
-        commands.put("/comment", "comment");
-        commands.put("/add_meal", "add_meal");
         commands.put("/show_product_details", "show_product_details");
     }
 

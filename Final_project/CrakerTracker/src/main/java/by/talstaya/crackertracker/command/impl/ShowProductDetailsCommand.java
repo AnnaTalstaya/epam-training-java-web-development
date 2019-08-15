@@ -41,31 +41,37 @@ public class ShowProductDetailsCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-
         String page;
 
-        Pattern pattern = Pattern.compile(STRING_REGEX_NUMBER);
-        Matcher matcher = pattern.matcher(request.getParameter(PRODUCT_ID));
+        if (request.getParameter(PRODUCT_ID) != null) {
 
-        if(matcher.matches()){
-            int productId = Integer.parseInt(request.getParameter(PRODUCT_ID));
+            Pattern pattern = Pattern.compile(STRING_REGEX_NUMBER);
+            Matcher matcher = pattern.matcher(request.getParameter(PRODUCT_ID));
 
-            ProductService productService = new ProductServiceImpl();
-            Product product = productService.findByProductId(productId);
+            if (matcher.matches()) {
+                int productId = Integer.parseInt(request.getParameter(PRODUCT_ID));
 
-            if(product == null){
-                request.setAttribute(ERROR, "Product with such id not found");
+                ProductService productService = new ProductServiceImpl();
+                Product product = productService.findByProductId(productId);
+
+                if (product == null) {
+                    request.setAttribute(ERROR, "Product with such id not found");
+                    request.setAttribute(STATUS_CODE, 404);
+                    page = JspPath.ERROR.getUrl();
+                } else {
+                    request.setAttribute(PRODUCT, product);
+                    request.setAttribute(QUANTITY, startQuantity);
+
+                    page = JspPath.PRODUCT.getUrl();
+                }
+
+            } else {
+                request.setAttribute(ERROR, "Error data");
                 request.setAttribute(STATUS_CODE, 404);
                 page = JspPath.ERROR.getUrl();
-            } else{
-                request.setAttribute(PRODUCT, product);
-                request.setAttribute(QUANTITY, startQuantity);
-
-                page = JspPath.PRODUCT.getUrl();
             }
-
         } else {
-            request.setAttribute(ERROR, "Error data");
+            request.setAttribute(ERROR, "Error request");
             request.setAttribute(STATUS_CODE, 404);
             page = JspPath.ERROR.getUrl();
         }

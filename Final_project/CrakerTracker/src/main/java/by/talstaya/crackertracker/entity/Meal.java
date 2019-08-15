@@ -1,12 +1,13 @@
 package by.talstaya.crackertracker.entity;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Meal implements Entity {
     private int mealId;
     private User user;
     private Product product;
-    private String date;
+    private LocalDate date;
     private MealTime mealTime;
     private int quantity;
 
@@ -25,7 +26,7 @@ public class Meal implements Entity {
         return product;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -72,7 +73,7 @@ public class Meal implements Entity {
             return this;
         }
 
-        public Builder setDate(String date) {
+        public Builder setDate(LocalDate date) {
             meal.date = date;
             return this;
         }

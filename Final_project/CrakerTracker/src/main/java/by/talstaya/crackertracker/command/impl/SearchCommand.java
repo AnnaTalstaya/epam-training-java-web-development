@@ -35,29 +35,36 @@ public class SearchCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 
-        String nameOrWordInName = request.getParameter(NAME_OR_WORD_IN_NAME).trim();
+        String nameOrWordInName = request.getParameter(NAME_OR_WORD_IN_NAME);
 
-        boolean dataIsCorrect = new ProductDataValidator().validateData(nameOrWordInName);
+        if(nameOrWordInName != null) {
+            nameOrWordInName = nameOrWordInName.trim();
+            boolean dataIsCorrect = new ProductDataValidator().validateData(nameOrWordInName);
 
-        if (!dataIsCorrect){
-            request.setAttribute(ERROR, "Length of search query is too big");
-            request.setAttribute(STATUS_CODE, 404);
-            return JspPath.ERROR.getUrl();
+            if (!dataIsCorrect){
+                request.setAttribute(ERROR, "Length of search query is too big");
+                request.setAttribute(STATUS_CODE, 404);
+                return JspPath.ERROR.getUrl();
 
-        } else {
-            ProductService productService = new ProductServiceImpl();
+            } else {
+                ProductService productService = new ProductServiceImpl();
 
-            List<Product> products;
-            if(nameOrWordInName.isEmpty()){
-                products = productService.takeAllProducts();
-            }else{
-                products = productService.findByNameOrWordInName(nameOrWordInName);
+                List<Product> products;
+                if(nameOrWordInName.isEmpty()){
+                    products = productService.takeAllProducts();
+                }else{
+                    products = productService.findByNameOrWordInName(nameOrWordInName);
+                }
+
+                request.setAttribute(SEARCH, products);
+                request.setAttribute(NAME_OR_WORD_IN_NAME, nameOrWordInName);
             }
 
-            request.setAttribute(SEARCH, products);
-            request.setAttribute(NAME_OR_WORD_IN_NAME, nameOrWordInName);
+            return new ProductListCommand().execute(request, response);
+        } else {
+            request.setAttribute(ERROR, "Error request");
+            request.setAttribute(STATUS_CODE, 404);
+            return JspPath.ERROR.getUrl();
         }
-
-        return new ProductListCommand().execute(request, response);
     }
 }

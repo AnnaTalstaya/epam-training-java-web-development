@@ -15,10 +15,7 @@ import by.talstaya.crackertracker.service.impl.MealTimeServiceImpl;
 import by.talstaya.crackertracker.service.impl.ProductServiceImpl;
 import by.talstaya.crackertracker.service.impl.UserServiceImpl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -94,7 +91,7 @@ public class MealDaoImpl implements MealDao {
                 preparedStatement = connection.prepareStatement(SQL_INSERT);
                 preparedStatement.setInt(1, meal.getUser().getUserId());
                 preparedStatement.setInt(2, meal.getProduct().getProductId());
-                preparedStatement.setString(3, meal.getDate());
+                preparedStatement.setDate(3, Date.valueOf(meal.getDate()));
                 preparedStatement.setInt(4, meal.getMealTime().getMealTimeId());
                 preparedStatement.setInt(5, meal.getQuantity());
 
@@ -136,7 +133,7 @@ public class MealDaoImpl implements MealDao {
             preparedStatement = connection.prepareStatement(SQL_UPDATE_MEAL);
             preparedStatement.setInt(1, meal.getUser().getUserId());
             preparedStatement.setInt(2, meal.getProduct().getProductId());
-            preparedStatement.setString(3, meal.getDate());
+            preparedStatement.setDate(3, Date.valueOf(meal.getDate()));
             preparedStatement.setInt(4, meal.getMealTime().getMealTimeId());
             preparedStatement.setInt(5, meal.getQuantity());
             preparedStatement.setInt(6, meal.getMealId());
@@ -227,7 +224,7 @@ public class MealDaoImpl implements MealDao {
                         .setMealId(resultSet.getInt(1))
                         .setUser(findUserById(resultSet.getInt(2)))
                         .setProduct(findProductById(resultSet.getInt(3)))
-                        .setDate(resultSet.getString(4))
+                        .setDate(resultSet.getDate(4).toLocalDate())
                         .setMealTime(findMealTimeById(resultSet.getInt(5)))
                         .setQuantity(resultSet.getInt(6))
                         .build());
@@ -255,7 +252,7 @@ public class MealDaoImpl implements MealDao {
 
             preparedStatement.setInt(1, meal.getUser().getUserId());
             preparedStatement.setInt(2, meal.getProduct().getProductId());
-            preparedStatement.setString(3, meal.getDate());
+            preparedStatement.setDate(3, Date.valueOf(meal.getDate()));
             preparedStatement.setInt(4, meal.getMealTime().getMealTimeId());
             resultSet = preparedStatement.executeQuery();
 
@@ -264,7 +261,7 @@ public class MealDaoImpl implements MealDao {
                         .setMealId(resultSet.getInt(1))
                         .setUser(findUserById(resultSet.getInt(2)))
                         .setProduct(findProductById(resultSet.getInt(3)))
-                        .setDate(resultSet.getString(4))
+                        .setDate(resultSet.getDate(4).toLocalDate())
                         .setMealTime(findMealTimeById(resultSet.getInt(5)))
                         .setQuantity(resultSet.getInt(6))
                         .build();

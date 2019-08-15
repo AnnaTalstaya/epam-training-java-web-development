@@ -55,7 +55,9 @@
                 <label for="exampleFormControlSelect1"><fmt:message key="profile.date"/> </label>
 
                 <form method="get" action="show_diet">
-                    <input type="hidden" name="userIdForSupervisor" value="${userIdForSupervisor}">
+                    <c:if test="${dietOfUserForSupervisor}">
+                        <input type="hidden" name="userIdForSupervisor" value="${userIdForSupervisor}">
+                    </c:if>
 
                     <select name="mealDate" onchange="this.form.submit()" class="selectpicker"
                             id="exampleFormControlSelect1">

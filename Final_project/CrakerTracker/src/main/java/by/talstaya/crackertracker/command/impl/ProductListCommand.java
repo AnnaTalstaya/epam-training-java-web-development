@@ -156,8 +156,8 @@ public class ProductListCommand implements Command, Pagination {
                     return JspPath.ERROR.getUrl();
                 }
 
-            } else {   //if request contains error params
-                request.setAttribute(ERROR, "Error data");
+            } else {
+                request.setAttribute(ERROR, "Error request");
                 request.setAttribute(STATUS_CODE, 404);
                 return JspPath.ERROR.getUrl();
             }
