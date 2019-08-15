@@ -48,7 +48,7 @@ public class ShowSupervisorCommand implements Command {
             }
 
             RatingService ratingService = new RatingServiceImpl();
-            int ratingByUser = (int)ratingService.takeRatingByUser(user.getUserId());
+            int ratingByUser = (int)ratingService.takeRatingByUser(user.getUserId(), user.getSupervisorId());
             if(ratingByUser != 0) {
                 request.setAttribute(RATING, ratingByUser);
             }

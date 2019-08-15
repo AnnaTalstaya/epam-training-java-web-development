@@ -37,9 +37,9 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public double takeRatingByUser(int userId) throws ServiceException {
+    public double takeRatingByUser(int userId, int supervisorId) throws ServiceException {
         try {
-            return ratingDao.takeRatingByUser(userId);
+            return ratingDao.takeRatingByUser(userId, supervisorId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

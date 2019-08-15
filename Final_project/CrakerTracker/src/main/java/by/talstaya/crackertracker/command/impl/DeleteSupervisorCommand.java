@@ -15,6 +15,7 @@ import java.util.List;
 public class DeleteSupervisorCommand implements Command {
 
     private static final String USER = "User";
+    private static final String RESPONSE = "response";
 
     private List<UserType> userTypeList;
 
@@ -37,6 +38,7 @@ public class DeleteSupervisorCommand implements Command {
 
         request.getSession().setAttribute(USER, user);
 
-        return new ShowSupervisorCommand().execute(request, response);
+        request.setAttribute(RESPONSE, true);
+        return request.getHeader("Referer");
     }
 }

@@ -18,6 +18,7 @@ public class SendRequestForSupervisorCommand implements Command {
     private static final String SUPERVISOR_ID = "supervisorId";
     private static final String MESSAGE = "message";
     private static final String REQUESTED_SUPERVISOR_ID = "requestedSupervisorId";
+    private static final String RESPONSE = "response";
 
     private List<UserType> userTypeList;
 
@@ -41,6 +42,7 @@ public class SendRequestForSupervisorCommand implements Command {
         request.setAttribute(MESSAGE, "Request is sent");
         request.setAttribute(REQUESTED_SUPERVISOR_ID, supervisorId);
 
-        return new SupervisorListCommand().execute(request, response);
+        request.setAttribute(RESPONSE, true);
+        return request.getHeader("Referer");
     }
 }

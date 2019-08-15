@@ -16,6 +16,7 @@ public class SupervisorRejectsRequestCommand implements Command {
 
     private static final String USER = "User";
     private static final String USER_ID = "userId";
+    private static final String RESPONSE = "response";
 
     private List<UserType> userTypeList;
 
@@ -37,7 +38,8 @@ public class SupervisorRejectsRequestCommand implements Command {
         UserService userService = new UserServiceImpl();
         userService.supervisorRejectsRequestFromUser(supervisor.getUserId(), userId);
 
-        return new ShowRequestsForSupervisorCommand().execute(request, response);
+        request.setAttribute(RESPONSE, true);
+        return request.getHeader("Referer");
     }
 
 }

@@ -23,7 +23,7 @@ public class RatingDaoImpl implements RatingDao {
 
     private static final String SQL_TAKE_AVERAGE_RATING = "SELECT AVG(rating) FROM ratings WHERE supervisor_id=?";
 
-    private static final String SQL_TAKE_RATING_BY_USER = "SELECT rating FROM ratings WHERE user_id=?";
+    private static final String SQL_TAKE_RATING_BY_USER = "SELECT rating FROM ratings WHERE user_id=? AND supervisor_id=?";
 
     @Override
     public boolean containsUserAndSupervisor(int userId, int supervisorId) throws DaoException {
@@ -126,7 +126,7 @@ public class RatingDaoImpl implements RatingDao {
     }
 
     @Override
-    public double takeRatingByUser(int userId) throws DaoException {
+    public double takeRatingByUser(int userId, int supervisorId) throws DaoException {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
@@ -135,6 +135,7 @@ public class RatingDaoImpl implements RatingDao {
         try {
             preparedStatement = connection.prepareStatement(SQL_TAKE_RATING_BY_USER);
             preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(2, supervisorId);
 
             resultSet = preparedStatement.executeQuery();
 

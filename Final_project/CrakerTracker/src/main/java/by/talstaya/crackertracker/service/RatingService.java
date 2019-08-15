@@ -8,5 +8,5 @@ public interface RatingService {
 
     double takeAverageRating(int supervisorId) throws ServiceException;
 
-    double takeRatingByUser(int userId) throws ServiceException;
+    double takeRatingByUser(int userId, int supervisorId) throws ServiceException;
 }

@@ -72,7 +72,7 @@
                     <div class="card">
                         <div class="container-fliud">
                             <div class="wrapper row">
-s
+
                                 <div class="details col-md-6" style="padding-left: 80px;">
                                     <h3 class="product-title">${supervisor.firstName} ${supervisor.surname}</h3>
 
@@ -141,34 +141,31 @@ s
 
                                                     <input id="star-4" type="radio" name="rating" value="5"
                                                            onclick="this.form.submit();"
-                                                        ${rating==5 ? 'checked' : ''}/>
+                                                        ${rating==5 ? 'checked' : ''}
+                                                           >
                                                     <label title="5" for="star-4"></label>
 
                                                     <input id="star-3" type="radio" name="rating" value="4"
                                                            onclick="this.form.submit();"
-                                                        ${rating==4 ? 'checked' : ''}/>
+                                                        ${rating==4 ? 'checked' : ''}>
                                                     <label title="4" for="star-3"></label>
 
                                                     <input id="star-2" type="radio" name="rating" value="3"
                                                            onclick="this.form.submit();"
-                                                        ${rating==3 ? 'checked' : ''}/>
+                                                        ${rating==3 ? 'checked' : ''}>
                                                     <label title="3" for="star-2"></label>
 
                                                     <input id="star-1" type="radio" name="rating" value="2"
                                                            onclick="this.form.submit();"
-                                                        ${rating==2 ? 'checked' : ''}/>
+                                                        ${rating==2 ? 'checked' : ''}>
                                                     <label title="2" for="star-1"></label>
 
                                                     <input id="star-0" type="radio" name="rating" value="1"
                                                            onclick="this.form.submit();"
-                                                        ${rating==1 ? 'checked' : ''}/>
+                                                        ${rating==1 ? 'checked' : ''}>
                                                     <label title="1" for="star-0"></label>
                                                 </form>
                                             </div>
-
-                                            <c:if test="${rated}">
-                                                <span><fmt:message key="supervisor.thanks"/></span>
-                                            </c:if>
                                         </div>
                                     </div>
 
@@ -180,8 +177,8 @@ s
                                                     <input type="hidden" name="command" value="delete_supervisor">
 
                                                     <button type="submit" class="btn btn-danger center-block">
-                                                        <fmt:message
-                                                                key="user.delete"/></button>
+                                                        <fmt:message key="user.delete"/>
+                                                    </button>
                                                 </form>
                                             </label>
 

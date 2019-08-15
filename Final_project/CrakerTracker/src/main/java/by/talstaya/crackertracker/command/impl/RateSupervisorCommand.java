@@ -19,7 +19,7 @@ public class RateSupervisorCommand implements Command {
     private static final String USER = "User";
     private static final String SUPERVISOR_ID = "supervisorId";
     private static final String RATING = "rating";
-    private static final String RATED = "rated";
+    private static final String RESPONSE = "response";
 
     private List<UserType> userTypeList;
 
@@ -46,8 +46,7 @@ public class RateSupervisorCommand implements Command {
         UserService userService = new UserServiceImpl();
         userService.updateRating(supervisorId, averageRating);
 
-        request.setAttribute(RATED, true);
-
-        return new ShowSupervisorCommand().execute(request, response);
+        request.setAttribute(RESPONSE, true);
+        return request.getHeader("Referer");
     }
 }

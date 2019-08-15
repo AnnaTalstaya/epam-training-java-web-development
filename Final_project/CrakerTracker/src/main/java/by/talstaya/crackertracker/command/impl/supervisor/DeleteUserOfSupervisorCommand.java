@@ -16,6 +16,7 @@ public class DeleteUserOfSupervisorCommand implements Command {
 
     private static final String USER = "User";
     private static final String USER_ID = "userId";
+    private static final String RESPONSE = "response";
 
     private List<UserType> userTypeList;
 
@@ -30,12 +31,13 @@ public class DeleteUserOfSupervisorCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        User supervisor = (User)request.getSession().getAttribute(USER);
+        User supervisor = (User) request.getSession().getAttribute(USER);
         int userId = Integer.parseInt(request.getParameter(USER_ID));
 
         UserService userService = new UserServiceImpl();
         userService.deleteUserOfSupervisor(supervisor.getUserId(), userId);
 
-        return new UserListOfSupervisorCommand().execute(request, response);
+        request.setAttribute(RESPONSE, true);
+        return request.getHeader("Referer");
     }
 }

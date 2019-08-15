@@ -48,8 +48,6 @@
 
 <div id="page-container">
     <div id="content-wrap">
-        <p>${message}</p>
-
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <form id="supervisorFormId" method="post" action="show_supervisor">

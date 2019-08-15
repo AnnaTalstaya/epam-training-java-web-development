@@ -15,7 +15,7 @@ import java.util.List;
 public class DeleteRequestForSupervisorCommand implements Command {
 
     private static final String USER = "User";
-    private static final String MESSAGE = "message";
+    private static final String RESPONSE = "response";
 
     private List<UserType> userTypeList;
 
@@ -35,8 +35,7 @@ public class DeleteRequestForSupervisorCommand implements Command {
         UserService userService = new UserServiceImpl();
         userService.deleteRequestForSupervisor(user.getUserId());
 
-        request.setAttribute(MESSAGE, "Request is deleted");
-
-        return new SupervisorListCommand().execute(request, response);
+        request.setAttribute(RESPONSE, true);
+        return request.getHeader("Referer");
     }
 }

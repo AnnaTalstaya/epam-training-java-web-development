@@ -135,7 +135,7 @@ public class SettingsCommand implements Command {
             }
 
             if (updatePass) {
-                user.setPassword(newPassword);
+                user.setPassword(BCrypt.hashpw(newPassword, BCrypt.gensalt(12)));
             }
 
             userService.update(user);
