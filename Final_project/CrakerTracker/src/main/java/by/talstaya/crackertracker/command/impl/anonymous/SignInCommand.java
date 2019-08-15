@@ -24,7 +24,9 @@ public class SignInCommand implements Command {
     private static final String USER = "User";
     private static final String ERROR_INPUT_DATA = "errorInputData";
     private static final String RESPONSE = "response";
-    private static final String PRODUCT_LIST_PATH = "/product_list";
+    private static final String PRODUCT_LIST_PATH = "/visit_product_list";
+    private static final String ERROR = "error";
+    private static final String STATUS_CODE = "statusCode";
 
     private List<UserType> userTypeList;
 
@@ -47,26 +49,32 @@ public class SignInCommand implements Command {
         String emailOrUsername = request.getParameter(EMAIL_OR_USERNAME);
         String password = request.getParameter(PASSWORD);
 
-        User user = null;
+        if(emailOrUsername!=null && password!=null){
+            User user = null;
 
-        if (emailOrUsername.contains("@")) {
-            if (!userService.findByEmailAndPass(emailOrUsername, password).isEmpty()) {
-                user = userService.findByEmailAndPass(emailOrUsername, password).get(0);
+            if (emailOrUsername.contains("@")) {
+                if (!userService.findByEmailAndPass(emailOrUsername, password).isEmpty()) {
+                    user = userService.findByEmailAndPass(emailOrUsername, password).get(0);
+                }
+            } else {
+                if (!userService.findByUsernameAndPass(emailOrUsername, password).isEmpty()) {
+                    user = userService.findByUsernameAndPass(emailOrUsername, password).get(0);
+                }
+            }
+
+            if(user!=null){
+                request.getSession().setAttribute(USER, user);
+                request.setAttribute(RESPONSE, true);
+                page = request.getContextPath() + PRODUCT_LIST_PATH;
+            }else{
+                request.setAttribute(ERROR_INPUT_DATA, "Incorrect username or email or password");
+                request.setAttribute(EMAIL_OR_USERNAME, emailOrUsername);
+                page = JspPath.SIGN_IN.getUrl();
             }
         } else {
-            if (!userService.findByUsernameAndPass(emailOrUsername, password).isEmpty()) {
-                user = userService.findByUsernameAndPass(emailOrUsername, password).get(0);
-            }
-        }
-
-        if(user!=null){
-            request.getSession().setAttribute(USER, user);
-            request.setAttribute(RESPONSE, true);
-            page = request.getContextPath() + PRODUCT_LIST_PATH;
-        }else{
-            request.setAttribute(ERROR_INPUT_DATA, "Incorrect username or email or password");
-            request.setAttribute(EMAIL_OR_USERNAME, emailOrUsername);
-            page = JspPath.SIGN_IN.getUrl();
+            request.setAttribute(ERROR, "Error data");
+            request.setAttribute(STATUS_CODE, 404);
+            page = JspPath.ERROR.getUrl();
         }
 
          return page;

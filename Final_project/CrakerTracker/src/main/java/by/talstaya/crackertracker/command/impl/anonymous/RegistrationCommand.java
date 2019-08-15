@@ -14,6 +14,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +40,7 @@ public class RegistrationCommand implements Command {
     private static final String ERROR_USERNAME = "errorUsername";
     private static final String ERROR_PASS_AND_CONFIRMED_PASS = "errorPassAndConfirmedPassMessage";
     private static final String RESPONSE = "response";
-    private static final String PRODUCT_LIST_PATH = "/product_list";
+    private static final String PRODUCT_LIST_PATH = "/visit_product_list";
 
     private List<UserType> userTypeList;
 
@@ -85,30 +86,27 @@ public class RegistrationCommand implements Command {
 
                 if (errorMessages.isEmpty()) {
 
-                    double weightDouble, heightDouble;
-                    if (!weight.isEmpty()) {
-                        weightDouble = Double.parseDouble(weight);
-                    } else {
-                        weightDouble = 0;
-                    }
-
-                    if (!height.isEmpty()) {
-                        heightDouble = Double.parseDouble(height);
-                    } else {
-                        heightDouble = 0;
-                    }
-
-                    userService.insertUser(new User.Builder()
+                    User.Builder newUser = new User.Builder()
                             .setUserType(UserType.USER)
                             .setFirstName(firstName)
                             .setSurname(surname)
                             .setEmail(email)
                             .setUsername(username)
-                            .setPassword(BCrypt.hashpw(password, BCrypt.gensalt(12)))
-                            .setDateOfBirth(dateOfBirth)
-                            .setWeight(weightDouble)
-                            .setHeight(heightDouble)
-                            .build());
+                            .setPassword(BCrypt.hashpw(password, BCrypt.gensalt(12)));
+
+                    if (!weight.isEmpty()) {
+                        newUser.setWeight(Double.parseDouble(weight));
+                    }
+
+                    if (!height.isEmpty()) {
+                        newUser.setHeight(Double.parseDouble(height));
+                    }
+
+                    if(!dateOfBirth.isEmpty()) {
+                        newUser.setDateOfBirth(LocalDate.parse(dateOfBirth));
+                    }
+
+                    userService.insertUser(newUser.build());
 
                     User user = userService.findByUsernameAndPass(username, password).get(0);
 

@@ -72,11 +72,6 @@ public class DietCommand implements Command {
             request.setAttribute(NO_MEAL, "You have not added anything to your diet");
         }
 
-        if(request.getAttribute(PAGE_PATH_PARAM) != null){
-            return (String)request.getAttribute(PAGE_PATH_PARAM);
-        } else {
-            return JspPath.DIET.getUrl();
-        }
-
+        return JspPath.DIET.getUrl();
     }
 }

@@ -1,5 +1,7 @@
 package by.talstaya.crackertracker.entity;
 
+import java.time.LocalDate;
+
 public class User implements Entity {
 
     private int userId;
@@ -9,7 +11,7 @@ public class User implements Entity {
     private String email;
     private String username;
     private String password;
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
     private double weight;
     private double height;
     private double rating;
@@ -46,7 +48,7 @@ public class User implements Entity {
         return password;
     }
 
-    public String getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
@@ -112,7 +114,7 @@ public class User implements Entity {
             return this;
         }
 
-        public Builder setDateOfBirth(String dateOfBirth) {
+        public Builder setDateOfBirth(LocalDate dateOfBirth) {
             user.dateOfBirth = dateOfBirth;
             return this;
         }

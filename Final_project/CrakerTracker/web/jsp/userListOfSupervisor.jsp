@@ -4,6 +4,7 @@
 
 <%@ taglib prefix="ctg" uri="customtags" %>
 
+<fmt:setLocale value="${locale}" scope="session"/>
 <fmt:setBundle basename="text"/>
 
 <html>
@@ -48,90 +49,94 @@
 
 <jsp:include page="./common/header.jsp"/>
 
-<p>${message}</p>
+<div id="page-container">
+    <div id="content-wrap">
+        <p>${message}</p>
 
-<nav>
-    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <form id="usersFormId" method="post" action="user_list_of_supervisor">
-            <input type="hidden" name="command" value="user_list_of_supervisor">
-            <a class="nav-item nav-link active" data-toggle="tab" role="tab" aria-selected="true"
-               onclick="document.getElementById('usersFormId').submit();">
-                <fmt:message key="supervisor.my_users"/>
-            </a>
-        </form>
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <form id="usersFormId" method="post" action="user_list_of_supervisor">
+                    <input type="hidden" name="command" value="user_list_of_supervisor">
+                    <a class="nav-item nav-link active" data-toggle="tab" role="tab" aria-selected="true"
+                       onclick="document.getElementById('usersFormId').submit();">
+                        <fmt:message key="supervisor.my_users"/>
+                    </a>
+                </form>
 
-        <form id="requestsFormId" method="post" action="show_requests_for_supervisor">
-            <input type="hidden" name="command" value="show_requests_for_supervisor">
-            <a class="nav-item nav-link" data-toggle="tab" role="tab" aria-selected="false"
-               onclick="document.getElementById('requestsFormId').submit();">
-                <fmt:message key="supervisor.requests"/>
-            </a>
-        </form>
+                <form id="requestsFormId" method="post" action="show_requests_for_supervisor">
+                    <input type="hidden" name="command" value="show_requests_for_supervisor">
+                    <a class="nav-item nav-link" data-toggle="tab" role="tab" aria-selected="false"
+                       onclick="document.getElementById('requestsFormId').submit();">
+                        <fmt:message key="supervisor.requests"/>
+                    </a>
+                </form>
 
+            </div>
+        </nav>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col"><fmt:message key="registration.first_name"/></th>
+                <th scope="col"><fmt:message key="registration.surname"/></th>
+                <th scope="col"><fmt:message key="registration.username"/></th>
+                <th scope="col"><fmt:message key="registration.date_of_birth"/></th>
+                <th scope="col"><fmt:message key="registration.weight"/></th>
+                <th scope="col"><fmt:message key="registration.height"/></th>
+                <th scope="col"></th> <!--Show diet-->
+                <th scope="col"></th> <!-- Remove-->
+            </tr>
+            </thead>
+            <tbody>
+
+            <c:forEach begin="${startIndexOfUserList}" end="${startIndexOfUserList + usersPerPage - 1}" var="user"
+                       items="${usersOfSupervisor}">
+                <tr>
+                    <td>${user.firstName}</td>
+                    <td>${user.surname}</td>
+                    <td>${user.username}</td>
+                    <td>${user.dateOfBirth}</td>
+                    <td>${user.weight}</td>
+                    <td>${user.height}</td>
+
+                    <!--Show diet-->
+                    <td>
+                        <form method="post" action="diet">
+                            <input type="hidden" name="command" value="diet">
+                            <input type="hidden" name="userId" value="${user.userId}">
+                            <input type="hidden" name="dietOfUserForSupervisor" value="true">
+
+                            <button type="submit" class="btn btn-primary center-block"><fmt:message
+                                    key="profile.profile"/></button>
+                        </form>
+                    </td>
+
+                    <!--Delete -->
+                    <td>
+                        <form method="post" action="delete_user_of_supervisor">
+                            <input type="hidden" name="command" value="delete_user_of_supervisor">
+                            <input type="hidden" name="userId" value="${user.userId}">
+
+                            <button type="submit" class="btn btn-danger center-block"><fmt:message
+                                    key="user.delete"/></button>
+                        </form>
+                    </td>
+                </tr>
+            </c:forEach>
+
+            </tbody>
+        </table>
+
+        <ctg:pagination startIndexOfObjectList="${startIndexOfUserList}"
+                        objectsPerPage="${usersPerPage}"
+                        indexOfPage="${indexOfPage}"
+                        numberOfObjects="${usersOfSupervisor.size()}"
+                        locale="${locale}"
+                        commandValue="user_list_of_supervisor"/>
     </div>
-</nav>
+    <jsp:include page="./common/footer.jsp"/>
 
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th scope="col"><fmt:message key="registration.first_name"/></th>
-        <th scope="col"><fmt:message key="registration.surname"/></th>
-        <th scope="col"><fmt:message key="registration.username"/></th>
-        <th scope="col"><fmt:message key="registration.date_of_birth"/></th>
-        <th scope="col"><fmt:message key="registration.weight"/></th>
-        <th scope="col"><fmt:message key="registration.height"/></th>
-        <th scope="col"></th> <!--Show diet-->
-        <th scope="col"></th> <!-- Remove-->
-    </tr>
-    </thead>
-    <tbody>
-
-    <c:forEach begin="${startIndexOfUserList}" end="${startIndexOfUserList + usersPerPage - 1}" var="user"
-               items="${usersOfSupervisor}">
-        <tr>
-            <td>${user.firstName}</td>
-            <td>${user.surname}</td>
-            <td>${user.username}</td>
-            <td>${user.dateOfBirth}</td>
-            <td>${user.weight}</td>
-            <td>${user.height}</td>
-
-            <!--Show diet-->
-            <td>
-                <form method="post" action="diet">
-                    <input type="hidden" name="command" value="diet">
-                    <input type="hidden" name="userId" value="${user.userId}">
-                    <input type="hidden" name="dietOfUserForSupervisor" value="true">
-
-                    <button type="submit" class="btn btn-primary center-block"><fmt:message
-                            key="profile.profile"/></button>
-                </form>
-            </td>
-
-            <!--Delete -->
-            <td>
-                <form method="post" action="delete_user_of_supervisor">
-                    <input type="hidden" name="command" value="delete_user_of_supervisor">
-                    <input type="hidden" name="userId" value="${user.userId}">
-
-                    <button type="submit" class="btn btn-danger center-block"><fmt:message
-                            key="user.delete"/></button>
-                </form>
-            </td>
-        </tr>
-    </c:forEach>
-
-    </tbody>
-</table>
-
-<ctg:pagination startIndexOfObjectList="${startIndexOfUserList}"
-                objectsPerPage="${usersPerPage}"
-                indexOfPage="${indexOfPage}"
-                numberOfObjects="${usersOfSupervisor.size()}"
-                locale="${locale}"
-                commandValue="user_list_of_supervisor"/>
-
-<jsp:include page="./common/footer.jsp"/>
+</div>
 
 </body>
 </html>

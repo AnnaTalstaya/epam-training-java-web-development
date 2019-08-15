@@ -19,6 +19,7 @@ public class SearchCommand implements Command {
     private static final String NAME_OR_WORD_IN_NAME = "nameOrWordInName";
     private static final String ERROR = "error";
     private static final String SEARCH = "search";
+    private static final String STATUS_CODE = "statusCode";
 
     private List<UserType> userTypeList;
 
@@ -40,6 +41,7 @@ public class SearchCommand implements Command {
 
         if (!dataIsCorrect){
             request.setAttribute(ERROR, "Length of search query is too big");
+            request.setAttribute(STATUS_CODE, 404);
             return JspPath.ERROR.getUrl();
 
         } else {

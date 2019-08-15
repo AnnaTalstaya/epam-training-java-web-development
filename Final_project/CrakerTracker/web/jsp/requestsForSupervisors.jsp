@@ -4,6 +4,7 @@
 
 <%@ taglib prefix="ctg" uri="customtags" %>
 
+<fmt:setLocale value="${locale}" scope="session"/>
 <fmt:setBundle basename="text"/>
 
 <html>
@@ -49,87 +50,93 @@
 
 <jsp:include page="./common/header.jsp"/>
 
-<p>${message}</p>
+<div id="page-container">
+    <div id="content-wrap">
+        <p>${message}</p>
 
-<nav>
-    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
 
-        <form id="usersFormId" method="post" action="user_list_of_supervisor">
-            <input type="hidden" name="command" value="user_list_of_supervisor">
-            <a class="nav-item nav-link" data-toggle="tab" role="tab" aria-selected="false"
-               onclick="document.getElementById('usersFormId').submit();">
-                <fmt:message key="supervisor.my_users"/>
-            </a>
-        </form>
+                <form id="usersFormId" method="post" action="user_list_of_supervisor">
+                    <input type="hidden" name="command" value="user_list_of_supervisor">
+                    <a class="nav-item nav-link" data-toggle="tab" role="tab" aria-selected="false"
+                       onclick="document.getElementById('usersFormId').submit();">
+                        <fmt:message key="supervisor.my_users"/>
+                    </a>
+                </form>
 
-        <form id="requestsFormId" method="post" action="show_requests_for_supervisor">
-            <input type="hidden" name="command" value="show_requests_for_supervisor">
-            <a class="nav-item nav-link active" data-toggle="tab" role="tab" aria-selected="true"
-               onclick="document.getElementById('requestsFormId').submit();">
-                <fmt:message key="supervisor.requests"/>
-            </a>
-        </form>
+                <form id="requestsFormId" method="post" action="show_requests_for_supervisor">
+                    <input type="hidden" name="command" value="show_requests_for_supervisor">
+                    <a class="nav-item nav-link active" data-toggle="tab" role="tab" aria-selected="true"
+                       onclick="document.getElementById('requestsFormId').submit();">
+                        <fmt:message key="supervisor.requests"/>
+                    </a>
+                </form>
+
+            </div>
+        </nav>
+
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col"><fmt:message key="registration.first_name"/></th>
+                <th scope="col"><fmt:message key="registration.surname"/></th>
+                <th scope="col"><fmt:message key="registration.username"/></th>
+                <th scope="col"></th> <!-- Accept-->
+                <th scope="col"></th> <!-- Reject-->
+            </tr>
+            </thead>
+            <tbody>
+
+            <c:forEach begin="${startIndexOfRequestList}" end="${startIndexOfRequestList + requestsPerPage - 1}"
+                       var="user"
+                       items="${requestListForSupervisor}">
+                <tr>
+                    <td>${user.firstName}</td>
+                    <td>${user.surname}</td>
+                    <td>${user.username}</td>
+
+                    <!--Accept -->
+                    <td>
+                        <form method="post" action="supervisor_accepts_request">
+                            <input type="hidden" name="command" value="supervisor_accepts_request">
+                            <input type="hidden" name="userId" value="${user.userId}">
+
+                            <button type="submit" class="btn btn-success center-block">
+                                <fmt:message key="supervisor.accept"/>
+                            </button>
+                        </form>
+                    </td>
+
+                    <!--Reject-->
+                    <td>
+                        <form method="post" action="supervisor_rejects_request">
+                            <input type="hidden" name="command" value="supervisor_rejects_request">
+                            <input type="hidden" name="userId" value="${user.userId}">
+
+                            <button type="submit" class="btn btn-danger center-block">
+                                <fmt:message key="supervisor.reject"/>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            </c:forEach>
+
+            </tbody>
+        </table>
+
+        <ctg:pagination startIndexOfObjectList="${startIndexOfRequestList}"
+                        objectsPerPage="${requestsPerPage}"
+                        indexOfPage="${indexOfPage}"
+                        numberOfObjects="${requestListForSupervisor.size()}"
+                        locale="${locale}"
+                        commandValue="show_requests_for_supervisor"/>
 
     </div>
-</nav>
+    <jsp:include page="./common/footer.jsp"/>
 
-
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th scope="col"><fmt:message key="registration.first_name"/></th>
-        <th scope="col"><fmt:message key="registration.surname"/></th>
-        <th scope="col"><fmt:message key="registration.username"/></th>
-        <th scope="col"></th> <!-- Accept-->
-        <th scope="col"></th> <!-- Reject-->
-    </tr>
-    </thead>
-    <tbody>
-
-    <c:forEach begin="${startIndexOfRequestList}" end="${startIndexOfRequestList + requestsPerPage - 1}" var="user"
-               items="${requestListForSupervisor}">
-        <tr>
-            <td>${user.firstName}</td>
-            <td>${user.surname}</td>
-            <td>${user.username}</td>
-
-            <!--Accept -->
-            <td>
-                <form method="post" action="supervisor_accepts_request">
-                    <input type="hidden" name="command" value="supervisor_accepts_request">
-                    <input type="hidden" name="userId" value="${user.userId}">
-
-                    <button type="submit" class="btn btn-success center-block">
-                        <fmt:message key="supervisor.accept"/>
-                    </button>
-                </form>
-            </td>
-
-            <!--Reject-->
-            <td>
-                <form method="post" action="supervisor_rejects_request">
-                    <input type="hidden" name="command" value="supervisor_rejects_request">
-                    <input type="hidden" name="userId" value="${user.userId}">
-
-                    <button type="submit" class="btn btn-danger center-block">
-                        <fmt:message key="supervisor.reject"/>
-                    </button>
-                </form>
-            </td>
-        </tr>
-    </c:forEach>
-
-    </tbody>
-</table>
-
-<ctg:pagination startIndexOfObjectList="${startIndexOfRequestList}"
-                objectsPerPage="${requestsPerPage}"
-                indexOfPage="${indexOfPage}"
-                numberOfObjects="${requestListForSupervisor.size()}"
-                locale="${locale}"
-                commandValue="show_requests_for_supervisor"/>
-
-<jsp:include page="./common/footer.jsp"/>
+</div>
 
 
 </body>

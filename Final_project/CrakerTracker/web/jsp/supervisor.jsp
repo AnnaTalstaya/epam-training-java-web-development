@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  <%--jstl tag--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<fmt:setLocale value="${locale}" scope="session"/>
 <fmt:setBundle basename="text"/>
 
 <html>
@@ -39,168 +40,165 @@
 
 <jsp:include page="./common/header.jsp"/>
 
-<nav>
-    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <form id="supervisorFormId" method="post" action="show_supervisor">
-            <input type="hidden" name="command" value="show_supervisor">
-            <a class="nav-item nav-link active" data-toggle="tab" role="tab" aria-selected="true"
-               onclick="document.getElementById('supervisorFormId').submit();">
-                <fmt:message key="user.my_supervisor"/>
-            </a>
-        </form>
+<div id="page-container">
+    <div id="content-wrap">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <form id="supervisorFormId" method="post" action="show_supervisor">
+                    <input type="hidden" name="command" value="show_supervisor">
+                    <a class="nav-item nav-link active" data-toggle="tab" role="tab" aria-selected="true"
+                       onclick="document.getElementById('supervisorFormId').submit();">
+                        <fmt:message key="user.my_supervisor"/>
+                    </a>
+                </form>
 
-        <form id="supervisorsFormId" method="post" action="supervisor_list">
-            <input type="hidden" name="command" value="supervisor_list">
-            <a class="nav-item nav-link" data-toggle="tab" role="tab" aria-selected="false"
-               onclick="document.getElementById('supervisorsFormId').submit();">
-                <fmt:message key="user.supervisors"/>
-            </a>
-        </form>
-    </div>
-</nav>
-
-
-<c:choose>
-    <c:when test="${supervisor == null}">
-        <p><fmt:message key="user.no_supervisor"/></p>
-    </c:when>
-    <c:otherwise>
-        <div class="container">
-            <div class="card">
-                <div class="container-fliud">
-                    <div class="wrapper row">
-                            <%--<div class="preview col-md-4">--%>
-
-                            <%--<div class="preview-pic tab-content">--%>
-                            <%--<div class="tab-pane active" id="pic-1"><img--%>
-                            <%--src="${pageContext.request.contextPath}/images/products/${product.imageURL}" width="200"--%>
-                            <%--height="250"/></div>--%>
-                            <%--</div>--%>
-
-                            <%--</div>--%>
-                        <div class="details col-md-6" style="padding-left: 80px;">
-                            <h3 class="product-title">${supervisor.firstName} ${supervisor.surname}</h3>
-
-                            <h5 class="sizes"><fmt:message key="registration.username"/>
-                                <span class="size" data-toggle="tooltip" title="small">${supervisor.username}</span>
-                            </h5>
-
-                            <div class="col-xs-12 col-md-6 text-center">
-                                <h1 class="rating-num">${supervisor.rating}</h1>
-                                <c:if test="${supervisor.rating < 0.5}">
-                                    <span class="fa fa-star" id="star1"></span>
-                                    <span class="fa fa-star" id="star2"></span>
-                                    <span class="fa fa-star" id="star3"></span>
-                                    <span class="fa fa-star" id="star4"></span>
-                                    <span class="fa fa-star" id="star5"></span>
-                                </c:if>
-                                <c:if test="${supervisor.rating >= 0.5 and supervisor.rating < 1.5}">
-                                    <span class="fa fa-star" id="star1" style="color:#fff108"></span>
-                                    <span class="fa fa-star" id="star2"></span>
-                                    <span class="fa fa-star" id="star3"></span>
-                                    <span class="fa fa-star" id="star4"></span>
-                                    <span class="fa fa-star" id="star5"></span>
-                                </c:if>
-                                <c:if test="${supervisor.rating >= 1.5  and supervisor.rating < 2.5}">
-                                    <span class="fa fa-star" id="star1" style="color:#fff108"></span>
-                                    <span class="fa fa-star" id="star2" style="color:#fff108"></span>
-                                    <span class="fa fa-star" id="star3"></span>
-                                    <span class="fa fa-star" id="star4"></span>
-                                    <span class="fa fa-star" id="star5"></span>
-                                </c:if>
-                                <c:if test="${supervisor.rating >= 2.5  and supervisor.rating < 3.5}">
-                                    <span class="fa fa-star" id="star1" style="color:#fff108"></span>
-                                    <span class="fa fa-star" id="star2" style="color:#fff108"></span>
-                                    <span class="fa fa-star" id="star3" style="color:#fff108"></span>
-                                    <span class="fa fa-star" id="star4"></span>
-                                    <span class="fa fa-star" id="star5"></span>
-                                </c:if>
-                                <c:if test="${supervisor.rating >= 3.5  and supervisor.rating < 4.5}">
-                                    <span class="fa fa-star" id="star1" style="color:#fff108"></span>
-                                    <span class="fa fa-star" id="star2" style="color:#fff108"></span>
-                                    <span class="fa fa-star" id="star3" style="color:#fff108"></span>
-                                    <span class="fa fa-star" id="star4" style="color:#fff108"></span>
-                                    <span class="fa fa-star" id="star5"></span>
-                                </c:if>
-                                <c:if test="${supervisor.rating >= 4.5}">
-                                    <span class="fa fa-star" id="star1" style="color:#fff108"></span>
-                                    <span class="fa fa-star" id="star2" style="color:#fff108"></span>
-                                    <span class="fa fa-star" id="star3" style="color:#fff108"></span>
-                                    <span class="fa fa-star" id="star4" style="color:#fff108"></span>
-                                    <span class="fa fa-star" id="star5" style="color:#fff108"></span>
-                                </c:if>
-                            </div>
+                <form id="supervisorsFormId" method="post" action="supervisor_list">
+                    <input type="hidden" name="command" value="supervisor_list">
+                    <a class="nav-item nav-link" data-toggle="tab" role="tab" aria-selected="false"
+                       onclick="document.getElementById('supervisorsFormId').submit();">
+                        <fmt:message key="user.supervisors"/>
+                    </a>
+                </form>
+            </div>
+        </nav>
 
 
-                            <!-- Rate the supervisor -->
-                            <h5><fmt:message key="supervisor.rate"/></h5>
-                            <div class="form-group">
-                                <div class="col-xs-12">
+        <c:choose>
+            <c:when test="${supervisor == null}">
+                <p><fmt:message key="user.no_supervisor"/></p>
+            </c:when>
+            <c:otherwise>
+                <div class="container">
+                    <div class="card">
+                        <div class="container-fliud">
+                            <div class="wrapper row">
+s
+                                <div class="details col-md-6" style="padding-left: 80px;">
+                                    <h3 class="product-title">${supervisor.firstName} ${supervisor.surname}</h3>
 
-                                    <div id="reviewStars-input">
-                                        <form method="post" action="rate_supervisor">
-                                            <input type="hidden" name="command" value="rate_supervisor">
-                                            <input type="hidden" name="supervisorId" value="${supervisor.userId}"/>
+                                    <h5 class="sizes"><fmt:message key="registration.username"/>
+                                        <span class="size" data-toggle="tooltip"
+                                              title="small">${supervisor.username}</span>
+                                    </h5>
 
-                                            <input id="star-4" type="radio" name="rating" value="5"
-                                                   onclick="this.form.submit();"
-                                                ${rating==5 ? 'checked' : ''}/>
-                                            <label title="5" for="star-4"></label>
-
-                                            <input id="star-3" type="radio" name="rating" value="4"
-                                                   onclick="this.form.submit();"
-                                                ${rating==4 ? 'checked' : ''}/>
-                                            <label title="4" for="star-3"></label>
-
-                                            <input id="star-2" type="radio" name="rating" value="3"
-                                                   onclick="this.form.submit();"
-                                                ${rating==3 ? 'checked' : ''}/>
-                                            <label title="3" for="star-2"></label>
-
-                                            <input id="star-1" type="radio" name="rating" value="2"
-                                                   onclick="this.form.submit();"
-                                                ${rating==2 ? 'checked' : ''}/>
-                                            <label title="2" for="star-1"></label>
-
-                                            <input id="star-0" type="radio" name="rating" value="1"
-                                                   onclick="this.form.submit();"
-                                                ${rating==1 ? 'checked' : ''}/>
-                                            <label title="1" for="star-0"></label>
-                                        </form>
+                                    <div class="col-xs-12 col-md-6 text-center">
+                                        <h1 class="rating-num">${supervisor.rating}</h1>
+                                        <c:if test="${supervisor.rating < 0.5}">
+                                            <span class="fa fa-star" id="star1"></span>
+                                            <span class="fa fa-star" id="star2"></span>
+                                            <span class="fa fa-star" id="star3"></span>
+                                            <span class="fa fa-star" id="star4"></span>
+                                            <span class="fa fa-star" id="star5"></span>
+                                        </c:if>
+                                        <c:if test="${supervisor.rating >= 0.5 and supervisor.rating < 1.5}">
+                                            <span class="fa fa-star" id="star1" style="color:#fff108"></span>
+                                            <span class="fa fa-star" id="star2"></span>
+                                            <span class="fa fa-star" id="star3"></span>
+                                            <span class="fa fa-star" id="star4"></span>
+                                            <span class="fa fa-star" id="star5"></span>
+                                        </c:if>
+                                        <c:if test="${supervisor.rating >= 1.5  and supervisor.rating < 2.5}">
+                                            <span class="fa fa-star" id="star1" style="color:#fff108"></span>
+                                            <span class="fa fa-star" id="star2" style="color:#fff108"></span>
+                                            <span class="fa fa-star" id="star3"></span>
+                                            <span class="fa fa-star" id="star4"></span>
+                                            <span class="fa fa-star" id="star5"></span>
+                                        </c:if>
+                                        <c:if test="${supervisor.rating >= 2.5  and supervisor.rating < 3.5}">
+                                            <span class="fa fa-star" id="star1" style="color:#fff108"></span>
+                                            <span class="fa fa-star" id="star2" style="color:#fff108"></span>
+                                            <span class="fa fa-star" id="star3" style="color:#fff108"></span>
+                                            <span class="fa fa-star" id="star4"></span>
+                                            <span class="fa fa-star" id="star5"></span>
+                                        </c:if>
+                                        <c:if test="${supervisor.rating >= 3.5  and supervisor.rating < 4.5}">
+                                            <span class="fa fa-star" id="star1" style="color:#fff108"></span>
+                                            <span class="fa fa-star" id="star2" style="color:#fff108"></span>
+                                            <span class="fa fa-star" id="star3" style="color:#fff108"></span>
+                                            <span class="fa fa-star" id="star4" style="color:#fff108"></span>
+                                            <span class="fa fa-star" id="star5"></span>
+                                        </c:if>
+                                        <c:if test="${supervisor.rating >= 4.5}">
+                                            <span class="fa fa-star" id="star1" style="color:#fff108"></span>
+                                            <span class="fa fa-star" id="star2" style="color:#fff108"></span>
+                                            <span class="fa fa-star" id="star3" style="color:#fff108"></span>
+                                            <span class="fa fa-star" id="star4" style="color:#fff108"></span>
+                                            <span class="fa fa-star" id="star5" style="color:#fff108"></span>
+                                        </c:if>
                                     </div>
 
-                                    <c:if test="${rated}">
-                                        <span><fmt:message key="supervisor.thanks"/></span>
-                                    </c:if>
+
+                                    <!-- Rate the supervisor -->
+                                    <h5><fmt:message key="supervisor.rate"/></h5>
+                                    <div class="form-group">
+                                        <div class="col-xs-12">
+
+                                            <div id="reviewStars-input">
+                                                <form method="post" action="rate_supervisor">
+                                                    <input type="hidden" name="command" value="rate_supervisor">
+                                                    <input type="hidden" name="supervisorId"
+                                                           value="${supervisor.userId}"/>
+
+                                                    <input id="star-4" type="radio" name="rating" value="5"
+                                                           onclick="this.form.submit();"
+                                                        ${rating==5 ? 'checked' : ''}/>
+                                                    <label title="5" for="star-4"></label>
+
+                                                    <input id="star-3" type="radio" name="rating" value="4"
+                                                           onclick="this.form.submit();"
+                                                        ${rating==4 ? 'checked' : ''}/>
+                                                    <label title="4" for="star-3"></label>
+
+                                                    <input id="star-2" type="radio" name="rating" value="3"
+                                                           onclick="this.form.submit();"
+                                                        ${rating==3 ? 'checked' : ''}/>
+                                                    <label title="3" for="star-2"></label>
+
+                                                    <input id="star-1" type="radio" name="rating" value="2"
+                                                           onclick="this.form.submit();"
+                                                        ${rating==2 ? 'checked' : ''}/>
+                                                    <label title="2" for="star-1"></label>
+
+                                                    <input id="star-0" type="radio" name="rating" value="1"
+                                                           onclick="this.form.submit();"
+                                                        ${rating==1 ? 'checked' : ''}/>
+                                                    <label title="1" for="star-0"></label>
+                                                </form>
+                                            </div>
+
+                                            <c:if test="${rated}">
+                                                <span><fmt:message key="supervisor.thanks"/></span>
+                                            </c:if>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-xs-12">
+
+                                            <label>
+                                                <form method="post" action="delete_supervisor">
+                                                    <input type="hidden" name="command" value="delete_supervisor">
+
+                                                    <button type="submit" class="btn btn-danger center-block">
+                                                        <fmt:message
+                                                                key="user.delete"/></button>
+                                                </form>
+                                            </label>
+
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <div class="col-xs-12">
-
-                                    <label>
-                                        <form method="post" action="delete_supervisor">
-                                            <input type="hidden" name="command" value="delete_supervisor">
-
-                                            <button type="submit" class="btn btn-danger center-block"><fmt:message
-                                                    key="user.delete"/></button>
-                                        </form>
-                                    </label>
-
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </c:otherwise>
-</c:choose>
+            </c:otherwise>
+        </c:choose>
+    </div>
+    <jsp:include page="./common/footer.jsp"/>
 
-<jsp:include page="./common/footer.jsp"/>
-
-
+</div>
 
 </body>
 </html>

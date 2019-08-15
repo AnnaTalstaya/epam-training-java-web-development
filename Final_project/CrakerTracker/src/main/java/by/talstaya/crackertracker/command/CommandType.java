@@ -10,6 +10,7 @@ public enum CommandType {
     VISIT_SETTINGS,
     SETTINGS,
     ADD_MEAL,
+    VISIT_PRODUCT_LIST,
     PRODUCT_LIST,
     SEARCH,
     SHOW_PRODUCT_DETAILS,

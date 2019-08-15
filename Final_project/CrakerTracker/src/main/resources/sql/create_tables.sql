@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS users
   email                   VARCHAR(50)                                  NOT NULL UNIQUE,
   username                VARCHAR(50)                                  NOT NULL UNIQUE,
   password                VARCHAR(500)                                 NOT NULL,
-  date_of_birth           VARCHAR(20),
+  date_of_birth           DATE,
   weight                  DOUBLE,
   height                  DOUBLE,
   rating                  DOUBLE,

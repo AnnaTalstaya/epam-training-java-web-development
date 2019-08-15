@@ -17,7 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/registration", "/sign_in", "/sign_out", "/settings", "/search", "/product_list", "/translate",
+@WebServlet(urlPatterns = {"/registration", "/sign_in", "/sign_out", "/settings", "/search",
+        "/visit_product_list", "/product_list", "/translate",
         "/show_supervisor", "/supervisor_list", "/rate_supervisor", "/delete_supervisor",
         "/send_request_for_supervisor", "/delete_request_for_supervisor",
         "/change_user_type", "/delete_user", "/user_list", "/show_user_details",
@@ -69,7 +70,7 @@ public class FrontController extends HttpServlet {
                 page = JspPath.ERROR.getUrl();
             }
         } catch (ServiceException e) {
-            LOGGER.error( e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
             request.setAttribute(ERROR, e.getMessage());
             page = JspPath.ERROR.getUrl();
         }

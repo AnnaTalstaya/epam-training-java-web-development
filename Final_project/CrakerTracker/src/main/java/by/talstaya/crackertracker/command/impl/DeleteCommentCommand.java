@@ -14,6 +14,7 @@ import java.util.List;
 public class DeleteCommentCommand implements Command {
 
     private static final String COMMENT_ID = "commentId";
+    private static final String RESPONSE = "response";
 
     private List<UserType> userTypeList;
 
@@ -34,6 +35,7 @@ public class DeleteCommentCommand implements Command {
         CommentForUserService commentForUserService = new CommentForUserServiceImpl();
         commentForUserService.deleteComment(commentId);
 
-        return new ShowDietCommand().execute(request, response);
+        request.setAttribute(RESPONSE, true);
+        return request.getHeader("Referer");
     }
 }

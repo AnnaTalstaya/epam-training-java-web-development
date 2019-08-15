@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  <%--jstl tag--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<fmt:setLocale value="${locale}" scope="session"/>
 <fmt:setBundle basename="text"/>
 
 <html>
@@ -36,81 +37,56 @@
 
 <jsp:include page="./common/header.jsp"/>
 
-<div class="container">
-    <div class="card">
-        <div class="container-fliud">
-            <div class="wrapper row">
-                <%--<div class="preview col-md-4">--%>
+<div id="page-container">
+    <div id="content-wrap">
+        <div class="container">
+            <div class="card">
+                <div class="container-fliud">
+                    <div class="wrapper row">
+                        <%--<div class="preview col-md-4">--%>
 
-                <%--<div class="preview-pic tab-content">--%>
-                <%--<div class="tab-pane active" id="pic-1"><img--%>
-                <%--src="${pageContext.request.contextPath}/images/products/${product.imageURL}" width="200"--%>
-                <%--height="250"/></div>--%>
-                <%--</div>--%>
+                        <%--<div class="preview-pic tab-content">--%>
+                        <%--<div class="tab-pane active" id="pic-1"><img--%>
+                        <%--src="${pageContext.request.contextPath}/images/products/${product.imageURL}" width="200"--%>
+                        <%--height="250"/></div>--%>
+                        <%--</div>--%>
 
-                <%--</div>--%>
-                <div class="details col-md-6" style="padding-left: 80px;">
-                    <h3 class="product-title">${user.firstName} ${user.surname}</h3>
+                        <%--</div>--%>
+                        <div class="details col-md-6" style="padding-left: 80px;">
+                            <h3 class="product-title">${user.firstName} ${user.surname}</h3>
 
-                    <h5 class="sizes"><fmt:message key="registration.email"/>
-                        <span class="size" data-toggle="tooltip" title="small">${user.email}</span>
-                    </h5>
-                    <h5 class="sizes"><fmt:message key="registration.username"/>
-                        <span class="size" data-toggle="tooltip" title="small">${user.username}</span>
-                    </h5>
-                    <h5 class="sizes"><fmt:message key="registration.date_of_birth"/>
-                        <span class="size" data-toggle="tooltip" title="small">${user.dateOfBirth}</span>
-                    </h5>
-                    <h5 class="sizes"><fmt:message key="registration.weight"/>
-                        <span class="size" data-toggle="tooltip" title="small">${user.weight}</span>
-                    </h5>
-                    <h5 class="sizes"><fmt:message key="registration.height"/>
-                        <span class="size" data-toggle="tooltip" title="small">${user.height}</span>
-                    </h5>
+                            <h5 class="sizes"><fmt:message key="registration.email"/>
+                                <span class="size" data-toggle="tooltip" title="small">${user.email}</span>
+                            </h5>
+                            <h5 class="sizes"><fmt:message key="registration.username"/>
+                                <span class="size" data-toggle="tooltip" title="small">${user.username}</span>
+                            </h5>
+                            <h5 class="sizes"><fmt:message key="registration.date_of_birth"/>
+                                <span class="size" data-toggle="tooltip" title="small">${user.dateOfBirth}</span>
+                            </h5>
+                            <h5 class="sizes"><fmt:message key="registration.weight"/>
+                                <span class="size" data-toggle="tooltip" title="small">${user.weight}</span>
+                            </h5>
+                            <h5 class="sizes"><fmt:message key="registration.height"/>
+                                <span class="size" data-toggle="tooltip" title="small">${user.height}</span>
+                            </h5>
 
-                    <c:if test="${user.userType.name() == 'SUPERVISOR'}">
-                        <h5 class="sizes"><fmt:message key="user.rating"/>
-                            <span class="size" data-toggle="tooltip" title="small">${user.rating}</span>
-                        </h5>
-                    </c:if>
+                            <c:if test="${user.userType.name() == 'SUPERVISOR'}">
+                                <h5 class="sizes"><fmt:message key="user.rating"/>
+                                    <span class="size" data-toggle="tooltip" title="small">${user.rating}</span>
+                                </h5>
+                            </c:if>
 
-                    <div class="form-group">
-                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <div class="col-xs-12">
 
-                            <c:choose>
-                                <c:when test="${not greaterThanOneAdmin and user.userType.name() == 'ADMINISTRATOR'}">
-                                    <label>
-                                        <select class="custom-select" name="userType" onchange="this.form.submit()"
-                                                required
-                                                disabled>
-                                            <option ${user.userType.name()=="USER"?"selected":""} value="USER">
-                                                <fmt:message
-                                                        key="user.type.user"/>
-                                            </option>
-                                            <!-- value отправляется на сервер-->
-                                            <option ${user.userType.name()=="ADMINISTRATOR"?"selected":""}
-                                                    value="ADMINISTRATOR">
-                                                <fmt:message
-                                                        key="user.type.administrator"/>
-                                            </option>
-                                            <option ${user.userType.name()=="SUPERVISOR"?"selected":""}
-                                                    value="SUPERVISOR">
-                                                <fmt:message
-                                                        key="user.type.supervisor"/>
-                                            </option>
-                                        </select>
-                                    </label>
-                                </c:when>
-                                <c:otherwise>
-                                    <label>
-                                        <form method="post" action="change_user_type" class="form-horizontal">
-                                            <input type="hidden" name="command" value="change_user_type">
-                                            <input type="hidden" name="userId" value="${user.userId}">
-                                            <input type="hidden" name="userDetails" value="true">
-
+                                    <c:choose>
+                                        <c:when test="${not greaterThanOneAdmin and user.userType.name() == 'ADMINISTRATOR'}">
                                             <label>
                                                 <select class="custom-select" name="userType"
-                                                        onchange="this.form.submit()" required>
+                                                        onchange="this.form.submit()"
+                                                        required
+                                                        disabled>
                                                     <option ${user.userType.name()=="USER"?"selected":""} value="USER">
                                                         <fmt:message
                                                                 key="user.type.user"/>
@@ -128,46 +104,78 @@
                                                     </option>
                                                 </select>
                                             </label>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <label>
+                                                <form method="post" action="change_user_type" class="form-horizontal">
+                                                    <input type="hidden" name="command" value="change_user_type">
+                                                    <input type="hidden" name="userId" value="${user.userId}">
+                                                    <input type="hidden" name="userDetails" value="true">
 
-                                            <c:if test="${ok != null}">
-                                                <p style="color:green;">${ok}</p>
-                                            </c:if>
-                                        </form>
-                                    </label>
+                                                    <label>
+                                                        <select class="custom-select" name="userType"
+                                                                onchange="this.form.submit()" required>
+                                                            <option ${user.userType.name()=="USER"?"selected":""}
+                                                                    value="USER">
+                                                                <fmt:message
+                                                                        key="user.type.user"/>
+                                                            </option>
+                                                            <!-- value отправляется на сервер-->
+                                                            <option ${user.userType.name()=="ADMINISTRATOR"?"selected":""}
+                                                                    value="ADMINISTRATOR">
+                                                                <fmt:message
+                                                                        key="user.type.administrator"/>
+                                                            </option>
+                                                            <option ${user.userType.name()=="SUPERVISOR"?"selected":""}
+                                                                    value="SUPERVISOR">
+                                                                <fmt:message
+                                                                        key="user.type.supervisor"/>
+                                                            </option>
+                                                        </select>
+                                                    </label>
 
-                                </c:otherwise>
-                            </c:choose>
+                                                    <c:if test="${ok != null}">
+                                                        <p style="color:green;">${ok}</p>
+                                                    </c:if>
+                                                </form>
+                                            </label>
 
-                            <c:choose>
-                                <c:when test="${not greaterThanOneAdmin and user.userType.name() == 'ADMINISTRATOR'}">
+                                        </c:otherwise>
+                                    </c:choose>
 
-                                    <button type="submit" class="btn btn-danger center-block" disabled><fmt:message
-                                            key="user.delete"/></button>
-                                </c:when>
-                                <c:otherwise>
-                                    <label>
-                                        <form method="post" action="delete_user">
-                                            <input type="hidden" name="command" value="delete_user">
-                                            <input type="hidden" name="userId" value="${user.userId}">
+                                    <c:choose>
+                                        <c:when test="${not greaterThanOneAdmin and user.userType.name() == 'ADMINISTRATOR'}">
 
-                                            <button type="submit" class="btn btn-danger center-block"><fmt:message
-                                                    key="user.delete"/></button>
-                                        </form>
-                                    </label>
-                                </c:otherwise>
-                            </c:choose>
+                                            <button type="submit" class="btn btn-danger center-block" disabled>
+                                                <fmt:message
+                                                        key="user.delete"/></button>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <label>
+                                                <form method="post" action="delete_user">
+                                                    <input type="hidden" name="command" value="delete_user">
+                                                    <input type="hidden" name="userId" value="${user.userId}">
+
+                                                    <button type="submit" class="btn btn-danger center-block">
+                                                        <fmt:message
+                                                                key="user.delete"/></button>
+                                                </form>
+                                            </label>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                            </div>
+
+
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
     </div>
+    <jsp:include page="./common/footer.jsp"/>
+
 </div>
-
-<jsp:include page="./common/footer.jsp"/>
-
 
 
 </body>

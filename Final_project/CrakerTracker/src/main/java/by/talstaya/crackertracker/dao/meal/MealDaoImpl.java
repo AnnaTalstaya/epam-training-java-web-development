@@ -82,12 +82,12 @@ public class MealDaoImpl implements MealDao {
         Meal mealFromDb = findMealByUserIdMealDateMealTimeProductId(meal);
         if (mealFromDb != null) {
             update(new Meal.Builder()
-                    .setMealId(meal.getMealId())
-                    .setUser(meal.getUser())
-                    .setProduct(meal.getProduct())
-                    .setDate(meal.getDate())
-                    .setMealTime(meal.getMealTime())
-                    .setQuantity(meal.getQuantity() + 1)
+                    .setMealId(mealFromDb.getMealId())
+                    .setUser(mealFromDb.getUser())
+                    .setProduct(mealFromDb.getProduct())
+                    .setDate(mealFromDb.getDate())
+                    .setMealTime(mealFromDb.getMealTime())
+                    .setQuantity(meal.getQuantity() + mealFromDb.getQuantity())
                     .build());
         } else {
             try {

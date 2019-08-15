@@ -12,7 +12,6 @@ import by.talstaya.crackertracker.validator.ProductDataValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,10 +39,8 @@ public class ProductListCommand implements Command, Pagination {
     private static final String MAX_LIPIDS = "maxLipids";
     private static final String MAX_CARBOHYDRATES = "maxCarbohydrates";
 
-    private static final String RESPONSE = "response";
-    private static final String PAGE_PATH = "/product_list";
-
     private static final String ERROR = "error";
+    private static final String STATUS_CODE = "statusCode";
 
     private List<UserType> userTypeList;
 
@@ -73,7 +70,7 @@ public class ProductListCommand implements Command, Pagination {
 
         ProductService productService = new ProductServiceImpl();
 
-        List<Product> products = new ArrayList<>();
+        List<Product> products;
         if (request.getAttribute(SEARCH) != null) { //if we search products by header, SEARCH - found products
             products = (List<Product>) request.getAttribute(SEARCH);
             if (!products.isEmpty()) {
@@ -92,18 +89,6 @@ public class ProductListCommand implements Command, Pagination {
                     && request.getParameter(MAX_PROTEINS) != null
                     && request.getParameter(MAX_LIPIDS) != null
                     && request.getParameter(MAX_CARBOHYDRATES) != null) {
-
-                List<String> list = new ArrayList(){
-                    {
-                        add(NAME_OR_WORD_IN_NAME);
-                    }
-                };
-
-                for(int i = 0; i < list.size(); i++) {
-                    list.set(i, request.getParameter(list.get(i)));
-                }
-
-
 
                 String nameOrWordInName = request.getParameter(NAME_OR_WORD_IN_NAME);
                 String strMinCalories = request.getParameter(MIN_CALORIES);
@@ -166,18 +151,15 @@ public class ProductListCommand implements Command, Pagination {
                     request.setAttribute(MAX_LIPIDS, maxLipids);
                     request.setAttribute(MAX_CARBOHYDRATES, maxCarbohydrates);
                 } else {
-                    request.setAttribute(RESPONSE, true);
-                    //request.setAttribute(NAME_OR_WORD_IN_NAME, request.getParameter(NAME_OR_WORD_IN_NAME));
-                    //attributeSettingWithDataFromDb(request, productService);
-                    return request.getContextPath() + PAGE_PATH;
+                    request.setAttribute(ERROR, "Error data");
+                    request.setAttribute(STATUS_CODE, 404);
+                    return JspPath.ERROR.getUrl();
                 }
 
-            } else {   //if page is opened for the first time
-                products = productService.takeAllProducts();
-
-                if (!products.isEmpty()) {
-                    attributeSettingWithDataFromDb(request, productService);
-                }
+            } else {   //if request contains error params
+                request.setAttribute(ERROR, "Error data");
+                request.setAttribute(STATUS_CODE, 404);
+                return JspPath.ERROR.getUrl();
             }
         }
 

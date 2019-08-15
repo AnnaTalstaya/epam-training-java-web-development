@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  <%--jstl tag--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<fmt:setLocale value="${locale}" scope="session"/>
 <fmt:setBundle basename="text"/>
 
 <html>
@@ -47,69 +48,76 @@
 
 <jsp:include page="./common/header.jsp"/>
 
-<c:if test="${error != null}">
-    <div class="alert alert-danger block1" role="alert">
-            ${error}
-    </div>
-</c:if>
 
-<div class="sign-in-container">
-    <div class="d-flex justify-content-center h-100">
-        <div class="card">
-            <div class="card-header">
-                <h3><fmt:message key="header.sign_in"/></h3>
+<div id="page-container">
+    <div id="content-wrap">
+        <c:if test="${error != null}">
+            <div class="alert alert-danger block1" role="alert">
+                    ${error}
             </div>
-            <div class="card-body">
-                <form method="post" action="sign_in">
-                    <input type="hidden" name="command" value="sign_in">
+        </c:if>
 
-                    <!-- email or username-->
-                    <div class="input-group form-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+        <div class="sign-in-container">
+            <div class="d-flex justify-content-center h-100">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><fmt:message key="header.sign_in"/></h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="sign_in">
+                            <input type="hidden" name="command" value="sign_in">
+
+                            <!-- email or username-->
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="text" name="emailOrUsername" value="${emailOrUsername}"
+                                       class="form-control"
+                                       maxlength="50"
+                                       placeholder="<fmt:message key="header.sign_in.email_or_username"/>">
+
+                            </div>
+
+                            <!-- password-->
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                </div>
+                                <input type="password" name="password" class="form-control"
+                                       maxlength="16"
+                                       placeholder="<fmt:message key="header.sign_in.password"/>">
+                            </div>
+
+                            <span style="color:red;">${errorInputData}</span>
+
+
+                            <div class="form-group">
+                                <input type="submit" value="<fmt:message key="header.sign_in"/>"
+                                       style="width: 100% !important;"
+                                       class="btn float-right login_btn">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-center links">
+                            <fmt:message key="header.sign_in.reg_message"/>
+                            <form id="registrationFormId" method="post" action="registration">
+                                <input type="hidden" name="command" value="visit_registration">
+                                <a onclick="document.getElementById('registrationFormId').submit();"
+                                   class="sign-in-text">
+                                    <fmt:message key="header.sign_in.registration"/>
+                                </a>
+                            </form>
                         </div>
-                        <input type="text" name="emailOrUsername" value="${emailOrUsername}" class="form-control"
-                               maxlength="50"
-                               placeholder="<fmt:message key="header.sign_in.email_or_username"/>">
 
                     </div>
-
-                    <!-- password-->
-                    <div class="input-group form-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-key"></i></span>
-                        </div>
-                        <input type="password" name="password" class="form-control"
-                               maxlength="16"
-                               placeholder="<fmt:message key="header.sign_in.password"/>">
-                    </div>
-
-                    <span style="color:red;">${errorInputData}</span>
-
-
-                    <div class="form-group">
-                        <input type="submit" value="<fmt:message key="header.sign_in"/>" style="width: 100% !important;"
-                               class="btn float-right login_btn">
-                    </div>
-                </form>
-            </div>
-            <div class="card-footer">
-                <div class="d-flex justify-content-center links">
-                    <fmt:message key="header.sign_in.reg_message"/>
-                    <form id="registrationFormId" method="post" action="registration">
-                        <input type="hidden" name="command" value="visit_registration">
-                        <a onclick="document.getElementById('registrationFormId').submit();" class="sign-in-text">
-                            <fmt:message key="header.sign_in.registration"/>
-                        </a>
-                    </form>
                 </div>
-
             </div>
         </div>
     </div>
+    <jsp:include page="./common/footer.jsp"/>
 </div>
-
-<jsp:include page="./common/footer.jsp"/>
 
 
 

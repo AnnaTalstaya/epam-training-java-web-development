@@ -1,19 +1,43 @@
 
 html,body{
-    background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');
+    background-image: url('../images/home_bg.jpg');
     background-size: cover;
-    background-repeat: no-repeat;
-    height: 100%;
-    font-family: 'Numans', sans-serif;
+    background-position: center;
+    position: relative;
 }
 
-#container {
+.overlay {
+    position: absolute;
     min-height: 100%;
+    min-width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.67);
 }
 
-#main {
-    overflow: auto;
-    padding-bottom: 53px;
-    /*padding-bottom: 160px;*/
+.card{
+    height: 370px;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 400px;
+    background-color: rgba(0,0,0,0.65) !important;
+}
+
+.description {
+    left: 50%;
+    position: absolute;
+    top: 45%;
+    transform: translate(-50%, -55%);
+    text-align: center;
+}
+.description h1 {
+    color: #6ab446;
+    font-size: 2.6rem;
+}
+.description p {
+    color: #fff;
+    font-size: 1.5rem;
+    line-height: 1.5;
 }
 

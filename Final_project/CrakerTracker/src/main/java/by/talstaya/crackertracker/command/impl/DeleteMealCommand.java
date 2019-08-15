@@ -13,9 +13,15 @@ import java.util.List;
 
 public class DeleteMealCommand implements Command {
 
+    private final static String USER = "User";
+
     private static final String MEAL_ID = "mealId";
     private static final String TOTAL_PRODUCTS = "totalProducts";
     private static final String MEAL_DATE = "mealDate";
+
+    private static final String RESPONSE = "response";
+    private static final String DIET_PATH = "/diet";
+
 
     private List<UserType> userTypeList;
 
@@ -33,16 +39,15 @@ public class DeleteMealCommand implements Command {
 
         int mealId = Integer.parseInt(request.getParameter(MEAL_ID));
         int totalProducts = Integer.parseInt(request.getParameter(TOTAL_PRODUCTS));
-        String mealDate = request.getParameter(MEAL_DATE);
 
         MealService mealService = new MealServiceImpl();
         mealService.deleteMeal(mealId);
 
+        request.setAttribute(RESPONSE, true);
         if(totalProducts - 1 > 0){
-            request.setAttribute(MEAL_DATE, mealDate);
-            return new ShowDietCommand().execute(request, response);
+            return request.getHeader("Referer");
+        }else{
+            return request.getContextPath() + DIET_PATH;
         }
-
-        return new DietCommand().execute(request, response);
     }
 }

@@ -17,8 +17,10 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
       integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+
 <!--Navbar-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+<nav class="navbar navbar-expand-lg navbar-dark bg-success header">
 
     <!-- Navbar brand -->
     <a class="navbar-brand" href="${pageContext.servletContext.contextPath}">
@@ -36,8 +38,7 @@
     <div class="collapse navbar-collapse" id="basicExampleNav">
 
         <!--SearchCommand-->
-        <form class="form-inline" action="search">
-            <input type="hidden" name="command" value="search">
+        <form method="get" class="form-inline" action="search">
             <input name="nameOrWordInName" value="${nameOrWordInName}"
                    maxlength="100" pattern="^.{0,100}$"
                    class="form-control mr-sm-2" type="text" placeholder="<fmt:message key="header.search_text"/>">
@@ -49,8 +50,8 @@
 
             <!-- Products -->
             <li class="nav-item">
-                <form id="productsForm" method="post" action="product_list">
-                    <input type="hidden" name="command" value="product_list">
+                <form id="productsForm" method="post" action="visit_product_list">
+                    <input type="hidden" name="command" value="visit_product_list">
                     <a class="nav-link" onclick="document.getElementById('productsForm').submit();">
                         <fmt:message key="header.products"/>
                     </a>

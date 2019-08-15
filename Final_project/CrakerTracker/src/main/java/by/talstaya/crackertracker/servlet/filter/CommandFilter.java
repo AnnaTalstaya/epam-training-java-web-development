@@ -25,6 +25,7 @@ public class CommandFilter implements Filter {
         commands.put("/settings", "visit_settings");
         commands.put("/search", "search");
         commands.put("/product_list", "product_list");
+        commands.put("/visit_product_list", "visit_product_list");
         commands.put("/translate", "translate");
         commands.put("/show_supervisor", "show_supervisor");
         commands.put("/supervisor_list", "supervisor_list");

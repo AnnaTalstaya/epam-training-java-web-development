@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -115,12 +116,15 @@ public class SettingsCommand implements Command {
                     .setSurname(surname)
                     .setEmail(email)
                     .setUsername(username)
-                    .setDateOfBirth(dateOfBirth)
                     .setWeight(Double.parseDouble(weight))
                     .setHeight(Double.parseDouble(height));
 
             if (updatePass) {
                 userBuilder.setPassword(newPassword);
+            }
+
+            if(!dateOfBirth.isEmpty()) {
+                userBuilder.setDateOfBirth(LocalDate.parse(dateOfBirth));
             }
 
             user = userBuilder.build();

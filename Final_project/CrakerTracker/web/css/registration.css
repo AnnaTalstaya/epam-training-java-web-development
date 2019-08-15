@@ -1,7 +1,7 @@
-html, body {
+html, body{
+    background: url("../images/registration_bg.jpg") fixed;
     background-size: cover;
-    background: url("../images/registration-bg.jpg") fixed;
-    height: 100%;
+    position: relative;
 }
 
 *[role="form"] {
@@ -22,5 +22,80 @@ html, body {
     text-transform: uppercase;
     letter-spacing: 4px;
 }
+
+.card{
+    height: 370px;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 400px;
+    background-color: rgba(0,0,0,0.65) !important;
+}
+
+.sign-in-text{
+    font-size: 1rem !important;
+    font-weight: 400 !important;
+    color: #007bff !important;
+    margin-left: 4px !important;
+    padding: 0 !important;
+}
+
+.sign-in-container{
+    height: 100%;
+    align-content: center;
+    padding-left: 0; padding-right: 0;
+}
+
+.card-header h3{
+    color: white;
+}
+
+
+.login_btn{
+    color: black;
+    background-color: #FFC312;
+    width: 100px;
+}
+
+.login_btn:hover{
+    color: black;
+    background-color: white;
+}
+
+
+.social_icon span {
+    font-size: 60px;
+    margin-left: 10px;
+    color: #FFC312;
+}
+
+.social_icon span:hover {
+    color: white;
+    cursor: pointer;
+}
+
+
+.social_icon {
+    position: absolute;
+    right: 20px;
+    top: -45px;
+}
+
+input:focus {
+    outline: 0 0 0 0 !important;
+    box-shadow: 0 0 0 0 !important;
+
+}
+
+.remember {
+    color: white;
+}
+
+.remember input {
+    width: 20px;
+    height: 20px;
+    margin-left: 15px;
+    margin-right: 5px;
+}
+
 
 

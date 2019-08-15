@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ShowProductDetailsCommand implements Command {
 
@@ -19,8 +21,12 @@ public class ShowProductDetailsCommand implements Command {
 
     private static final String PRODUCT_ID = "productId";
     private static final String ERROR = "error";
+    private static final String STATUS_CODE = "statusCode";
     private static final String PRODUCT = "product";
     private static final String QUANTITY = "quantity";
+
+    private static final String STRING_REGEX_NUMBER = "^\\d+$";
+
 
     private List<UserType> userTypeList;
 
@@ -36,24 +42,34 @@ public class ShowProductDetailsCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 
-        int productId = Integer.parseInt(request.getParameter(PRODUCT_ID));
+        String page;
 
-        if(productId != 0){
+        Pattern pattern = Pattern.compile(STRING_REGEX_NUMBER);
+        Matcher matcher = pattern.matcher(request.getParameter(PRODUCT_ID));
+
+        if(matcher.matches()){
+            int productId = Integer.parseInt(request.getParameter(PRODUCT_ID));
+
             ProductService productService = new ProductServiceImpl();
             Product product = productService.findByProductId(productId);
 
             if(product == null){
                 request.setAttribute(ERROR, "Product with such id not found");
-                return JspPath.ERROR.getUrl();
+                request.setAttribute(STATUS_CODE, 404);
+                page = JspPath.ERROR.getUrl();
             } else{
                 request.setAttribute(PRODUCT, product);
                 request.setAttribute(QUANTITY, startQuantity);
 
+                page = JspPath.PRODUCT.getUrl();
             }
+
         } else {
-            request.setAttribute(ERROR, "Product not found");
-            return JspPath.ERROR.getUrl();
+            request.setAttribute(ERROR, "Error data");
+            request.setAttribute(STATUS_CODE, 404);
+            page = JspPath.ERROR.getUrl();
         }
-        return JspPath.PRODUCT.getUrl();
+
+        return page;
     }
 }

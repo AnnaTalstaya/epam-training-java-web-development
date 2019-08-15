@@ -9,10 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -121,7 +118,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(4, user.getEmail());
             preparedStatement.setString(5, user.getUsername());
             preparedStatement.setString(6, user.getPassword());
-            preparedStatement.setString(7, user.getDateOfBirth());
+            preparedStatement.setDate(7, Date.valueOf(user.getDateOfBirth()));
             preparedStatement.setDouble(8, user.getWeight());
             preparedStatement.setDouble(9, user.getHeight());
             preparedStatement.setDouble(10, user.getRating());
@@ -149,7 +146,7 @@ public class UserDaoImpl implements UserDao {
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                return new User.Builder()
+                User.Builder userBuilder = new User.Builder()
                         .setUserId(resultSet.getInt(1))
                         .setUserType(UserType.valueOf(resultSet.getString(2)))
                         .setFirstName(resultSet.getString(3))
@@ -157,12 +154,16 @@ public class UserDaoImpl implements UserDao {
                         .setEmail(resultSet.getString(5))
                         .setUsername(resultSet.getString(6))
                         .setPassword(resultSet.getString(7))
-                        .setDateOfBirth(resultSet.getString(8))
                         .setWeight(resultSet.getDouble(9))
                         .setHeight(resultSet.getDouble(10))
                         .setRating(resultSet.getDouble(11))
-                        .setSupervisorId(resultSet.getInt(12))
-                        .build();
+                        .setSupervisorId(resultSet.getInt(12));
+
+                if(resultSet.getDate(8) != null) {
+                    userBuilder.setDateOfBirth(resultSet.getDate(8).toLocalDate());
+                }
+
+                return userBuilder.build();
             }
 
             return null;
@@ -200,7 +201,8 @@ public class UserDaoImpl implements UserDao {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                userList.add(new User.Builder()
+
+                User.Builder userBuilder = new User.Builder()
                         .setUserId(resultSet.getInt(1))
                         .setUserType(UserType.valueOf(resultSet.getString(2)))
                         .setFirstName(resultSet.getString(3))
@@ -208,13 +210,16 @@ public class UserDaoImpl implements UserDao {
                         .setEmail(resultSet.getString(5))
                         .setUsername(resultSet.getString(6))
                         .setPassword(resultSet.getString(7))
-                        .setDateOfBirth(resultSet.getString(8))
                         .setWeight(resultSet.getDouble(9))
                         .setHeight(resultSet.getDouble(10))
                         .setRating(resultSet.getDouble(11))
-                        .setSupervisorId(resultSet.getInt(12))
-                        .build()
-                );
+                        .setSupervisorId(resultSet.getInt(12));
+
+                if(resultSet.getDate(8) != null) {
+                    userBuilder.setDateOfBirth(resultSet.getDate(8).toLocalDate());
+                }
+
+                userList.add(userBuilder.build());
             }
             return userList;
 
@@ -241,7 +246,8 @@ public class UserDaoImpl implements UserDao {
             List<User> supervisorList = new ArrayList<>();
 
             while (resultSet.next()) {
-                supervisorList.add(new User.Builder()
+
+                User.Builder userBuilder = new User.Builder()
                         .setUserId(resultSet.getInt(1))
                         .setUserType(UserType.valueOf(resultSet.getString(2)))
                         .setFirstName(resultSet.getString(3))
@@ -249,13 +255,16 @@ public class UserDaoImpl implements UserDao {
                         .setEmail(resultSet.getString(5))
                         .setUsername(resultSet.getString(6))
                         .setPassword(resultSet.getString(7))
-                        .setDateOfBirth(resultSet.getString(8))
                         .setWeight(resultSet.getDouble(9))
                         .setHeight(resultSet.getDouble(10))
                         .setRating(resultSet.getDouble(11))
-                        .setSupervisorId(resultSet.getInt(12))
-                        .build()
-                );
+                        .setSupervisorId(resultSet.getInt(12));
+
+                if(resultSet.getDate(8) != null) {
+                    userBuilder.setDateOfBirth(resultSet.getDate(8).toLocalDate());
+                }
+
+                supervisorList.add(userBuilder.build());
             }
             return supervisorList;
 
@@ -325,7 +334,7 @@ public class UserDaoImpl implements UserDao {
                 resultSet = preparedStatement.executeQuery();
 
                 while (resultSet.next()) {
-                    users.add(new User.Builder()
+                    User.Builder userBuilder = new User.Builder()
                             .setUserId(resultSet.getInt(1))
                             .setUserType(UserType.valueOf(resultSet.getString(2)))
                             .setFirstName(resultSet.getString(3))
@@ -333,13 +342,15 @@ public class UserDaoImpl implements UserDao {
                             .setEmail(resultSet.getString(5))
                             .setUsername(resultSet.getString(6))
                             .setPassword(resultSet.getString(7))
-                            .setDateOfBirth(resultSet.getString(8))
                             .setWeight(resultSet.getDouble(9))
                             .setHeight(resultSet.getDouble(10))
                             .setRating(resultSet.getDouble(11))
-                            .setSupervisorId(resultSet.getInt(12))
-                            .build()
-                    );
+                            .setSupervisorId(resultSet.getInt(12));
+
+                    if(resultSet.getDate(8) != null) {
+                        userBuilder.setDateOfBirth(resultSet.getDate(8).toLocalDate());
+                    }
+                    users.add(userBuilder.build());
                 }
 
                 return users;
@@ -518,7 +529,8 @@ public class UserDaoImpl implements UserDao {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                usersOfSupervisor.add(new User.Builder()
+
+                User.Builder userBuilder = new User.Builder()
                         .setUserId(resultSet.getInt(1))
                         .setUserType(UserType.valueOf(resultSet.getString(2)))
                         .setFirstName(resultSet.getString(3))
@@ -526,13 +538,16 @@ public class UserDaoImpl implements UserDao {
                         .setEmail(resultSet.getString(5))
                         .setUsername(resultSet.getString(6))
                         .setPassword(resultSet.getString(7))
-                        .setDateOfBirth(resultSet.getString(8))
                         .setWeight(resultSet.getDouble(9))
                         .setHeight(resultSet.getDouble(10))
                         .setRating(resultSet.getDouble(11))
-                        .setSupervisorId(resultSet.getInt(12))
-                        .build()
-                );
+                        .setSupervisorId(resultSet.getInt(12));
+
+                if(resultSet.getDate(8) != null) {
+                    userBuilder.setDateOfBirth(resultSet.getDate(8).toLocalDate());
+                }
+
+                usersOfSupervisor.add(userBuilder.build());
             }
 
             return usersOfSupervisor;
@@ -563,7 +578,8 @@ public class UserDaoImpl implements UserDao {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                usersOfSupervisor.add(new User.Builder()
+
+                User.Builder userBuilder = new User.Builder()
                         .setUserId(resultSet.getInt(1))
                         .setUserType(UserType.valueOf(resultSet.getString(2)))
                         .setFirstName(resultSet.getString(3))
@@ -571,13 +587,16 @@ public class UserDaoImpl implements UserDao {
                         .setEmail(resultSet.getString(5))
                         .setUsername(resultSet.getString(6))
                         .setPassword(resultSet.getString(7))
-                        .setDateOfBirth(resultSet.getString(8))
                         .setWeight(resultSet.getDouble(9))
                         .setHeight(resultSet.getDouble(10))
                         .setRating(resultSet.getDouble(11))
-                        .setSupervisorId(resultSet.getInt(12))
-                        .build()
-                );
+                        .setSupervisorId(resultSet.getInt(12));
+
+                if(resultSet.getDate(8) != null) {
+                    userBuilder.setDateOfBirth(resultSet.getDate(8).toLocalDate());
+                }
+
+                usersOfSupervisor.add(userBuilder.build());
             }
 
             return usersOfSupervisor;

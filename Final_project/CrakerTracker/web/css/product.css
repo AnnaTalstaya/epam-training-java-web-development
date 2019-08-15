@@ -7,6 +7,13 @@ body {
 img {
     max-width: 100%; }
 
+.input-group-prepend span{
+    width: 100px;
+    background-color: #FFC312;
+    color: black;
+    border:0 !important;
+}
+
 .preview {
     display: -webkit-box;
     display: -webkit-flex;
@@ -161,5 +168,6 @@ img {
         opacity: 1;
         -webkit-transform: scale(1);
         transform: scale(1); } }
+
 
 /*# sourceMappingURL=style.css.map */

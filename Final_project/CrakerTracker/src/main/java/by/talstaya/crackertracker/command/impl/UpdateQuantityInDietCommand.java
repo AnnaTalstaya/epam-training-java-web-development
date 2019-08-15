@@ -1,6 +1,7 @@
 package by.talstaya.crackertracker.command.impl;
 
 import by.talstaya.crackertracker.command.Command;
+import by.talstaya.crackertracker.command.JspPath;
 import by.talstaya.crackertracker.entity.UserType;
 import by.talstaya.crackertracker.exception.ServiceException;
 import by.talstaya.crackertracker.service.MealService;
@@ -10,13 +11,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class UpdateQuantityInDietCommand implements Command {
 
     private static final String QUANTITY = "quantity";
     private static final String MEAL_ID = "mealId";
-    private static final String MEAL_DATE = "mealDate";
-    private static final String OK = "ok";
+    private static final String RESPONSE = "response";
+    private static final String STRING_REGEX_NUMBER = "^\\d+$";
+
+    private static final String ERROR = "error";
+    private static final String STATUS_CODE = "statusCode";
 
     private List<UserType> userTypeList;
 
@@ -32,15 +38,24 @@ public class UpdateQuantityInDietCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 
-        int quantity = Integer.parseInt(request.getParameter(QUANTITY));
-        int mealId = Integer.parseInt(request.getParameter(MEAL_ID));
-        String mealDate = request.getParameter(MEAL_DATE);
+        Pattern pattern = Pattern.compile(STRING_REGEX_NUMBER);
+        Matcher matcher = pattern.matcher(request.getParameter(QUANTITY));
 
-        MealService mealService = new MealServiceImpl();
-        mealService.updateQuantity(mealId, quantity);
+        if(matcher.matches()){
+            int quantity = Integer.parseInt(request.getParameter(QUANTITY));
+            int mealId = Integer.parseInt(request.getParameter(MEAL_ID));
 
-        request.setAttribute(MEAL_DATE, mealDate);
-        request.setAttribute(OK, true);
-        return new ShowDietCommand().execute(request, response);
+            MealService mealService = new MealServiceImpl();
+            mealService.updateQuantity(mealId, quantity);
+
+            request.setAttribute(RESPONSE, true);
+            return request.getHeader("Referer");
+        } else {
+            request.setAttribute(ERROR, "Error data");
+            request.setAttribute(STATUS_CODE, 404);
+            return JspPath.ERROR.getUrl();
+        }
+
+
     }
 }

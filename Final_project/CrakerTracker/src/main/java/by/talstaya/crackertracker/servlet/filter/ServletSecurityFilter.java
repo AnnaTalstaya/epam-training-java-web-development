@@ -23,7 +23,7 @@ public class ServletSecurityFilter implements Filter {
     private static final String ERROR = "error";
 
     private static final String SIGN_IN_PATH = "/sign_in";
-    private static final String PRODUCT_LIST_PATH = "/product_list";
+    private static final String PRODUCT_LIST_PATH = "/visit_product_list";
 
     public void init(FilterConfig config) throws ServletException {
 

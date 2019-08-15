@@ -22,10 +22,17 @@
         </c:otherwise>
     </c:choose>
 
-    <c:if test="${pageContext.errorData.statusCode != null}">
-        <h2>Status code: ${pageContext.errorData.statusCode}</h2>
-        <br/>
-    </c:if>
+    <c:choose>
+        <c:when test="${statusCode != null}">
+            <h2>Status code: ${statusCode}</h2>
+            <br/>
+        </c:when>
+        <c:otherwise>
+            <h2>Status code: ${pageContext.errorData.statusCode}</h2>
+            <br/>
+        </c:otherwise>
+    </c:choose>
+
 
     <h2>Return to the main page: <a href="${pageContext.servletContext.contextPath}">Main page</a></h2>
 </div>

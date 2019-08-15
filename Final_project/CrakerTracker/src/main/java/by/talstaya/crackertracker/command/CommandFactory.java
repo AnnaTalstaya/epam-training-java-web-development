@@ -36,6 +36,7 @@ public class CommandFactory {
         commandMap.put(CommandType.VISIT_SETTINGS, new VisitSettingsCommand());
         commandMap.put(CommandType.SETTINGS, new SettingsCommand());
         commandMap.put(CommandType.ADD_MEAL, new AddMealCommand());
+        commandMap.put(CommandType.VISIT_PRODUCT_LIST, new VisitProductListCommand());
         commandMap.put(CommandType.PRODUCT_LIST, new ProductListCommand());
         commandMap.put(CommandType.SEARCH, new SearchCommand());
         commandMap.put(CommandType.SHOW_PRODUCT_DETAILS, new ShowProductDetailsCommand());
