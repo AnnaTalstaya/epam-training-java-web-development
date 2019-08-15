@@ -42,7 +42,7 @@
 
 </head>
 <body>
-<jsp:include page="./common/header.jsp"/>
+<jsp:include page="header.jsp"/>
 
 <div id="page-container">
     <div id="content-wrap">
@@ -62,7 +62,7 @@
 
         </div>
     </div>
-    <jsp:include page="./common/footer.jsp"/>
+    <jsp:include page="footer.jsp"/>
 
 </div>
 

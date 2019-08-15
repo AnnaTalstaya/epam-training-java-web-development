@@ -17,8 +17,8 @@ import java.util.List;
 public class SearchCommand implements Command {
 
     private static final String NAME_OR_WORD_IN_NAME = "nameOrWordInName";
-    private static final String ERROR = "error";
     private static final String SEARCH = "search";
+    private static final String ERROR = "error";
     private static final String STATUS_CODE = "statusCode";
 
     private List<UserType> userTypeList;

@@ -25,7 +25,7 @@ import java.io.IOException;
         "/user_list_of_supervisor", "/show_requests_for_supervisor", "/supervisor_accepts_request", "/supervisor_rejects_request",
         "/delete_user_of_supervisor",
         "/diet", "/show_diet", "/update_quantity_in_diet", "/delete_meal", "/delete_comment", "/comment",
-        "/add_meal", "/show_product_details",})
+        "/add_meal", "/show_product_details", "/user_diet_for_supervisor", "/show_user_diet_for_supervisor"})
 
 public class FrontController extends HttpServlet {
 

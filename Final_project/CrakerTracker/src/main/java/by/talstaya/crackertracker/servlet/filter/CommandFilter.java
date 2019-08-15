@@ -38,6 +38,8 @@ public class CommandFilter implements Filter {
         commands.put("/diet", "diet");
         commands.put("/show_diet", "show_diet");
         commands.put("/show_product_details", "show_product_details");
+        commands.put("/user_diet_for_supervisor", "user_diet_for_supervisor");
+        commands.put("/show_user_diet_for_supervisor", "show_user_diet_for_supervisor");
     }
 
     public void init(FilterConfig config) throws ServletException {

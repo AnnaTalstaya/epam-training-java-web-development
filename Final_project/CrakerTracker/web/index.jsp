@@ -1,3 +1,3 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<jsp:forward page="/jsp/home.jsp"/>
+<jsp:forward page="/jsp/common/home.jsp"/>

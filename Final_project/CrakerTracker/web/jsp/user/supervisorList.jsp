@@ -44,7 +44,7 @@
 
 <body>
 
-<jsp:include page="./common/header.jsp"/>
+<jsp:include page="../common/header.jsp"/>
 
 <div id="page-container">
     <div id="content-wrap">
@@ -182,7 +182,7 @@
                         commandValue="supervisor_list"/>
 
     </div>
-    <jsp:include page="./common/footer.jsp"/>
+    <jsp:include page="../common/footer.jsp"/>
 
 </div>
 

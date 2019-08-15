@@ -9,8 +9,7 @@
 
 <html>
 <head>
-    <title><fmt:message key="supervisor.requests"/></title>
-
+    <title><fmt:message key="users.users"/></title>
 
     <!-- SCRIPTS -->
     <!-- JQuery -->
@@ -48,7 +47,7 @@
 </head>
 <body>
 
-<jsp:include page="./common/header.jsp"/>
+<jsp:include page="../common/header.jsp"/>
 
 <div id="page-container">
     <div id="content-wrap">
@@ -56,10 +55,9 @@
 
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-
                 <form id="usersFormId" method="post" action="user_list_of_supervisor">
                     <input type="hidden" name="command" value="user_list_of_supervisor">
-                    <a class="nav-item nav-link" data-toggle="tab" role="tab" aria-selected="false"
+                    <a class="nav-item nav-link active" data-toggle="tab" role="tab" aria-selected="true"
                        onclick="document.getElementById('usersFormId').submit();">
                         <fmt:message key="supervisor.my_users"/>
                     </a>
@@ -67,7 +65,7 @@
 
                 <form id="requestsFormId" method="post" action="show_requests_for_supervisor">
                     <input type="hidden" name="command" value="show_requests_for_supervisor">
-                    <a class="nav-item nav-link active" data-toggle="tab" role="tab" aria-selected="true"
+                    <a class="nav-item nav-link" data-toggle="tab" role="tab" aria-selected="false"
                        onclick="document.getElementById('requestsFormId').submit();">
                         <fmt:message key="supervisor.requests"/>
                     </a>
@@ -76,48 +74,49 @@
             </div>
         </nav>
 
-
         <table class="table table-striped">
             <thead>
             <tr>
                 <th scope="col"><fmt:message key="registration.first_name"/></th>
                 <th scope="col"><fmt:message key="registration.surname"/></th>
                 <th scope="col"><fmt:message key="registration.username"/></th>
-                <th scope="col"></th> <!-- Accept-->
-                <th scope="col"></th> <!-- Reject-->
+                <th scope="col"><fmt:message key="registration.date_of_birth"/></th>
+                <th scope="col"><fmt:message key="registration.weight"/></th>
+                <th scope="col"><fmt:message key="registration.height"/></th>
+                <th scope="col"></th> <!--Show diet-->
+                <th scope="col"></th> <!-- Remove-->
             </tr>
             </thead>
             <tbody>
 
-            <c:forEach begin="${startIndexOfRequestList}" end="${startIndexOfRequestList + requestsPerPage - 1}"
-                       var="user"
-                       items="${requestListForSupervisor}">
+            <c:forEach begin="${startIndexOfUserList}" end="${startIndexOfUserList + usersPerPage - 1}" var="user"
+                       items="${usersOfSupervisor}">
                 <tr>
                     <td>${user.firstName}</td>
                     <td>${user.surname}</td>
                     <td>${user.username}</td>
+                    <td>${user.dateOfBirth}</td>
+                    <td>${user.weight}</td>
+                    <td>${user.height}</td>
 
-                    <!--Accept -->
+                    <!--Show diet-->
                     <td>
-                        <form method="post" action="supervisor_accepts_request">
-                            <input type="hidden" name="command" value="supervisor_accepts_request">
-                            <input type="hidden" name="userId" value="${user.userId}">
+                        <form method="get" action="user_diet_for_supervisor">
+                            <input type="hidden" name="userIdForSupervisor" value="${user.userId}">
 
-                            <button type="submit" class="btn btn-success center-block">
-                                <fmt:message key="supervisor.accept"/>
-                            </button>
+                            <button type="submit" class="btn btn-primary center-block"><fmt:message
+                                    key="header.profile.diet"/></button>
                         </form>
                     </td>
 
-                    <!--Reject-->
+                    <!--Delete -->
                     <td>
-                        <form method="post" action="supervisor_rejects_request">
-                            <input type="hidden" name="command" value="supervisor_rejects_request">
+                        <form method="post" action="delete_user_of_supervisor">
+                            <input type="hidden" name="command" value="delete_user_of_supervisor">
                             <input type="hidden" name="userId" value="${user.userId}">
 
-                            <button type="submit" class="btn btn-danger center-block">
-                                <fmt:message key="supervisor.reject"/>
-                            </button>
+                            <button type="submit" class="btn btn-danger center-block"><fmt:message
+                                    key="user.delete"/></button>
                         </form>
                     </td>
                 </tr>
@@ -126,18 +125,16 @@
             </tbody>
         </table>
 
-        <ctg:pagination startIndexOfObjectList="${startIndexOfRequestList}"
-                        objectsPerPage="${requestsPerPage}"
+        <ctg:pagination startIndexOfObjectList="${startIndexOfUserList}"
+                        objectsPerPage="${usersPerPage}"
                         indexOfPage="${indexOfPage}"
-                        numberOfObjects="${requestListForSupervisor.size()}"
+                        numberOfObjects="${usersOfSupervisor.size()}"
                         locale="${locale}"
-                        commandValue="show_requests_for_supervisor"/>
-
+                        commandValue="user_list_of_supervisor"/>
     </div>
-    <jsp:include page="./common/footer.jsp"/>
+    <jsp:include page="../common/footer.jsp"/>
 
 </div>
-
 
 </body>
 </html>

@@ -9,7 +9,7 @@
 
 <html>
 <head>
-    <title><fmt:message key="profile.profile"/></title>
+    <title><fmt:message key="header.profile.diet"/></title>
 
     <!-- SCRIPTS -->
     <!-- JQuery -->
@@ -42,7 +42,7 @@
 </head>
 <body>
 
-<jsp:include page="./common/header.jsp"/>
+<jsp:include page="../common/header.jsp"/>
 
 <div id="page-container">
     <div id="content-wrap">
@@ -54,10 +54,8 @@
             <div class="form-group">
                 <label for="exampleFormControlSelect1"><fmt:message key="profile.date"/> </label>
 
-                <form method="get" action="show_diet">
-                    <c:if test="${dietOfUserForSupervisor}">
-                        <input type="hidden" name="userIdForSupervisor" value="${userIdForSupervisor}">
-                    </c:if>
+                <form method="get" action="show_user_diet_for_supervisor">
+                    <input type="hidden" name="userIdForSupervisor" value="${userIdForSupervisor}">
 
                     <select name="mealDate" onchange="this.form.submit()" class="selectpicker"
                             id="exampleFormControlSelect1">
@@ -113,59 +111,13 @@
                             <td>${breakfastMeal.product.proteins}</td>
                             <td>${breakfastMeal.product.lipids}</td>
                             <td>${breakfastMeal.product.carbohydrates}</td>
-                            <c:choose>
-                                <c:when test="${not dietOfUserForSupervisor}">
-                                    <td>
-                                        <form method="post" action="update_quantity_in_diet">
-                                            <input type="hidden" name="command" value="update_quantity_in_diet">
-                                            <input type="hidden" name="mealId" value="${breakfastMeal.mealId}">
-
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" style="width: 100px;"><fmt:message
-                                                            key="product.quantity"/></span>
-                                                </div>
-                                                <input type="number" min="1" max="999"
-                                                       name="quantity" value="${breakfastMeal.quantity}"
-                                                       class="form-control" aria-label="Sizing example input"
-                                                       aria-describedby="inputGroup-sizing-default">
-                                                <span style="color:red;">${errorQuantity}</span>
-                                            </div>
-
-                                            <!--Update button -->
-
-                                            <div class="form-group">
-                                                <div class="col-xs-12">
-                                                    <br>
-                                                    <button type="submit" class="btn btn-success"><fmt:message
-                                                            key="profile.button.update"/></button>
-                                                </div>
-                                            </div>
-
-
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <form method="post" action="delete_meal">
-                                            <input type="hidden" name="command" value="delete_meal">
-                                            <input type="hidden" name="mealId" value="${breakfastMeal.mealId}">
-                                            <input type="hidden" name="totalProducts" value="${totalProducts}">
-                                            <button type="submit" class="btn btn-danger">
-                                                <fmt:message key="profile.button.delete"/>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </c:when>
-                                <c:otherwise>
-                                    <td>
-                                        <input type="number" min="1" max="999"
-                                               name="quantity" value="${breakfastMeal.quantity}"
-                                               class="form-control" aria-label="Sizing example input"
-                                               aria-describedby="inputGroup-sizing-default"
-                                               disabled>
-                                    </td>
-                                </c:otherwise>
-                            </c:choose>
+                            <td>
+                                <input type="number" min="1" max="999"
+                                       name="quantity" value="${breakfastMeal.quantity}"
+                                       class="form-control" aria-label="Sizing example input"
+                                       aria-describedby="inputGroup-sizing-default"
+                                       disabled>
+                            </td>
 
                         </tr>
                     </c:forEach>
@@ -187,57 +139,13 @@
                             <td>${lunchMeal.product.proteins}</td>
                             <td>${lunchMeal.product.lipids}</td>
                             <td>${lunchMeal.product.carbohydrates}</td>
-                            <c:choose>
-                                <c:when test="${not dietOfUserForSupervisor}">
-                                    <td>
-                                        <form method="post" action="update_quantity_in_diet">
-                                            <input type="hidden" name="command" value="update_quantity_in_diet">
-                                            <input type="hidden" name="mealId" value="${lunchMeal.mealId}">
-
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default"
-                                      style="width: 100px;"><fmt:message
-                                        key="product.quantity"/></span>
-                                                </div>
-                                                <input type="number" min="1" max="999"
-                                                       name="quantity" value="${lunchMeal.quantity}"
-                                                       class="form-control" aria-label="Sizing example input"
-                                                       aria-describedby="inputGroup-sizing-default"
-                                                >
-                                                <span style="color:red;">${errorQuantity}</span>
-                                            </div>
-
-                                            <!--Update button -->
-                                            <div class="form-group">
-                                                <div class="col-xs-12">
-                                                    <br>
-                                                    <button type="submit" class="btn btn-success"><fmt:message
-                                                            key="profile.button.update"/></button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <form method="post" action="delete_meal">
-                                            <input type="hidden" name="command" value="delete_meal">
-                                            <input type="hidden" name="mealId" value="${lunchMeal.mealId}">
-                                            <input type="hidden" name="totalProducts" value="${totalProducts}">
-                                            <button type="submit" class="btn btn-danger"><fmt:message
-                                                    key="profile.button.delete"/></button>
-                                        </form>
-                                    </td>
-                                </c:when>
-                                <c:otherwise>
-                                    <td>
-                                        <input type="number" min="1" max="999"
-                                               name="quantity" value="${lunchMeal.quantity}"
-                                               class="form-control" aria-label="Sizing example input"
-                                               aria-describedby="inputGroup-sizing-default"
-                                               disabled>
-                                    </td>
-                                </c:otherwise>
-                            </c:choose>
+                            <td>
+                                <input type="number" min="1" max="999"
+                                       name="quantity" value="${lunchMeal.quantity}"
+                                       class="form-control" aria-label="Sizing example input"
+                                       aria-describedby="inputGroup-sizing-default"
+                                       disabled>
+                            </td>
                         </tr>
                     </c:forEach>
                 </c:if>
@@ -259,57 +167,13 @@
                             <td>${dinnerMeal.product.proteins}</td>
                             <td>${dinnerMeal.product.lipids}</td>
                             <td>${dinnerMeal.product.carbohydrates}</td>
-                            <c:choose>
-                                <c:when test="${not dietOfUserForSupervisor}">
-                                    <td>
-                                        <form method="post" action="update_quantity_in_diet">
-                                            <input type="hidden" name="command" value="update_quantity_in_diet">
-                                            <input type="hidden" name="mealId" value="${dinnerMeal.mealId}">
-
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" style="width: 100px;"><fmt:message
-                                                            key="product.quantity"/></span>
-                                                </div>
-                                                <input type="number"
-                                                       name="quantity" value="${dinnerMeal.quantity}"
-                                                       min="1" max="999"
-                                                       class="form-control" aria-label="Sizing example input"
-                                                       aria-describedby="inputGroup-sizing-default">
-                                                <span style="color:red;">${errorQuantity}</span>
-                                            </div>
-
-                                            <!--Update button -->
-                                            <div class="form-group">
-                                                <div class="col-xs-12">
-                                                    <br>
-                                                    <button type="submit" class="btn btn-success"><fmt:message
-                                                            key="profile.button.update"/></button>
-
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <form method="post" action="delete_meal">
-                                            <input type="hidden" name="command" value="delete_meal">
-                                            <input type="hidden" name="mealId" value="${dinnerMeal.mealId}">
-                                            <input type="hidden" name="totalProducts" value="${totalProducts}">
-                                            <button type="submit" class="btn btn-danger"><fmt:message
-                                                    key="profile.button.delete"/></button>
-                                        </form>
-                                    </td>
-                                </c:when>
-                                <c:otherwise>
-                                    <td>
-                                        <input type="number" min="1" max="999"
-                                               name="quantity" value="${dinnerMeal.quantity}"
-                                               class="form-control" aria-label="Sizing example input"
-                                               aria-describedby="inputGroup-sizing-default"
-                                               disabled>
-                                    </td>
-                                </c:otherwise>
-                            </c:choose>
+                            <td>
+                                <input type="number" min="1" max="999"
+                                       name="quantity" value="${dinnerMeal.quantity}"
+                                       class="form-control" aria-label="Sizing example input"
+                                       aria-describedby="inputGroup-sizing-default"
+                                       disabled>
+                            </td>
                         </tr>
                     </c:forEach>
                 </c:if>
@@ -436,10 +300,9 @@
             </div>
         </c:if>
     </div>
-    <jsp:include page="./common/footer.jsp"/>
+    <jsp:include page="../common/footer.jsp"/>
 
 </div>
-
 
 </body>
 </html>

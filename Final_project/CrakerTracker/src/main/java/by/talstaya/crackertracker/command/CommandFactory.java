@@ -61,6 +61,8 @@ public class CommandFactory {
         commandMap.put(CommandType.RATE_SUPERVISOR, new RateSupervisorCommand());
         commandMap.put(CommandType.COMMENT, new CommentCommand());
         commandMap.put(CommandType.DELETE_COMMENT, new DeleteCommentCommand());
+        commandMap.put(CommandType.USER_DIET_FOR_SUPERVISOR, new UserDietForSupervisorCommand());
+        commandMap.put(CommandType.SHOW_USER_DIET_FOR_SUPERVISOR, new ShowUserDietForSupervisorCommand());
     }
 
     public static CommandFactory getInstance() {

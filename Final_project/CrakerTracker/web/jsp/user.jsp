@@ -43,15 +43,7 @@
             <div class="card">
                 <div class="container-fliud">
                     <div class="wrapper row">
-                        <%--<div class="preview col-md-4">--%>
 
-                        <%--<div class="preview-pic tab-content">--%>
-                        <%--<div class="tab-pane active" id="pic-1"><img--%>
-                        <%--src="${pageContext.request.contextPath}/images/products/${product.imageURL}" width="200"--%>
-                        <%--height="250"/></div>--%>
-                        <%--</div>--%>
-
-                        <%--</div>--%>
                         <div class="details col-md-6" style="padding-left: 80px;">
                             <h3 class="product-title">${user.firstName} ${user.surname}</h3>
 

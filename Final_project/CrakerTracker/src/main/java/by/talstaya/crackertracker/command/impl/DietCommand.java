@@ -23,12 +23,6 @@ public class DietCommand implements Command {
     private final static String SELECTED_DATE = "selected_date";
     private final static String NO_MEAL = "noMeal";
 
-    private final static String DIET_OF_USER_FOR_SUPERVISOR = "dietOfUserForSupervisor";
-    private final static String USER_ID = "userId";
-    private final static String USER_ID_FOR_SUPERVISOR = "userIdForSupervisor";
-
-    private static final String PAGE_PATH_PARAM = "pagePath";
-
     private List<UserType> userTypeList;
 
     public DietCommand() {
@@ -43,21 +37,8 @@ public class DietCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 
-        int userId;
-        if ((request.getParameter(DIET_OF_USER_FOR_SUPERVISOR) != null
-                && Boolean.parseBoolean(request.getParameter(DIET_OF_USER_FOR_SUPERVISOR)))) {
-            userId = Integer.parseInt(request.getParameter(USER_ID));
-            request.setAttribute(USER_ID_FOR_SUPERVISOR, userId);
-            request.setAttribute(DIET_OF_USER_FOR_SUPERVISOR, true);
-        } else if (request.getAttribute(DIET_OF_USER_FOR_SUPERVISOR) != null
-                && (boolean) request.getAttribute(DIET_OF_USER_FOR_SUPERVISOR)) {
-            userId = (int) request.getAttribute(USER_ID);
-            request.setAttribute(USER_ID_FOR_SUPERVISOR, userId);
-            request.setAttribute(DIET_OF_USER_FOR_SUPERVISOR, true);
-        } else {
-            User user = (User) request.getSession().getAttribute(USER);
-            userId = user.getUserId();
-        }
+        User user = (User) request.getSession().getAttribute(USER);
+        int userId = user.getUserId();
 
         MealService mealService = new MealServiceImpl();
         Set<String> dates = mealService.findDatesByUserId(userId);

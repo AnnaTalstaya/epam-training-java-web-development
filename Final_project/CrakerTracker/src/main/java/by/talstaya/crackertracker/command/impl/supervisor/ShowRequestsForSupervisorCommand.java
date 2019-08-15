@@ -54,6 +54,6 @@ public class ShowRequestsForSupervisorCommand implements Command, Pagination {
 
         request.setAttribute(REQUEST_LIST_FOR_SUPERVISOR, requestsForSupervisor);
 
-        return JspPath.REQUESTS_FOR_SUPERVISORS.getUrl();
+        return JspPath.REQUESTS_FOR_SUPERVISOR.getUrl();
     }
 }
