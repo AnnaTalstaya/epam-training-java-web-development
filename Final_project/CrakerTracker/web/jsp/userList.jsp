@@ -47,13 +47,10 @@
 </head>
 
 <body>
-<jsp:include page="./common/header.jsp"/>
+<jsp:include page="common/header.jsp"/>
 
 <div id="page-container">
     <div id="content-wrap">
-        <c:if test="${ok != null}">
-            <p style="color:green;">${ok}</p>
-        </c:if>
 
         <table class="table table-striped">
             <thead>
@@ -124,10 +121,8 @@
                     </td>
 
                     <td>
-                        <form method="post" action=show_user_details">
-                            <input type="hidden" name="command" value="show_user_details">
+                        <form method="get" action="show_user_details">
                             <input type="hidden" name="userId" value="${user.userId}">
-                            <input type="hidden" name="greaterThanOneAdmin" value="${greaterThanOneAdmin}">
 
                             <button type="submit" class="btn btn-primary center-block"><fmt:message
                                     key="product.details"/></button>
@@ -166,7 +161,7 @@
                         commandValue="user_list"/>
 
     </div>
-    <jsp:include page="./common/footer.jsp"/>
+    <jsp:include page="common/footer.jsp"/>
 
 </div>
 
