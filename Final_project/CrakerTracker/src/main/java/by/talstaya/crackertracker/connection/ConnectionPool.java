@@ -107,10 +107,10 @@ public class ConnectionPool {
             connection = availableConnections.take();
             usedConnections.put(connection);
 
-            LOGGER.info("================= Take =================");
-            LOGGER.info("Available connections = " + availableConnections.size());
-            LOGGER.info("Used connections = " + usedConnections.size());
-            LOGGER.info("MAX_POOL_SIZE = " + MAX_POOL_SIZE);
+            LOGGER.debug("================= Take =================");
+            LOGGER.debug("Available connections = " + availableConnections.size());
+            LOGGER.debug("Used connections = " + usedConnections.size());
+            LOGGER.debug("MAX_POOL_SIZE = " + MAX_POOL_SIZE);
 
         } catch (InterruptedException e) {
             LOGGER.error(e.getMessage(), e);
@@ -130,10 +130,10 @@ public class ConnectionPool {
                 usedConnections.remove(proxyConnection);
                 availableConnections.offer(proxyConnection);
 
-                LOGGER.info("================= Return =================");
-                LOGGER.info("Available connections = " + availableConnections.size());
-                LOGGER.info("Used connections = " + usedConnections.size());
-                LOGGER.info("MAX_POOL_SIZE = " + MAX_POOL_SIZE);
+                LOGGER.debug("================= Return =================");
+                LOGGER.debug("Available connections = " + availableConnections.size());
+                LOGGER.debug("Used connections = " + usedConnections.size());
+                LOGGER.debug("MAX_POOL_SIZE = " + MAX_POOL_SIZE);
             } else {
                 LOGGER.error("Connection does not belong to this pool");
             }

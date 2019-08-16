@@ -170,8 +170,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUserOfSupervisor(int supervisorId, int userId) throws ServiceException {
         try {
-            userDao.putRequestForSupervisor(userId, supervisorId);
-            userDao.updateSupervisorId(0, userId);
+            userDao.deleteUserOfSupervisor(supervisorId, userId);  //here transaction is used
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -207,8 +206,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void supervisorAcceptsRequestFromUser(int supervisorId, int userId) throws ServiceException {
         try {
-            userDao.updateSupervisorId(supervisorId, userId);
-            userDao.putRequestForSupervisor(userId, 0);
+            userDao.supervisorAcceptsRequestFromUser(supervisorId, userId); //here transaction is used
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

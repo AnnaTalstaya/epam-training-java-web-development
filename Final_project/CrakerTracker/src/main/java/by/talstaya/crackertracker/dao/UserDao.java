@@ -32,6 +32,10 @@ public interface UserDao extends BasicDao<User> {
 
     boolean containsUsername(String username) throws DaoException;
 
+    void deleteUserOfSupervisor(int supervisorId, int userId) throws DaoException;
+
+    void supervisorAcceptsRequestFromUser(int supervisorId, int userId) throws DaoException;
+
     void putRequestForSupervisor(int userId, int supervisorId) throws DaoException;
 
     void updateSupervisorId(int supervisorId, int userId) throws DaoException;

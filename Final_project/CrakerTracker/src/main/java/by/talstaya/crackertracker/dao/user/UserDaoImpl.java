@@ -50,9 +50,9 @@ public class UserDaoImpl implements UserDao {
     private static final String SQL_FIND_USER_BY_ID = "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
             " FROM users WHERE id=?";
 
-    private static final String SQL_FIND_BY_USERNAME = "SELECT password FROM users WHERE username = ?";
+    private static final String SQL_FIND_BY_USERNAME = "SELECT password FROM users WHERE BINARY username = ?";
 
-    private static final String SQL_FIND_BY_EMAIl = "SELECT password FROM users WHERE email = ?";
+    private static final String SQL_FIND_BY_EMAIl = "SELECT password FROM users WHERE BINARY email = ?";
 
     private static final String SQL_UPDATE = "UPDATE users" +
             " SET userType=?, first_name=?, surname=?, email=?, username=?, password=?, date_of_birth=?, weight=?, height=?" +
@@ -99,9 +99,9 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(4, user.getEmail());
             preparedStatement.setString(5, user.getUsername());
             preparedStatement.setString(6, user.getPassword());
-            if(user.getDateOfBirth()!=null){
+            if (user.getDateOfBirth() != null) {
                 preparedStatement.setDate(7, Date.valueOf(user.getDateOfBirth()));
-            }else{
+            } else {
                 preparedStatement.setNull(7, NULL);
             }
             preparedStatement.setDouble(8, user.getWeight());
@@ -150,9 +150,9 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(4, user.getEmail());
             preparedStatement.setString(5, user.getUsername());
             preparedStatement.setString(6, user.getPassword());
-            if(user.getDateOfBirth()!=null){
+            if (user.getDateOfBirth() != null) {
                 preparedStatement.setDate(7, Date.valueOf(user.getDateOfBirth()));
-            }else{
+            } else {
                 preparedStatement.setNull(7, NULL);
             }
             preparedStatement.setDouble(8, user.getWeight());
@@ -196,7 +196,7 @@ public class UserDaoImpl implements UserDao {
                         .setRating(resultSet.getDouble(11))
                         .setSupervisorId(resultSet.getInt(12));
 
-                if(resultSet.getDate(8) != null) {
+                if (resultSet.getDate(8) != null) {
                     userBuilder.setDateOfBirth(resultSet.getDate(8).toLocalDate());
                 }
 
@@ -252,7 +252,7 @@ public class UserDaoImpl implements UserDao {
                         .setRating(resultSet.getDouble(11))
                         .setSupervisorId(resultSet.getInt(12));
 
-                if(resultSet.getDate(8) != null) {
+                if (resultSet.getDate(8) != null) {
                     userBuilder.setDateOfBirth(resultSet.getDate(8).toLocalDate());
                 }
 
@@ -297,7 +297,7 @@ public class UserDaoImpl implements UserDao {
                         .setRating(resultSet.getDouble(11))
                         .setSupervisorId(resultSet.getInt(12));
 
-                if(resultSet.getDate(8) != null) {
+                if (resultSet.getDate(8) != null) {
                     userBuilder.setDateOfBirth(resultSet.getDate(8).toLocalDate());
                 }
 
@@ -384,7 +384,7 @@ public class UserDaoImpl implements UserDao {
                             .setRating(resultSet.getDouble(11))
                             .setSupervisorId(resultSet.getInt(12));
 
-                    if(resultSet.getDate(8) != null) {
+                    if (resultSet.getDate(8) != null) {
                         userBuilder.setDateOfBirth(resultSet.getDate(8).toLocalDate());
                     }
                     users.add(userBuilder.build());
@@ -418,7 +418,7 @@ public class UserDaoImpl implements UserDao {
             String password = null;
 
             if (resultSet.next()) {
-                password = resultSet.getString("password");
+                password = resultSet.getString(1);
             }
 
             return password;
@@ -480,6 +480,73 @@ public class UserDaoImpl implements UserDao {
             closePreparedStatement(preparedStatement);
         }
     }
+
+    @Override
+    public void deleteUserOfSupervisor(int supervisorId, int userId) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            try {
+                connection = ConnectionPool.getInstance().takeConnection();
+                connection.setAutoCommit(false);
+
+                preparedStatement = connection.prepareStatement(SQL_UPDATE_REQUEST_FOR_SUPERVISOR);
+                preparedStatement.setInt(1, supervisorId);
+                preparedStatement.setInt(2, userId);
+                preparedStatement.executeUpdate();
+
+                preparedStatement = connection.prepareStatement(SQL_UPDATE_SUPERVISOR_ID);
+                preparedStatement.setInt(1, 0);
+                preparedStatement.setInt(2, userId);
+                preparedStatement.executeUpdate();
+
+                connection.commit();
+
+            } catch (SQLException e) {
+                connection.rollback();
+            }
+        }catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            ConnectionPool.getInstance().returnConnection(connection);
+            closePreparedStatement(preparedStatement);
+        }
+    }
+
+    @Override
+    public void supervisorAcceptsRequestFromUser(int supervisorId, int userId) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            try {
+                connection = ConnectionPool.getInstance().takeConnection();
+                connection.setAutoCommit(false);
+
+                preparedStatement = connection.prepareStatement(SQL_UPDATE_SUPERVISOR_ID);
+                preparedStatement.setInt(1, supervisorId);
+                preparedStatement.setInt(2, userId);
+                preparedStatement.executeUpdate();
+
+                preparedStatement = connection.prepareStatement(SQL_UPDATE_REQUEST_FOR_SUPERVISOR);
+                preparedStatement.setInt(1, 0);
+                preparedStatement.setInt(2, userId);
+                preparedStatement.executeUpdate();
+
+                connection.commit();
+
+            } catch (SQLException e) {
+                connection.rollback();
+            }
+        }catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            ConnectionPool.getInstance().returnConnection(connection);
+            closePreparedStatement(preparedStatement);
+        }
+    }
+
 
     @Override
     public boolean containsSupervisor(int userId) throws DaoException {
@@ -644,7 +711,7 @@ public class UserDaoImpl implements UserDao {
                         .setRating(resultSet.getDouble(11))
                         .setSupervisorId(resultSet.getInt(12));
 
-                if(resultSet.getDate(8) != null) {
+                if (resultSet.getDate(8) != null) {
                     userBuilder.setDateOfBirth(resultSet.getDate(8).toLocalDate());
                 }
 
@@ -693,7 +760,7 @@ public class UserDaoImpl implements UserDao {
                         .setRating(resultSet.getDouble(11))
                         .setSupervisorId(resultSet.getInt(12));
 
-                if(resultSet.getDate(8) != null) {
+                if (resultSet.getDate(8) != null) {
                     userBuilder.setDateOfBirth(resultSet.getDate(8).toLocalDate());
                 }
 
@@ -726,9 +793,9 @@ public class UserDaoImpl implements UserDao {
 
             resultSet = preparedStatement.executeQuery();
 
-            if(resultSet.next()) {
+            if (resultSet.next()) {
                 return resultSet.getInt(1);
-            }else{
+            } else {
                 throw new DaoException("There is no such user id");
             }
 
@@ -754,9 +821,9 @@ public class UserDaoImpl implements UserDao {
 
             resultSet = preparedStatement.executeQuery();
 
-            if(resultSet.next()) {
+            if (resultSet.next()) {
                 return resultSet.getInt(1);
-            }else{
+            } else {
                 throw new DaoException("There is no such user id");
             }
 

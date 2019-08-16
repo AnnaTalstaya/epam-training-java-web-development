@@ -78,12 +78,15 @@ public class FrontController extends HttpServlet {
             page = JspPath.ERROR.getUrl();
         }
 
-        if (request.getAttribute(RESPONSE) != null && (boolean) request.getAttribute(RESPONSE)) {
-            response.sendRedirect(page);
-        } else {
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
-            dispatcher.forward(request, response);
+        if (page != null) {
+            if (request.getAttribute(RESPONSE) != null && (boolean) request.getAttribute(RESPONSE)) {
+                response.sendRedirect(page);
+            } else {
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+                dispatcher.forward(request, response);
+            }
         }
+
     }
 
     @Override
