@@ -14,6 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This class is used for to visit page with all products with default params
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class VisitProductListCommand implements Command, Pagination {
 
     private List<UserType> userTypeList;

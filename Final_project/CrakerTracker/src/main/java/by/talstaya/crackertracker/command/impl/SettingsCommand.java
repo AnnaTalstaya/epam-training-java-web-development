@@ -19,6 +19,12 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * This class is used to change user parameters
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class SettingsCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger("name");
 

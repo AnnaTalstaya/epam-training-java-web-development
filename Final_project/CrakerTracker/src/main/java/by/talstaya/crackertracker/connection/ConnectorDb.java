@@ -3,6 +3,12 @@ package by.talstaya.crackertracker.connection;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
+/**
+ * This class is used to obtains parameters needed for connection pool
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 class ConnectorDb {
 
     private static ResourceBundle resourceBundle = ResourceBundle.getBundle("database");

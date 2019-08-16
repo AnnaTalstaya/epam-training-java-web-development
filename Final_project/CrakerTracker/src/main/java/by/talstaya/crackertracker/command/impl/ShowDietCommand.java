@@ -18,6 +18,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * This class is used to show user diet of some date to user
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class ShowDietCommand implements Command {
 
     private static final String USER = "User";

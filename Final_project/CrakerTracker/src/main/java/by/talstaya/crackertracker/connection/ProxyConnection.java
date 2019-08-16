@@ -5,18 +5,15 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
-/*
-шаблон proxy способен придавать объекту особое поведение
-имплементация нужна, чтобы proxyConnection везде мог использоваться как Connection и передаваться как connection
-
-1. нельзя давать закрывать коннекшены во вне, чтобы не оказалось так, что в пуле закрытый коннекшен
-2. нельзя, чтобы кто-то создавал эти proxy коннекшены вовне и попытался его запихнуть в наш пул
-3. в дао будем отдавать не connection, а proxyConnection
-
+/**
+ * ProxyConnection is used to give the object special behavior
+ *
+ * @author Anna Talstaya
+ * @version 1.0
  */
-public class ProxyConnection implements Connection { //proxy - полномочие
+public class ProxyConnection implements Connection {
 
-    private Connection connection; //это поле определяет свойста и поведение
+    private Connection connection;
 
     ProxyConnection(Connection connection) {
         this.connection = connection;
@@ -62,11 +59,17 @@ public class ProxyConnection implements Connection { //proxy - полномоч�
         connection.rollback();
     }
 
+    /**
+     * This method returns connection to the connection pool
+     */
     @Override
-    public void close() throws SQLException { //закрытие коннекшена.
-        ConnectionPool.getInstance().returnConnection(this); //возвращение коннекшена в пул соединений
+    public void close() throws SQLException {
+        ConnectionPool.getInstance().returnConnection(this);
     }
 
+    /**
+     * This method closes the connection
+     */
     void realClose() throws SQLException {
         connection.close();
     }

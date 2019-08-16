@@ -18,6 +18,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * This class is used to delete user
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class DeleteUserCommand implements Command {
 
     private static final String USER = "User";

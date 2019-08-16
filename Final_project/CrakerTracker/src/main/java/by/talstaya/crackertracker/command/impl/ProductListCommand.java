@@ -15,6 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This class is used to show all products
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class ProductListCommand implements Command, Pagination {
 
     private static final String SEARCH_ERROR = "searchError";

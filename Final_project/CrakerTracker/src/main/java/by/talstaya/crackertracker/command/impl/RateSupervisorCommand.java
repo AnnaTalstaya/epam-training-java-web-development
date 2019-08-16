@@ -14,6 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This class is used to rate the supervisor by user
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class RateSupervisorCommand implements Command {
 
     private static final String USER = "User";

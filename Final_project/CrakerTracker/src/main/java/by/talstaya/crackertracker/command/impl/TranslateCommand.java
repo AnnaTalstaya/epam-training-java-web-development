@@ -11,6 +11,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * This class is used for translation
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class TranslateCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger("name");

@@ -12,6 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * This class is used to delete user of some supervisor
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class DeleteUserOfSupervisorCommand implements Command {
 
     private static final String USER = "User";

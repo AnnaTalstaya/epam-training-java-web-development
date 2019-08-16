@@ -18,6 +18,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * This class is used to show user diet of some date to supervisor of this user
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class ShowUserDietForSupervisorCommand implements Command {
 
     private static final String USER_ID_FOR_SUPERVISOR = "userIdForSupervisor";

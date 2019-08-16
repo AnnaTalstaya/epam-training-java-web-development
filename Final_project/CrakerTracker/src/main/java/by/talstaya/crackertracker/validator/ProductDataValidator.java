@@ -3,6 +3,12 @@ package by.talstaya.crackertracker.validator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * ProductDataValidator is used to validate search data of products
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class ProductDataValidator {
 
     private static final String STRING_REGEX_SEARCH_LINE = "^.{0,100}$";

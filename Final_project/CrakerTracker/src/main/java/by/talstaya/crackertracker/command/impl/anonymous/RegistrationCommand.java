@@ -20,6 +20,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * This class is used for user registration
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class RegistrationCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger("name");

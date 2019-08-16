@@ -201,9 +201,9 @@ public class UserDaoImpl implements UserDao {
                 }
 
                 return userBuilder.build();
+            } else {
+                throw new DaoException("No user with such id");
             }
-
-            return null;
 
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -633,7 +633,7 @@ public class UserDaoImpl implements UserDao {
             if (resultSet.next()) {
                 return UserType.valueOf(resultSet.getString(1));
             } else {
-                return null;
+                throw new DaoException("No user with such id");
             }
 
         } catch (SQLException e) {

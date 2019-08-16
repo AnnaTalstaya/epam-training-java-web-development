@@ -14,6 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * This class is used to show all users of some supervisor
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class UserListOfSupervisorCommand implements Command, Pagination {
 
     private static final int NUMBER_USERS_PER_PAGE = 8;

@@ -15,6 +15,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * This class is used to show user details to administrator
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class ShowUserDetailsCommand implements Command {
 
     private static final String USER_ID = "userId";

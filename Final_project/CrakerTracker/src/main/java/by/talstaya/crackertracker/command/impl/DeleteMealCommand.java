@@ -15,6 +15,12 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This class is used to delete meal from user diet
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class DeleteMealCommand implements Command {
 
     private final static String USER = "User";

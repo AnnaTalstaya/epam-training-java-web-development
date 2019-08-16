@@ -11,10 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * This class is used to change type of user
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class ChangeUserTypeCommand implements Command {
 
     private static final String USER_ID = "userId";
-    private static final String USER_DETAILS = "userDetails";
     private static final String USER_TYPE = "userType";
     private static final String RESPONSE = "response";
 

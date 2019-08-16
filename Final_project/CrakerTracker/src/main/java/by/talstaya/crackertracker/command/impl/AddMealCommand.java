@@ -19,6 +19,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * This class is used to add meal to user diet
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class AddMealCommand implements Command {
 
     private static final String USER = "User";

@@ -12,6 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This class is used to delete request send to supervisor by user
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class DeleteRequestForSupervisorCommand implements Command {
 
     private static final String USER = "User";

@@ -14,6 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This class is used to search product
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class SearchCommand implements Command {
 
     private static final String NAME_OR_WORD_IN_NAME = "nameOrWordInName";

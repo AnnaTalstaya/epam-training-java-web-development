@@ -14,6 +14,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * This class is used to show dates of meals of some user
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class DietCommand implements Command {
 
     private final static String USER = "User";

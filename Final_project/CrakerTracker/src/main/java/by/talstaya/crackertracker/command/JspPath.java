@@ -1,5 +1,11 @@
 package by.talstaya.crackertracker.command;
 
+/**
+ * This enum contains different paths to jsp
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public enum JspPath {
     INDEX("/index.jsp"),
     REGISTRATION("/jsp/registration.jsp"),

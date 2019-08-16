@@ -11,6 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This class is used to delete comment
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class DeleteCommentCommand implements Command {
 
     private static final String COMMENT_ID = "commentId";

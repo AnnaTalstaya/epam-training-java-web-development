@@ -1,5 +1,11 @@
 package by.talstaya.crackertracker.command;
 
+/**
+ * This enum contains all possible command than can come from a request
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public enum CommandType {
     VISIT_SIGN_IN,
     SIGN_IN,

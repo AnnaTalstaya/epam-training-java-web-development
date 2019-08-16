@@ -17,6 +17,12 @@ import java.util.EnumMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * This class is used to correlate the command that came from the request with the corresponding class
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class CommandFactory {
 
     private static final Logger LOGGER = LogManager.getLogger("name");

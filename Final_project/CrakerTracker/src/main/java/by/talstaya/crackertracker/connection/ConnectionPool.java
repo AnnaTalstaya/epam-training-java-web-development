@@ -14,6 +14,12 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * This class is used to store, give and receive back connections
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class ConnectionPool {
 
     private static final Logger LOGGER = LogManager.getLogger("name");
@@ -63,6 +69,9 @@ public class ConnectionPool {
         startCheckingTimer();
     }
 
+    /**
+     * This method checks every period if connections are lost
+     */
     private void startCheckingTimer() {
 
         TimerTask check = new TimerTask() {
@@ -98,6 +107,10 @@ public class ConnectionPool {
         return instance;
     }
 
+    /**
+     * This method extract connection from availableConnections and put it into usedConnections
+     * @return extracted connection
+     */
     public Connection takeConnection() {
 
         ProxyConnection connection = null;
@@ -121,6 +134,10 @@ public class ConnectionPool {
         return connection;
     }
 
+    /**
+     * This method removes connection from usedConnections and put it into availableConnections
+     * @param connection that should be returned to availableConnections
+     */
     public void returnConnection(Connection connection) {
         try {
             if (connection instanceof ProxyConnection) {
@@ -148,6 +165,9 @@ public class ConnectionPool {
         }
     }
 
+    /**
+     * This method close all connection from pool and deregister driver
+     */
     public void closePool() throws PoolConnectionException {
         try {
             lock.lock();

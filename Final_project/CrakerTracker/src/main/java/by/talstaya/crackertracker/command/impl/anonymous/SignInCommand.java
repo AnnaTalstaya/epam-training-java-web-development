@@ -15,6 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * This class is used for to sign in
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class SignInCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger("name");

@@ -10,6 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This class is used for to visit page of settings with default params
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class VisitSettingsCommand implements Command {
 
     private List<UserType> userTypeList;

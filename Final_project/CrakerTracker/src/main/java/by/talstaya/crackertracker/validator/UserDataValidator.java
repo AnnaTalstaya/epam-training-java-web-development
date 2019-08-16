@@ -5,6 +5,12 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * ProductDataValidator is used to validate user parameters
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class UserDataValidator {
 
     private Map<String, String> errorMessages = new HashMap<>();

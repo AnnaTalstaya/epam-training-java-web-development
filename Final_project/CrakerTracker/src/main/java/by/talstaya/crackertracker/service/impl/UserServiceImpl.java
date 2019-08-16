@@ -76,11 +76,7 @@ public class UserServiceImpl implements UserService {
     public User findSupervisorOfUser(int userId) throws ServiceException {
         try {
             int supervisorId = userDao.findSupervisorId(userId);
-            if (supervisorId != 0) {
-                return userDao.findById(supervisorId);
-            } else {
-                return null;
-            }
+            return userDao.findById(supervisorId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -233,9 +229,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserType takeUserType(int userId) throws ServiceException {
         try {
-            if (userDao.takeUserType(userId) == null) {
-                throw new ServiceException("No user with such id");
-            }
             return userDao.takeUserType(userId);
         } catch (DaoException e) {
             throw new ServiceException(e);

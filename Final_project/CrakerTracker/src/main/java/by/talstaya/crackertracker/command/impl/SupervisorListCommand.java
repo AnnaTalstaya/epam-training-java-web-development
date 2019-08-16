@@ -14,6 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This class is used to show al  supervisors to user
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class SupervisorListCommand implements Command, Pagination {
 
     private static final int NUMBER_SUPERVISORS_PER_PAGE = 8;

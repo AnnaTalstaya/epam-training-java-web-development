@@ -12,6 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * This class is used to accept request of user by supervisor
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class SupervisorAcceptsRequestCommand implements Command {
 
     private static final String USER = "User";

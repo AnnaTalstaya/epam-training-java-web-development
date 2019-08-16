@@ -7,6 +7,12 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * PaginationTag is used to implement pagination
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class PaginationTag extends TagSupport {
 
     private int startIndexOfObjectList;

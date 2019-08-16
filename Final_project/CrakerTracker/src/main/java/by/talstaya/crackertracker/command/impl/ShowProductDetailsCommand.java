@@ -15,6 +15,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * This class is used to show product details
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class ShowProductDetailsCommand implements Command {
 
     private static final int startQuantity = 1;
