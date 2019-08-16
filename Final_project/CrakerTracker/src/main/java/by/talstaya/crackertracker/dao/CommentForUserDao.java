@@ -8,4 +8,8 @@ import java.util.List;
 public interface CommentForUserDao extends BasicDao<CommentForUser> {
 
     List<CommentForUser> findComments(int userId, String mealDate) throws DaoException;
+
+    void deleteCommentsForUser(int userId) throws DaoException;
+
+    void deleteCommentsByCommentator(int commentatorId) throws DaoException;
 }

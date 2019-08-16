@@ -151,7 +151,7 @@ public class ProductListCommand implements Command, Pagination {
                     request.setAttribute(MAX_LIPIDS, maxLipids);
                     request.setAttribute(MAX_CARBOHYDRATES, maxCarbohydrates);
                 } else {
-                    request.setAttribute(ERROR, "Error data");
+                    request.setAttribute(ERROR, "Error request");
                     request.setAttribute(STATUS_CODE, 404);
                     return JspPath.ERROR.getUrl();
                 }

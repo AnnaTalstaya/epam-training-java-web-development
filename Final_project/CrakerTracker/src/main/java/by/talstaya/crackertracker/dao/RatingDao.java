@@ -13,4 +13,6 @@ public interface RatingDao {
     double takeAverageRating(int supervisorId) throws DaoException;
 
     double takeRatingByUser(int userId, int supervisorId) throws DaoException;
+
+    void deleteSupervisor(int supervisorId) throws DaoException;
 }

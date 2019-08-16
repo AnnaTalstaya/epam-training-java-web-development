@@ -25,6 +25,8 @@ public class RatingDaoImpl implements RatingDao {
 
     private static final String SQL_TAKE_RATING_BY_USER = "SELECT rating FROM ratings WHERE user_id=? AND supervisor_id=?";
 
+    private static final String SQL_DELETE_SUPERVISOR = "DELETE FROM ratings WHERE supervisor_id=?";
+
     @Override
     public boolean containsUserAndSupervisor(int userId, int supervisorId) throws DaoException {
         PreparedStatement preparedStatement = null;
@@ -154,6 +156,24 @@ public class RatingDaoImpl implements RatingDao {
         }
 
 
+    }
+
+    @Override
+    public void deleteSupervisor(int supervisorId) throws DaoException {
+        PreparedStatement preparedStatement = null;
+        Connection connection = ConnectionPool.getInstance().takeConnection();
+
+        try {
+            preparedStatement = connection.prepareStatement(SQL_DELETE_SUPERVISOR);
+            preparedStatement.setInt(1, supervisorId);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            ConnectionPool.getInstance().returnConnection(connection);
+            closePreparedStatement(preparedStatement);
+        }
     }
 
 

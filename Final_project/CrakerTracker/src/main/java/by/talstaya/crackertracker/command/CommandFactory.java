@@ -3,6 +3,7 @@ package by.talstaya.crackertracker.command;
 import by.talstaya.crackertracker.command.impl.*;
 import by.talstaya.crackertracker.command.impl.administrator.ChangeUserTypeCommand;
 import by.talstaya.crackertracker.command.impl.administrator.DeleteUserCommand;
+import by.talstaya.crackertracker.command.impl.administrator.ShowUserDetailsCommand;
 import by.talstaya.crackertracker.command.impl.administrator.UserListCommand;
 import by.talstaya.crackertracker.command.impl.anonymous.RegistrationCommand;
 import by.talstaya.crackertracker.command.impl.anonymous.SignInCommand;

@@ -43,4 +43,22 @@ public class CommentForUserServiceImpl implements CommentForUserService {
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public void deleteCommentsForUser(int userId) throws ServiceException {
+        try {
+            commentForUserDao.deleteCommentsForUser(userId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void deleteCommentsByCommentator(int commentatorId) throws ServiceException {
+        try {
+            commentForUserDao.deleteCommentsByCommentator(commentatorId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 }

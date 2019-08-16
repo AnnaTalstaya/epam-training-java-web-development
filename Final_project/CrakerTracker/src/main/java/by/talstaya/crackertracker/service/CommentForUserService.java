@@ -13,4 +13,8 @@ public interface CommentForUserService {
 
     void deleteComment(int commentId) throws ServiceException;
 
+    void deleteCommentsForUser(int userId) throws ServiceException;
+
+    void deleteCommentsByCommentator(int commentatorId) throws ServiceException;
+
 }

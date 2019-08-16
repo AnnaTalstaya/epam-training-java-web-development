@@ -98,4 +98,13 @@ public class MealServiceImpl implements MealService {
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public void deleteMealByUserId(int userId) throws ServiceException {
+        try {
+            mealDao.deleteMealByUserId(userId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 }

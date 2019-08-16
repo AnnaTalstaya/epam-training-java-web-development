@@ -45,5 +45,14 @@ public class RatingServiceImpl implements RatingService {
         }
     }
 
+    @Override
+    public void deleteSupervisor(int supervisorId) throws ServiceException {
+        try {
+            ratingDao.deleteSupervisor(supervisorId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
 
 }

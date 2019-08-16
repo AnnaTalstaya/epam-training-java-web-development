@@ -27,6 +27,10 @@ public class CommentForUserDaoImpl implements CommentForUserDao {
 
     private static final String SQL_DELETE_COMMENT = "DELETE FROM comments_for_users WHERE id=?";
 
+    private static final String SQL_DELETE_COMMENTS_FOR_USER = "DELETE FROM comments_for_users WHERE user_id=?";
+
+    private static final String SQL_DELETE_COMMENTS_BY_COMMENTATOR = "DELETE FROM comments_for_users WHERE commentator_id=?";
+
     @Override
     public List<CommentForUser> findComments(int userId, String mealDate) throws DaoException {
         PreparedStatement preparedStatement = null;
@@ -61,6 +65,42 @@ public class CommentForUserDaoImpl implements CommentForUserDao {
         } finally {
             ConnectionPool.getInstance().returnConnection(connection);
             closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+        }
+    }
+
+    @Override
+    public void deleteCommentsForUser(int userId) throws DaoException {
+        PreparedStatement preparedStatement = null;
+        Connection connection = ConnectionPool.getInstance().takeConnection();
+
+        try {
+            preparedStatement = connection.prepareStatement(SQL_DELETE_COMMENTS_FOR_USER);
+            preparedStatement.setInt(1, userId);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            ConnectionPool.getInstance().returnConnection(connection);
+            closePreparedStatement(preparedStatement);
+        }
+    }
+
+    @Override
+    public void deleteCommentsByCommentator(int commentatorId) throws DaoException {
+        PreparedStatement preparedStatement = null;
+        Connection connection = ConnectionPool.getInstance().takeConnection();
+
+        try {
+            preparedStatement = connection.prepareStatement(SQL_DELETE_COMMENTS_BY_COMMENTATOR);
+            preparedStatement.setInt(1, commentatorId);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
         }
     }

@@ -28,6 +28,7 @@ public class MealDaoImpl implements MealDao {
     private static final String SQL_UPDATE_MEAL = "UPDATE meals SET user_id=?, product_id=?, date=?, meal_time_id=?, quantity=? WHERE id=?";
     private static final String SQL_UPDATE_QUANTITY = "UPDATE meals SET quantity=? WHERE id=?";
 
+    private static final String SQL_DELETE_MEAL_BY_USER_ID = "DELETE FROM meals WHERE user_id=?";
 
     private static final String SQL_FIND_DATE_BY_USER_ID = "SELECT date FROM meals WHERE user_id = ?";
     private static final String SQL_FIND_MEAL_BY_USER_ID_AND_MEAL_DATE_AND_MEAL_TIME =
@@ -307,6 +308,24 @@ public class MealDaoImpl implements MealDao {
     @Override
     public int totalCarbohydratesByUserIdAndMealDate(int userId, String mealDate) throws DaoException {
         return totalValueByUserIdAndMealDate(userId, mealDate, SQL_COUNT_TOTAL_CARBOHYDRATES_BY_USER_ID_AND_MEAL_DATE);
+    }
+
+    @Override
+    public void deleteMealByUserId(int userId) throws DaoException {
+        PreparedStatement preparedStatement = null;
+        Connection connection = ConnectionPool.getInstance().takeConnection();
+
+        try {
+            preparedStatement = connection.prepareStatement(SQL_DELETE_MEAL_BY_USER_ID);
+            preparedStatement.setInt(1, userId);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            ConnectionPool.getInstance().returnConnection(connection);
+            closePreparedStatement(preparedStatement);
+        }
     }
 
     private Product findProductById(int productId) throws ServiceException {

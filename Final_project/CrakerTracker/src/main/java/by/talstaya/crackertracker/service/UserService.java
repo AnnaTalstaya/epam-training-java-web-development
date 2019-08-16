@@ -1,6 +1,7 @@
 package by.talstaya.crackertracker.service;
 
 import by.talstaya.crackertracker.entity.User;
+import by.talstaya.crackertracker.entity.UserType;
 import by.talstaya.crackertracker.exception.ServiceException;
 
 import java.util.List;
@@ -52,5 +53,11 @@ public interface UserService {
     void supervisorRejectsRequestFromUser(int supervisorId, int userId) throws ServiceException;
 
     void updateRating(int supervisorId, double averageRating) throws ServiceException;
+
+    UserType takeUserType(int userId) throws ServiceException;
+
+    void deleteAllRequestsForSupervisor(int supervisorId) throws ServiceException;
+
+    void deleteAllSupervisorIdBySupervisor(int supervisorId) throws ServiceException;
 
 }

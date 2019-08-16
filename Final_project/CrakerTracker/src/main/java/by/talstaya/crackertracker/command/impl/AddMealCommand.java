@@ -28,7 +28,7 @@ public class AddMealCommand implements Command {
     private static final String QUANTITY = "quantity";
     private static final String ERROR = "error";
     private static final String STATUS_CODE = "statusCode";
-    private static final String STRING_REGEX_NUMBER = "^[1-9]\\d{0,2}$";
+    private static final String REGEX_QUANTITY = "^[1-9]\\d{0,2}$";
     private static final String RESPONSE = "response";
 
     private List<UserType> userTypeList;
@@ -50,7 +50,7 @@ public class AddMealCommand implements Command {
         String mealDate = request.getParameter(MEAL_DATE);
         String stringMealTime = request.getParameter(MEAL_TIME);
 
-        Pattern pattern = Pattern.compile(STRING_REGEX_NUMBER);
+        Pattern pattern = Pattern.compile(REGEX_QUANTITY);
         Matcher matcher = pattern.matcher(request.getParameter(QUANTITY));
 
         if(matcher.matches()){

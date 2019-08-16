@@ -19,7 +19,7 @@ public class UpdateQuantityInDietCommand implements Command {
     private static final String QUANTITY = "quantity";
     private static final String MEAL_ID = "mealId";
     private static final String RESPONSE = "response";
-    private static final String STRING_REGEX_NUMBER = "^\\d+$";
+    private static final String REGEX_QUANTITY = "^[1-9]\\d{0,2}$";
 
     private static final String ERROR = "error";
     private static final String STATUS_CODE = "statusCode";
@@ -38,7 +38,7 @@ public class UpdateQuantityInDietCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 
-        Pattern pattern = Pattern.compile(STRING_REGEX_NUMBER);
+        Pattern pattern = Pattern.compile(REGEX_QUANTITY);
         Matcher matcher = pattern.matcher(request.getParameter(QUANTITY));
 
         if(matcher.matches()){
@@ -51,7 +51,7 @@ public class UpdateQuantityInDietCommand implements Command {
             request.setAttribute(RESPONSE, true);
             return request.getHeader("Referer");
         } else {
-            request.setAttribute(ERROR, "Error data");
+            request.setAttribute(ERROR, "Error request");
             request.setAttribute(STATUS_CODE, 404);
             return JspPath.ERROR.getUrl();
         }

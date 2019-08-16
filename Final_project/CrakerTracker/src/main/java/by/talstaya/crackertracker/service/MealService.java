@@ -26,4 +26,5 @@ public interface MealService {
 
     int totalCarbohydratesByUserIdAndMealDate(int userId, String mealDate) throws ServiceException;
 
+    void deleteMealByUserId(int userId) throws ServiceException;
 }

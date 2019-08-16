@@ -28,6 +28,8 @@ public class UserDaoImpl implements UserDao {
             "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
                     " FROM users";
 
+    private static final String SQL_TAKE_USER_TYPE = "SELECT userType FROM users WHERE id=?";
+
     private static final String SQL_FIND_ALL_SUPERVISORS =
             "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
                     " FROM users" +
@@ -68,6 +70,10 @@ public class UserDaoImpl implements UserDao {
     private static final String SQL_SELECT_SUPERVISOR_OF_USER = "SELECT supervisor_id FROM users WHERE id=?";
 
     private static final String SQL_DELETE_REQUEST_FOR_SUPERVISOR = "UPDATE users SET requested_supervisor_id=NULL WHERE id=?";
+
+    private static final String SQL_DELETE_ALL_REQUESTS_FOR_SUPERVISOR = "UPDATE users SET requested_supervisor_id=NULL WHERE requested_supervisor_id=?";
+
+    private static final String SQL_DELETE_ALL_SUPERVISOR_ID_BY_SUPERVISOR = "UPDATE users SET supervisor_id=NULL WHERE supervisor_id=?";
 
     private static final String SQL_FIND_USERS_OF_SUPERVISOR = "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
             " FROM users WHERE supervisor_id=?";
@@ -519,6 +525,70 @@ public class UserDaoImpl implements UserDao {
             closePreparedStatement(preparedStatement);
         }
 
+    }
+
+    @Override
+    public UserType takeUserType(int userId) throws DaoException {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        Connection connection = ConnectionPool.getInstance().takeConnection();
+
+        try {
+            preparedStatement = connection.prepareStatement(SQL_TAKE_USER_TYPE);
+            preparedStatement.setInt(1, userId);
+
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return UserType.valueOf(resultSet.getString(1));
+            } else {
+                return null;
+            }
+
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            ConnectionPool.getInstance().returnConnection(connection);
+            closePreparedStatement(preparedStatement);
+            closeResultSet(resultSet);
+        }
+    }
+
+    @Override
+    public void deleteAllRequestsForSupervisor(int supervisorId) throws DaoException {
+        PreparedStatement preparedStatement = null;
+        Connection connection = ConnectionPool.getInstance().takeConnection();
+
+        try {
+            preparedStatement = connection.prepareStatement(SQL_DELETE_ALL_REQUESTS_FOR_SUPERVISOR);
+            preparedStatement.setInt(1, supervisorId);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            ConnectionPool.getInstance().returnConnection(connection);
+            closePreparedStatement(preparedStatement);
+        }
+    }
+
+    @Override
+    public void deleteAllSupervisorIdBySupervisor(int supervisorId) throws DaoException {
+        PreparedStatement preparedStatement = null;
+        Connection connection = ConnectionPool.getInstance().takeConnection();
+
+        try {
+            preparedStatement = connection.prepareStatement(SQL_DELETE_ALL_SUPERVISOR_ID_BY_SUPERVISOR);
+            preparedStatement.setInt(1, supervisorId);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            ConnectionPool.getInstance().returnConnection(connection);
+            closePreparedStatement(preparedStatement);
+        }
     }
 
     @Override

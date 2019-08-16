@@ -63,13 +63,13 @@ public class CommentCommand implements Command {
                     .setMealDate(selectedDate)
                     .setUserId(userId)
                     .setCommentator(new User.Builder().setUserId(user.getUserId()).build())
-                    .setComment(comment)
+                    .setComment(comment.trim())
                     .build());
 
             request.setAttribute(RESPONSE, true);
             return request.getHeader("Referer");
         } else {
-            request.setAttribute(ERROR, "Error data");
+            request.setAttribute(ERROR, "Error request");
             request.setAttribute(STATUS_CODE, 404);
             return JspPath.ERROR.getUrl();
         }

@@ -24,5 +24,5 @@ public interface MealDao extends BasicDao<Meal> {
 
     int totalCarbohydratesByUserIdAndMealDate(int userId, String mealDate) throws DaoException;
 
-
+    void deleteMealByUserId(int userId) throws DaoException;
 }

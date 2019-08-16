@@ -72,7 +72,7 @@ public class SignInCommand implements Command {
                 page = JspPath.SIGN_IN.getUrl();
             }
         } else {
-            request.setAttribute(ERROR, "Error data");
+            request.setAttribute(ERROR, "Error request");
             request.setAttribute(STATUS_CODE, 404);
             page = JspPath.ERROR.getUrl();
         }

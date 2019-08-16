@@ -1,6 +1,7 @@
 package by.talstaya.crackertracker.dao;
 
 import by.talstaya.crackertracker.entity.User;
+import by.talstaya.crackertracker.entity.UserType;
 import by.talstaya.crackertracker.exception.DaoException;
 
 import java.util.List;
@@ -40,5 +41,11 @@ public interface UserDao extends BasicDao<User> {
     boolean containsRequestForSupervisor(int userId) throws DaoException;
 
     void deleteRequestForSupervisor(int userId) throws DaoException;
+
+    UserType takeUserType(int userId) throws DaoException;
+
+    void deleteAllRequestsForSupervisor(int supervisorId) throws DaoException;
+
+    void deleteAllSupervisorIdBySupervisor(int supervisorId) throws DaoException;
 
 }

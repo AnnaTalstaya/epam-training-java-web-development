@@ -3,6 +3,7 @@ package by.talstaya.crackertracker.service.impl;
 import by.talstaya.crackertracker.dao.UserDao;
 import by.talstaya.crackertracker.dao.user.UserDaoImpl;
 import by.talstaya.crackertracker.entity.User;
+import by.talstaya.crackertracker.entity.UserType;
 import by.talstaya.crackertracker.exception.DaoException;
 import by.talstaya.crackertracker.exception.ServiceException;
 import by.talstaya.crackertracker.service.UserService;
@@ -75,7 +76,7 @@ public class UserServiceImpl implements UserService {
     public User findSupervisorOfUser(int userId) throws ServiceException {
         try {
             int supervisorId = userDao.findSupervisorId(userId);
-            if(supervisorId != 0){
+            if (supervisorId != 0) {
                 return userDao.findById(supervisorId);
             } else {
                 return null;
@@ -226,6 +227,36 @@ public class UserServiceImpl implements UserService {
     public void updateRating(int supervisorId, double averageRating) throws ServiceException {
         try {
             userDao.updateRating(supervisorId, averageRating);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public UserType takeUserType(int userId) throws ServiceException {
+        try {
+            if (userDao.takeUserType(userId) == null) {
+                throw new ServiceException("No user with such id");
+            }
+            return userDao.takeUserType(userId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void deleteAllRequestsForSupervisor(int supervisorId) throws ServiceException {
+        try {
+            userDao.deleteAllRequestsForSupervisor(supervisorId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void deleteAllSupervisorIdBySupervisor(int supervisorId) throws ServiceException {
+        try {
+            userDao.deleteAllSupervisorIdBySupervisor(supervisorId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
