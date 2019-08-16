@@ -88,7 +88,34 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void insert(User user) throws DaoException {
-        insertOrUpdateUser(user, SQL_INSERT_USER);
+        PreparedStatement preparedStatement = null;
+        Connection connection = ConnectionPool.getInstance().takeConnection();
+
+        try {
+            preparedStatement = connection.prepareStatement(SQL_INSERT_USER);
+            preparedStatement.setString(1, user.getUserType().name());
+            preparedStatement.setString(2, user.getFirstName());
+            preparedStatement.setString(3, user.getSurname());
+            preparedStatement.setString(4, user.getEmail());
+            preparedStatement.setString(5, user.getUsername());
+            preparedStatement.setString(6, user.getPassword());
+            if(user.getDateOfBirth()!=null){
+                preparedStatement.setDate(7, Date.valueOf(user.getDateOfBirth()));
+            }else{
+                preparedStatement.setNull(7, NULL);
+            }
+            preparedStatement.setDouble(8, user.getWeight());
+            preparedStatement.setDouble(9, user.getHeight());
+            preparedStatement.setDouble(10, user.getRating());
+            preparedStatement.setInt(11, user.getSupervisorId());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            ConnectionPool.getInstance().returnConnection(connection);
+            closePreparedStatement(preparedStatement);
+        }
     }
 
     @Override
@@ -112,15 +139,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void update(User user) throws DaoException {
-        insertOrUpdateUser(user, SQL_UPDATE);
-    }
-
-    private void insertOrUpdateUser(User user, String sqlQuery) throws DaoException {
         PreparedStatement preparedStatement = null;
         Connection connection = ConnectionPool.getInstance().takeConnection();
 
         try {
-            preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement = connection.prepareStatement(SQL_UPDATE);
             preparedStatement.setString(1, user.getUserType().name());
             preparedStatement.setString(2, user.getFirstName());
             preparedStatement.setString(3, user.getSurname());

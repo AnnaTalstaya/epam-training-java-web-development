@@ -56,11 +56,6 @@ public class ProductListCommand implements Command, Pagination {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 
-        if (request.getSession().getAttribute(ERROR) != null) {
-            request.setAttribute(ERROR, request.getSession().getAttribute(ERROR));
-            request.getSession().setAttribute(ERROR, null);
-        }
-
         initPaginationParams(request,
                 NUMBER_PRODUCTS_PER_PAGE,
                 PRODUCTS_PER_PAGE,

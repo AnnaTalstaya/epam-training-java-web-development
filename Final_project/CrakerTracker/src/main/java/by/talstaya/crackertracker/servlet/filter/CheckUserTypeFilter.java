@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = { "/*" })
+@WebFilter(urlPatterns = {"/*"})
 public class CheckUserTypeFilter implements Filter {
 
     private static final Logger LOGGER = LogManager.getLogger("name");
@@ -25,23 +25,25 @@ public class CheckUserTypeFilter implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
 
-        if(request instanceof HttpServletRequest) {
+        if (request instanceof HttpServletRequest) {
             try {
                 HttpServletRequest httpRequest = (HttpServletRequest) request;
 
-                User currentUser = (User)httpRequest.getSession().getAttribute(USER);
+                User currentUser = (User) httpRequest.getSession().getAttribute(USER);
 
-                if(currentUser != null) {
+                if (currentUser != null) {
                     UserService userService = new UserServiceImpl();
                     User currentUserFromDb = userService.findUserById(currentUser.getUserId());
 
-                    if(currentUser.getUserType() != currentUserFromDb.getUserType()) {
+                    if (currentUserFromDb == null) {
+                        httpRequest.getSession().setAttribute(USER, null);
+                    } else if (currentUser.getUserType() != currentUserFromDb.getUserType()) {
                         httpRequest.getSession().setAttribute(USER, currentUserFromDb);
                     }
                 }
 
             } catch (ServiceException e) {
-                e.printStackTrace(); //log
+                e.printStackTrace(); //log //todo
             }
 
             chain.doFilter(request, response);
