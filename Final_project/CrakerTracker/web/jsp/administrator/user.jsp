@@ -35,7 +35,7 @@
 </head>
 <body>
 
-<jsp:include page="./common/header.jsp"/>
+<jsp:include page="../common/header.jsp"/>
 
 <div id="page-container">
     <div id="content-wrap">
@@ -102,7 +102,6 @@
                                                 <form method="post" action="change_user_type" class="form-horizontal">
                                                     <input type="hidden" name="command" value="change_user_type">
                                                     <input type="hidden" name="userId" value="${user.userId}">
-                                                    <input type="hidden" name="userDetails" value="true">
 
                                                     <label>
                                                         <select class="custom-select" name="userType"
@@ -165,7 +164,7 @@
             </div>
         </div>
     </div>
-    <jsp:include page="./common/footer.jsp"/>
+    <jsp:include page="../common/footer.jsp"/>
 
 </div>
 

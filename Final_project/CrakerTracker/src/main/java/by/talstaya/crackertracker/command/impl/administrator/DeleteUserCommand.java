@@ -1,7 +1,6 @@
 package by.talstaya.crackertracker.command.impl.administrator;
 
 import by.talstaya.crackertracker.command.Command;
-import by.talstaya.crackertracker.command.impl.ShowUserDetailsCommand;
 import by.talstaya.crackertracker.entity.UserType;
 import by.talstaya.crackertracker.exception.ServiceException;
 import by.talstaya.crackertracker.service.UserService;
@@ -15,7 +14,8 @@ import java.util.List;
 public class DeleteUserCommand implements Command {
 
     private static final String USER_ID = "userId";
-    private static final String USER_DETAILS = "userDetails";
+    private static final String RESPONSE = "response";
+    private static final String USER_LIST_PATH = "/user_list";
 
     private List<UserType> userTypeList;
 
@@ -35,11 +35,7 @@ public class DeleteUserCommand implements Command {
         UserService userService = new UserServiceImpl();
         userService.deleteUser(userId);
 
-        if(Boolean.parseBoolean(request.getParameter(USER_DETAILS))){
-            request.setAttribute(USER_ID, userId);
-            return new ShowUserDetailsCommand().execute(request, response);
-        }else{
-            return new UserListCommand().execute(request, response);
-        }
+        request.setAttribute(RESPONSE, true);
+        return request.getContextPath() + USER_LIST_PATH;
     }
 }

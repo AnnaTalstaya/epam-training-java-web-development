@@ -25,7 +25,7 @@ public class ShowProductDetailsCommand implements Command {
     private static final String PRODUCT = "product";
     private static final String QUANTITY = "quantity";
 
-    private static final String STRING_REGEX_NUMBER = "^\\d+$";
+    private static final String REGEX_ID = "^[1-9]\\d*$";
 
 
     private List<UserType> userTypeList;
@@ -45,7 +45,7 @@ public class ShowProductDetailsCommand implements Command {
 
         if (request.getParameter(PRODUCT_ID) != null) {
 
-            Pattern pattern = Pattern.compile(STRING_REGEX_NUMBER);
+            Pattern pattern = Pattern.compile(REGEX_ID);
             Matcher matcher = pattern.matcher(request.getParameter(PRODUCT_ID));
 
             if (matcher.matches()) {
@@ -66,7 +66,7 @@ public class ShowProductDetailsCommand implements Command {
                 }
 
             } else {
-                request.setAttribute(ERROR, "Error data");
+                request.setAttribute(ERROR, "Error request");
                 request.setAttribute(STATUS_CODE, 404);
                 page = JspPath.ERROR.getUrl();
             }

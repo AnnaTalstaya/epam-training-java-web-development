@@ -28,7 +28,7 @@ public class UserDietForSupervisorCommand implements Command {
     private final static String NO_MEAL = "noMeal";
     private static final String ERROR = "error";
     private static final String STATUS_CODE = "statusCode";
-    private static final String REGEX_NUMBER = "^[1-9]\\d*$";
+    private static final String REGEX_ID = "^[1-9]\\d*$";
     private final static String USER_ID_FOR_SUPERVISOR = "userIdForSupervisor";
 
     private List<UserType> userTypeList;
@@ -53,7 +53,7 @@ public class UserDietForSupervisorCommand implements Command {
 
         if (stringUserId != null) {
 
-            Pattern pattern = Pattern.compile(REGEX_NUMBER);
+            Pattern pattern = Pattern.compile(REGEX_ID);
             Matcher matcher = pattern.matcher(stringUserId);
 
             if (matcher.matches()) {
@@ -85,7 +85,7 @@ public class UserDietForSupervisorCommand implements Command {
                     return JspPath.ERROR.getUrl();
                 }
             } else {
-                request.setAttribute(ERROR, "Error data");
+                request.setAttribute(ERROR, "Error request");
                 request.setAttribute(STATUS_CODE, 404);
                 return JspPath.ERROR.getUrl();
             }
