@@ -4,6 +4,10 @@
 
 <%@ taglib prefix="ctg" uri="customtags" %>
 
+<c:set var="locale"
+       value="${not empty locale ? locale : 'en'}"
+       scope="session"/>
+
 <fmt:setLocale value="${locale}" scope="session"/>
 <fmt:setBundle basename="text"/>
 

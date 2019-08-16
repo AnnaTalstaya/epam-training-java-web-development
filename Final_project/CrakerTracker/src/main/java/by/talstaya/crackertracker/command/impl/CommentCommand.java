@@ -11,6 +11,7 @@ import by.talstaya.crackertracker.service.impl.CommentForUserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -60,7 +61,7 @@ public class CommentCommand implements Command {
 
             CommentForUserService commentForUserService = new CommentForUserServiceImpl();
             commentForUserService.insertComment(new CommentForUser.Builder()
-                    .setMealDate(selectedDate)
+                    .setMealDate(LocalDate.parse(selectedDate))
                     .setUserId(userId)
                     .setCommentator(new User.Builder().setUserId(user.getUserId()).build())
                     .setComment(comment.trim())

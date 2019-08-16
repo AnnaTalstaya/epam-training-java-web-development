@@ -54,6 +54,6 @@ public class TranslateCommand implements Command {
         request.getSession().setAttribute(LOCALE, locale);
         request.setAttribute(RESPONSE, true);
 
-        return request.getContextPath();
+        return request.getHeader("Referer");
     }
 }

@@ -9,20 +9,18 @@ import by.talstaya.crackertracker.exception.ServiceException;
 import by.talstaya.crackertracker.service.UserService;
 import by.talstaya.crackertracker.service.impl.UserServiceImpl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CommentForUserDaoImpl implements CommentForUserDao {
 
-    private static final String SQL_FIND_COMMENTS = "SELECT id, date_of_comment, meal_date, user_id, commentator_id, comment" +
+    private static final String SQL_FIND_COMMENTS = "SELECT id, date_of_comment, mealDate, user_id, commentator_id, comment" +
             " FROM comments_for_users" +
-            " WHERE user_id=? AND meal_date=?";
+            " WHERE user_id=? AND mealDate=?";
 
-    private static final String SQL_INSERT_COMMENT = "INSERT into comments_for_users (date_of_comment, meal_date, user_id, commentator_id, comment)" +
+    private static final String SQL_INSERT_COMMENT = "INSERT into comments_for_users (date_of_comment, mealDate, user_id, commentator_id, comment)" +
             " VALUES (NOW(),?,?,?,?)";
 
     private static final String SQL_DELETE_COMMENT = "DELETE FROM comments_for_users WHERE id=?";
@@ -30,6 +28,8 @@ public class CommentForUserDaoImpl implements CommentForUserDao {
     private static final String SQL_DELETE_COMMENTS_FOR_USER = "DELETE FROM comments_for_users WHERE user_id=?";
 
     private static final String SQL_DELETE_COMMENTS_BY_COMMENTATOR = "DELETE FROM comments_for_users WHERE commentator_id=?";
+
+    private static final String SQL_DELETE_COMMENTS_FOR_USER_BY_DATE = "DELETE FROM comments_for_users WHERE user_id=? AND mealDate=?";
 
     @Override
     public List<CommentForUser> findComments(int userId, String mealDate) throws DaoException {
@@ -50,8 +50,8 @@ public class CommentForUserDaoImpl implements CommentForUserDao {
             while (resultSet.next()) {
                 commentForUserList.add(new CommentForUser.Builder()
                         .setCommentId(resultSet.getInt(1))
-                        .setDateOfComment(resultSet.getString(2))
-                        .setMealDate(resultSet.getString(3))
+                        .setDateOfComment(resultSet.getTimestamp(2).toLocalDateTime())
+                        .setMealDate(resultSet.getDate(3).toLocalDate())
                         .setUserId(resultSet.getInt(4))
                         .setCommentator(createUser(resultSet.getInt(5)))
                         .setComment(resultSet.getString(6))
@@ -105,6 +105,25 @@ public class CommentForUserDaoImpl implements CommentForUserDao {
         }
     }
 
+    @Override
+    public void deleteCommentsForUserByDate(int userId, LocalDate selectedDate) throws DaoException {
+        PreparedStatement preparedStatement = null;
+        Connection connection = ConnectionPool.getInstance().takeConnection();
+
+        try {
+            preparedStatement = connection.prepareStatement(SQL_DELETE_COMMENTS_FOR_USER_BY_DATE);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setDate(2, Date.valueOf(selectedDate));
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            ConnectionPool.getInstance().returnConnection(connection);
+            closePreparedStatement(preparedStatement);
+        }
+    }
+
     private User createUser(int userId) throws DaoException {
         UserService userService = new UserServiceImpl();
         try {
@@ -121,7 +140,7 @@ public class CommentForUserDaoImpl implements CommentForUserDao {
 
         try {
             preparedStatement = connection.prepareStatement(SQL_INSERT_COMMENT);
-            preparedStatement.setString(1, commentForUser.getMealDate());
+            preparedStatement.setDate(1, Date.valueOf(commentForUser.getMealDate()));
             preparedStatement.setInt(2, commentForUser.getUserId());
             preparedStatement.setInt(3, commentForUser.getCommentator().getUserId());
             preparedStatement.setString(4, commentForUser.getComment());

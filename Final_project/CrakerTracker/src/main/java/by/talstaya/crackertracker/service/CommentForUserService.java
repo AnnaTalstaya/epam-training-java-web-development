@@ -3,6 +3,7 @@ package by.talstaya.crackertracker.service;
 import by.talstaya.crackertracker.entity.CommentForUser;
 import by.talstaya.crackertracker.exception.ServiceException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface CommentForUserService {
@@ -16,5 +17,7 @@ public interface CommentForUserService {
     void deleteCommentsForUser(int userId) throws ServiceException;
 
     void deleteCommentsByCommentator(int commentatorId) throws ServiceException;
+
+    void deleteCommentsForUserByDate(int userId, LocalDate selectedDate) throws ServiceException;
 
 }

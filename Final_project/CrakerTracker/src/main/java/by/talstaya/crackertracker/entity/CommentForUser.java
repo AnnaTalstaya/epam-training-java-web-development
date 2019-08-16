@@ -1,12 +1,14 @@
 package by.talstaya.crackertracker.entity;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class CommentForUser implements Entity {
 
     private int commentId;
-    private String dateOfComment;
-    private String mealDate;
+    private LocalDateTime dateOfComment;
+    private LocalDate mealDate;
     private int userId;
     private User commentator;
     private String comment;
@@ -18,11 +20,11 @@ public class CommentForUser implements Entity {
         return commentId;
     }
 
-    public String getDateOfComment() {
+    public LocalDateTime getDateOfComment() {
         return dateOfComment;
     }
 
-    public String getMealDate() {
+    public LocalDate getMealDate() {
         return mealDate;
     }
 
@@ -63,12 +65,12 @@ public class CommentForUser implements Entity {
             return this;
         }
 
-        public Builder setDateOfComment(String dateOfComment){
+        public Builder setDateOfComment(LocalDateTime dateOfComment){
             commentForUser.dateOfComment = dateOfComment;
             return this;
         }
 
-        public Builder setMealDate(String mealDate) {
+        public Builder setMealDate(LocalDate mealDate) {
             commentForUser.mealDate = mealDate;
             return this;
         }

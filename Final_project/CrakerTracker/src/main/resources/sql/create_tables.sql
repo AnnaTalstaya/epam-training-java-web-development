@@ -57,8 +57,8 @@ CREATE TABLE IF NOT EXISTS ratings
 CREATE TABLE IF NOT EXISTS comments_for_users
 (
   id              INT           NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  date_of_comment VARCHAR(20)   NOT NULL,
-  mealDate        VARCHAR(20)   NOT NULL,
+  date_of_comment TIMESTAMP     NOT NULL,
+  mealDate        DATE          NOT NULL,
   user_id         INT           NOT NULL,
   commentator_id  INT           NOT NULL,
   comment         VARCHAR(2000) NOT NULL

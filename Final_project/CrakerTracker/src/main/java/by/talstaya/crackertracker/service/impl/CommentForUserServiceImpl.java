@@ -7,6 +7,7 @@ import by.talstaya.crackertracker.exception.DaoException;
 import by.talstaya.crackertracker.exception.ServiceException;
 import by.talstaya.crackertracker.service.CommentForUserService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class CommentForUserServiceImpl implements CommentForUserService {
@@ -57,6 +58,15 @@ public class CommentForUserServiceImpl implements CommentForUserService {
     public void deleteCommentsByCommentator(int commentatorId) throws ServiceException {
         try {
             commentForUserDao.deleteCommentsByCommentator(commentatorId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void deleteCommentsForUserByDate(int userId, LocalDate selectedDate) throws ServiceException {
+        try {
+            commentForUserDao.deleteCommentsForUserByDate(userId, selectedDate);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

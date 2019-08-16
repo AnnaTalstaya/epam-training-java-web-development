@@ -1,13 +1,17 @@
 package by.talstaya.crackertracker.command.impl;
 
 import by.talstaya.crackertracker.command.Command;
+import by.talstaya.crackertracker.entity.User;
 import by.talstaya.crackertracker.entity.UserType;
 import by.talstaya.crackertracker.exception.ServiceException;
+import by.talstaya.crackertracker.service.CommentForUserService;
 import by.talstaya.crackertracker.service.MealService;
+import by.talstaya.crackertracker.service.impl.CommentForUserServiceImpl;
 import by.talstaya.crackertracker.service.impl.MealServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,7 +21,8 @@ public class DeleteMealCommand implements Command {
 
     private static final String MEAL_ID = "mealId";
     private static final String TOTAL_PRODUCTS = "totalProducts";
-    private static final String MEAL_DATE = "mealDate";
+    private static final String SELECTED_DATE = "selected_date";
+
 
     private static final String RESPONSE = "response";
     private static final String DIET_PATH = "/diet";
@@ -47,6 +52,11 @@ public class DeleteMealCommand implements Command {
         if(totalProducts - 1 > 0){
             return request.getHeader("Referer");
         }else{
+            User user = (User)request.getSession().getAttribute(USER);
+            LocalDate selectedDate = LocalDate.parse(request.getParameter(SELECTED_DATE));
+
+            CommentForUserService commentForUserService = new CommentForUserServiceImpl();
+            commentForUserService.deleteCommentsForUserByDate(user.getUserId(), selectedDate);
             return request.getContextPath() + DIET_PATH;
         }
     }

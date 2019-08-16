@@ -144,6 +144,7 @@
                                     <input type="hidden" name="command" value="delete_meal">
                                     <input type="hidden" name="mealId" value="${breakfastMeal.mealId}">
                                     <input type="hidden" name="totalProducts" value="${totalProducts}">
+                                    <input type="hidden" name="selected_date" value="${selected_date}">
                                     <button type="submit" class="btn btn-danger">
                                         <fmt:message key="profile.button.delete"/>
                                     </button>
@@ -204,6 +205,7 @@
                                     <input type="hidden" name="command" value="delete_meal">
                                     <input type="hidden" name="mealId" value="${lunchMeal.mealId}">
                                     <input type="hidden" name="totalProducts" value="${totalProducts}">
+                                    <input type="hidden" name="selected_date" value="${selected_date}">
                                     <button type="submit" class="btn btn-danger"><fmt:message
                                             key="profile.button.delete"/></button>
                                 </form>
@@ -263,6 +265,7 @@
                                     <input type="hidden" name="command" value="delete_meal">
                                     <input type="hidden" name="mealId" value="${dinnerMeal.mealId}">
                                     <input type="hidden" name="totalProducts" value="${totalProducts}">
+                                    <input type="hidden" name="selected_date" value="${selected_date}">
                                     <button type="submit" class="btn btn-danger"><fmt:message
                                             key="profile.button.delete"/></button>
                                 </form>
