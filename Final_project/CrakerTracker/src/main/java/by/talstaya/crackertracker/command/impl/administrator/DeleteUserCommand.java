@@ -51,7 +51,6 @@ public class DeleteUserCommand implements Command {
         if(userType.equals(UserType.SUPERVISOR)) {
             userService.deleteAllRequestsForSupervisor(userId);
             userService.deleteAllSupervisorIdBySupervisor(userId);
-            commentForUserService.deleteCommentsByCommentator(userId);
 
             RatingService ratingService = new RatingServiceImpl();
             ratingService.deleteSupervisor(userId);

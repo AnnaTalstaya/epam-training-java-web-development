@@ -35,7 +35,16 @@ public class ChangeUserTypeCommand implements Command {
         String userType = request.getParameter(USER_TYPE);
 
         UserService userService = new UserServiceImpl();
-        userService.updateUserType(userId, userType);
+
+        UserType currentUserType = userService.takeUserType(userId);
+        if(!currentUserType.name().equals(userType)) {
+            if(currentUserType.equals(UserType.SUPERVISOR)) {
+                userService.deleteAllRequestsForSupervisor(userId);
+                userService.deleteAllSupervisorIdBySupervisor(userId);
+            }
+
+            userService.updateUserType(userId, userType);
+        }
 
         request.setAttribute(RESPONSE, true);
         return request.getHeader("Referer");
