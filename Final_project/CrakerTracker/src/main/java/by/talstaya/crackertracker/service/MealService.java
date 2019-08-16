@@ -6,6 +6,12 @@ import by.talstaya.crackertracker.exception.ServiceException;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * This class is a layer for interacting with MealDao
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public interface MealService {
 
     void insertMeal(Meal meal) throws ServiceException;

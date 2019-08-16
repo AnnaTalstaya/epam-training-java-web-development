@@ -13,6 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * ServletSecurityFilter is used to prohibits users from visiting pages to which they do not have rights
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 @WebFilter(urlPatterns = {"/*"})
 public class ServletSecurityFilter implements Filter {
 

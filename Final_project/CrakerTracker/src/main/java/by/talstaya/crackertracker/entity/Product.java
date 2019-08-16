@@ -2,6 +2,12 @@ package by.talstaya.crackertracker.entity;
 
 import java.util.Objects;
 
+/**
+ * Product is a entity of product
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class Product implements Entity {
 
     private int productId;

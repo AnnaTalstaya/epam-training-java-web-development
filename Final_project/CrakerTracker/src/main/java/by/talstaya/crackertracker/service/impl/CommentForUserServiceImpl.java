@@ -10,6 +10,12 @@ import by.talstaya.crackertracker.service.CommentForUserService;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * This class is an implementation of CommentForUserService
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class CommentForUserServiceImpl implements CommentForUserService {
 
     private CommentForUserDao commentForUserDao;

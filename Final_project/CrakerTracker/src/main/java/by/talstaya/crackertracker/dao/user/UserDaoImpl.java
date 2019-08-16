@@ -15,6 +15,12 @@ import java.util.List;
 
 import static java.sql.Types.NULL;
 
+/**
+ * This class is an implementation of UserDao
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class UserDaoImpl implements UserDao {
 
     private static final Logger LOGGER = LogManager.getLogger("name");

@@ -5,6 +5,12 @@ import by.talstaya.crackertracker.exception.ServiceException;
 
 import java.util.List;
 
+/**
+ * This class is a layer for interacting with ProductDao
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public interface ProductService {
 
     List<Product> takeAllProducts() throws ServiceException;

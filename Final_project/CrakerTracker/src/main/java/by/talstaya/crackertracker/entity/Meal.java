@@ -3,6 +3,12 @@ package by.talstaya.crackertracker.entity;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * Meal is a entity of meal
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class Meal implements Entity {
     private int mealId;
     private User user;

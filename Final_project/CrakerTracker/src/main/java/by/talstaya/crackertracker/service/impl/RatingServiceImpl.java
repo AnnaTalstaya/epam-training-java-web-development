@@ -6,6 +6,12 @@ import by.talstaya.crackertracker.exception.DaoException;
 import by.talstaya.crackertracker.exception.ServiceException;
 import by.talstaya.crackertracker.service.RatingService;
 
+/**
+ * This class is an implementation of RatingService
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class RatingServiceImpl implements RatingService {
 
     private RatingDao ratingDao;

@@ -6,6 +6,12 @@ import by.talstaya.crackertracker.exception.DaoException;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * This class is a layer for interacting with meal database
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public interface MealDao extends BasicDao<Meal> {
 
     void updateQuantity(int mealId, int quantity) throws DaoException;

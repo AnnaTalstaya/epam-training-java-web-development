@@ -10,6 +10,12 @@ import by.talstaya.crackertracker.service.UserService;
 
 import java.util.List;
 
+/**
+ * This class is an implementation of UserService
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class UserServiceImpl implements UserService {
 
     private UserDao userDao;

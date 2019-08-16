@@ -10,6 +10,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * CommandFilter is used to retrieve and correlate the command that came from url of request with the corresponding command type
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 @WebFilter(urlPatterns = { "/*" })
 public class CommandFilter implements Filter {
 

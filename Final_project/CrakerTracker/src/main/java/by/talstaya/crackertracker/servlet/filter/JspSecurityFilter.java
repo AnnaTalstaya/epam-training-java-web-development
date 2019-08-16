@@ -10,6 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * JspSecurityFilter is used to not allow users visit any jsp except index.jsp
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 @WebFilter(urlPatterns = {"/jsp/*"}, initParams = {@WebInitParam(name = "INDEX_PATH", value = "/index.jsp")})
 public class JspSecurityFilter implements Filter {
 

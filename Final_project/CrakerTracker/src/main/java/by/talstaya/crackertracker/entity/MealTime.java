@@ -2,6 +2,12 @@ package by.talstaya.crackertracker.entity;
 
 import java.util.Objects;
 
+/**
+ * MealTime is a entity of meal time
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class MealTime implements Entity {
 
     private int mealTimeId;

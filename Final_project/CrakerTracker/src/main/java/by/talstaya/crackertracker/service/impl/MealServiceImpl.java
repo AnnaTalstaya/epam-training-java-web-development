@@ -10,6 +10,12 @@ import by.talstaya.crackertracker.service.MealService;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * This class is an implementation of MealService
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class MealServiceImpl implements MealService {
 
     private MealDao mealDao;

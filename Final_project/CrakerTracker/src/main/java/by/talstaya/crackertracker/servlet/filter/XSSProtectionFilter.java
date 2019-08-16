@@ -7,6 +7,12 @@ import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 import java.util.Enumeration;
 
+/**
+ * XSSProtectionFilter is used to protect the site from cross site scripting(xss)
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 @WebFilter(urlPatterns = {"/*"})
 public class XSSProtectionFilter implements Filter {
 

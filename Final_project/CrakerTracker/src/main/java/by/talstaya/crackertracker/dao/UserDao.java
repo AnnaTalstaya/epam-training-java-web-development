@@ -6,6 +6,12 @@ import by.talstaya.crackertracker.exception.DaoException;
 
 import java.util.List;
 
+/**
+ * This class is a layer for interacting with user database
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public interface UserDao extends BasicDao<User> {
 
     List<User> takeAllUsers() throws DaoException;

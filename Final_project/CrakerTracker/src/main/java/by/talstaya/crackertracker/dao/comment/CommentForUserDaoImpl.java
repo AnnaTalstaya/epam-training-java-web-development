@@ -14,6 +14,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is an implementation of CommentForUserDao
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class CommentForUserDaoImpl implements CommentForUserDao {
 
     private static final String SQL_FIND_COMMENTS = "SELECT id, date_of_comment, mealDate, user_id, commentator_id, comment" +

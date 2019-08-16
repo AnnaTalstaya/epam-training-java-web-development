@@ -6,6 +6,12 @@ import by.talstaya.crackertracker.exception.ServiceException;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * This class is a layer for interacting with CommentForUserDao
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public interface CommentForUserService {
 
     List<CommentForUser> findComments(int userId, String mealDate) throws ServiceException;

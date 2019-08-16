@@ -10,6 +10,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * This class is an implementation of MealTimeDao
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class MealTimeDaoImpl implements MealTimeDao {
 
     private static final String SQL_FIND_BY_MEAL_TIME = "SELECT id, meal_time FROM meal_time WHERE meal_time = ?";

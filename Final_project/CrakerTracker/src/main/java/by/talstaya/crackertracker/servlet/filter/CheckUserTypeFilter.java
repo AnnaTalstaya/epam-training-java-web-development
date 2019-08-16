@@ -12,6 +12,13 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+/**
+ * CheckUserTypeFilter is used to check if type of current user changes in database.
+ * If the type has changed, the current user type is replaced with the appropriate
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 @WebFilter(urlPatterns = {"/*"})
 public class CheckUserTypeFilter implements Filter {
 

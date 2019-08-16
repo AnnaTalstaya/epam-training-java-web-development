@@ -9,6 +9,12 @@ import by.talstaya.crackertracker.service.ProductService;
 
 import java.util.List;
 
+/**
+ * This class is an implementation of ProductService
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class ProductServiceImpl implements ProductService {
     private ProductDao productDao;
 

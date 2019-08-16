@@ -11,6 +11,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * This class is an implementation of RatingDao
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class RatingDaoImpl implements RatingDao {
 
     private static final Logger LOGGER = LogManager.getLogger("name");

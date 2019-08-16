@@ -17,6 +17,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * FrontController is used to retrieve command from request, correlate the command with the corresponding class
+ * and execute this command
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 @WebServlet(urlPatterns = {"/registration", "/sign_in", "/sign_out", "/settings", "/search",
         "/visit_product_list", "/product_list", "/translate",
         "/show_supervisor", "/supervisor_list", "/rate_supervisor", "/delete_supervisor",

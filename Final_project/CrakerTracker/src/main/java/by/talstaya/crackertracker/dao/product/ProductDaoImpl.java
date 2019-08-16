@@ -11,6 +11,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is an implementation of ProductDao
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class ProductDaoImpl implements ProductDao {
 
     private static final Logger LOGGER = LogManager.getLogger("name");

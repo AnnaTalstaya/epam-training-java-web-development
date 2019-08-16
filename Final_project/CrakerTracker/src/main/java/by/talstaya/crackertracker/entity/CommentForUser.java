@@ -4,6 +4,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * CommentForUser is a entity of comment
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class CommentForUser implements Entity {
 
     private int commentId;

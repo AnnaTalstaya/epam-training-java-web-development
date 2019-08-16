@@ -6,6 +6,12 @@ import by.talstaya.crackertracker.exception.ServiceException;
 
 import java.util.List;
 
+/**
+ * This class is a layer for interacting with UserDao
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public interface UserService {
 
     List<User> findByUsernameAndPass(String username, String password) throws ServiceException;

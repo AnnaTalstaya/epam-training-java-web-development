@@ -2,6 +2,12 @@ package by.talstaya.crackertracker.entity;
 
 import java.time.LocalDate;
 
+/**
+ * User is a entity of user
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class User implements Entity {
 
     private int userId;

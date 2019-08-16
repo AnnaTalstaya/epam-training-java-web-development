@@ -8,6 +8,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * This class is a basic class of layers for interacting with database
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public interface BasicDao<T extends Entity> {
 
     void insert(T entity) throws DaoException;

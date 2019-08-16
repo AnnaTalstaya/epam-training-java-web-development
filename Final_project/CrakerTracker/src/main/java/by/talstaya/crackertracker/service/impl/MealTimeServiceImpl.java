@@ -7,6 +7,12 @@ import by.talstaya.crackertracker.exception.DaoException;
 import by.talstaya.crackertracker.exception.ServiceException;
 import by.talstaya.crackertracker.service.MealTimeService;
 
+/**
+ * This class is an implementation of MealTimeService
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class MealTimeServiceImpl implements MealTimeService {
 
     private MealTimeDao mealTimeDao;

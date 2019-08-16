@@ -6,6 +6,12 @@ import by.talstaya.crackertracker.exception.DaoException;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * This class is a layer for interacting with comments database
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public interface CommentForUserDao extends BasicDao<CommentForUser> {
 
     List<CommentForUser> findComments(int userId, String mealDate) throws DaoException;

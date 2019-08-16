@@ -21,6 +21,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+/**
+ * This class is an implementation of MealDao
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public class MealDaoImpl implements MealDao {
 
     private static final String SQL_INSERT = "INSERT INTO meals (user_id, product_id, date, meal_time_id, quantity) VALUES (?, ?, ?, ?, ?)";

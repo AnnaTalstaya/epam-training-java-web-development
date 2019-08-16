@@ -5,6 +5,13 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
 import java.io.IOException;
 
+/**
+ * EncodingFilter is used to change the encoding of the request and the response
+ * to the encoding specified by the filter parameter.
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 @WebFilter(urlPatterns = {"/*"},
         initParams = {
                 @WebInitParam(name = "encoding", value = "UTF-8", description = "Encoding Param")})

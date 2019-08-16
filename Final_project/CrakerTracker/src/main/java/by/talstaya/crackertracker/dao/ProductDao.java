@@ -5,6 +5,12 @@ import by.talstaya.crackertracker.exception.DaoException;
 
 import java.util.List;
 
+/**
+ * This class is a layer for interacting with product database
+ *
+ * @author Anna Talstaya
+ * @version 1.0
+ */
 public interface ProductDao extends BasicDao<Product> {
 
     List<Product> takeAllProducts() throws DaoException;
