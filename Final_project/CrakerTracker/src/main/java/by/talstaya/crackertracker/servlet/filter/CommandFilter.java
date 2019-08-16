@@ -26,11 +26,8 @@ public class CommandFilter implements Filter {
         commands.put("/search", "search");
         commands.put("/product_list", "product_list");
         commands.put("/visit_product_list", "visit_product_list");
-        commands.put("/translate", "translate");
         commands.put("/show_supervisor", "show_supervisor");
         commands.put("/supervisor_list", "supervisor_list");
-        commands.put("/change_user_type", "change_user_type");
-        commands.put("/delete_user", "delete_user");
         commands.put("/user_list", "user_list");
         commands.put("/show_user_details", "show_user_details");
         commands.put("/user_list_of_supervisor", "user_list_of_supervisor");
