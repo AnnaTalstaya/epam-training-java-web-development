@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration monitorInterval="3">
     <appenders>
-        <File name="FILE" fileName="/logs/error.txt">
+        <File name="FILE" fileName="logs/error.txt">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </File>
         <Console name="STDOUT" target="SYSTEM_OUT">
@@ -15,13 +15,13 @@
         </root>
     </loggers>
     <appenders>
-        <File name="FILE1" fileName="/logs/info.txt">
+        <File name="FILE1" fileName="logs/info.txt">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </File>
         <Console name="STDOUT" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
-    </appenders
+    </appenders>
     <loggers>
         <root level="info">
             <appender-ref ref="STDOUT"/>
