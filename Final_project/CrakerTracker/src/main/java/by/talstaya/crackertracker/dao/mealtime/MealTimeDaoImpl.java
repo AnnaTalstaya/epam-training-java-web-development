@@ -44,9 +44,9 @@ public class MealTimeDaoImpl implements MealTimeDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closeResultSet(resultSet);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -75,14 +75,14 @@ public class MealTimeDaoImpl implements MealTimeDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closeResultSet(resultSet);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
     @Override
-    public void insert(by.talstaya.crackertracker.entity.MealTime entity) throws DaoException {
+    public void insert(MealTime entity) throws DaoException {
         //todo
     }
 
@@ -93,13 +93,13 @@ public class MealTimeDaoImpl implements MealTimeDao {
     }
 
     @Override
-    public void update(by.talstaya.crackertracker.entity.MealTime entity) throws DaoException {
+    public void update(MealTime entity) throws DaoException {
         //todo
 
     }
 
     @Override
-    public by.talstaya.crackertracker.entity.MealTime findById(int id) throws DaoException {
+    public MealTime findById(int id) throws DaoException {
         return null;        //todo
 
     }

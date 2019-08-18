@@ -52,9 +52,9 @@ public class RatingDaoImpl implements RatingDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
-            closePreparedStatement(preparedStatement);
             closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -75,8 +75,8 @@ public class RatingDaoImpl implements RatingDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -97,8 +97,8 @@ public class RatingDaoImpl implements RatingDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -125,9 +125,9 @@ public class RatingDaoImpl implements RatingDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
             closeResultSet(resultSet);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
 
 
@@ -156,12 +156,10 @@ public class RatingDaoImpl implements RatingDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
-            closePreparedStatement(preparedStatement);
             closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
-
-
     }
 
     @Override
@@ -177,13 +175,13 @@ public class RatingDaoImpl implements RatingDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
 
-    public void closeResultSet(ResultSet resultSet) throws DaoException {
+    private void closeResultSet(ResultSet resultSet) throws DaoException {
         if (resultSet != null) {
             try {
                 resultSet.close();
@@ -195,7 +193,7 @@ public class RatingDaoImpl implements RatingDao {
         }
     }
 
-    public void closePreparedStatement(PreparedStatement preparedStatement) throws DaoException {
+    private void closePreparedStatement(PreparedStatement preparedStatement) throws DaoException {
         if (preparedStatement != null) {
             try {
                 preparedStatement.close();

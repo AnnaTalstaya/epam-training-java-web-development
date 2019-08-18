@@ -8,13 +8,13 @@ import java.io.IOException;
 import java.util.Enumeration;
 
 /**
- * XSSProtectionFilter is used to protect the site from cross site scripting(xss)
+ * XssProtectionFilter is used to protect the site from cross site scripting(xss)
  *
  * @author Anna Talstaya
  * @version 1.0
  */
 @WebFilter(urlPatterns = {"/*"})
-public class XSSProtectionFilter implements Filter {
+public class XssProtectionFilter implements Filter {
 
     private static final String ERROR = "error";
     private static final String STATUS_CODE = "statusCode";

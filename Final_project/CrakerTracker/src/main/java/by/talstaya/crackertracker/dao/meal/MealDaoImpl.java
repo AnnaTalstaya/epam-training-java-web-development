@@ -106,8 +106,8 @@ public class MealDaoImpl implements MealDao {
             } catch (SQLException e) {
                 throw new DaoException(e);
             } finally {
-                ConnectionPool.getInstance().returnConnection(connection);
                 closePreparedStatement(preparedStatement);
+                ConnectionPool.getInstance().returnConnection(connection);
             }
         }
     }
@@ -126,8 +126,8 @@ public class MealDaoImpl implements MealDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -149,8 +149,8 @@ public class MealDaoImpl implements MealDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -175,8 +175,8 @@ public class MealDaoImpl implements MealDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -203,9 +203,9 @@ public class MealDaoImpl implements MealDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closeResultSet(resultSet);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -241,9 +241,9 @@ public class MealDaoImpl implements MealDao {
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closeResultSet(resultSet);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -278,9 +278,9 @@ public class MealDaoImpl implements MealDao {
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closeResultSet(resultSet);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
 
 
@@ -329,8 +329,8 @@ public class MealDaoImpl implements MealDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -361,9 +361,9 @@ public class MealDaoImpl implements MealDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closeResultSet(resultSet);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 }

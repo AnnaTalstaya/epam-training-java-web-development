@@ -1,7 +1,6 @@
 package by.talstaya.crackertracker.command.impl.administrator;
 
 import by.talstaya.crackertracker.command.Command;
-import by.talstaya.crackertracker.entity.User;
 import by.talstaya.crackertracker.entity.UserType;
 import by.talstaya.crackertracker.exception.ServiceException;
 import by.talstaya.crackertracker.service.CommentForUserService;
@@ -44,8 +43,6 @@ public class DeleteUserCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-
-        User administrator = (User) request.getSession().getAttribute(USER);
 
         int userId = Integer.parseInt(request.getParameter(USER_ID));
 

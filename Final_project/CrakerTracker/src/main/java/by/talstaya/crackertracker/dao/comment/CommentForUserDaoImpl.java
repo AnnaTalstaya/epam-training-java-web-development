@@ -69,9 +69,9 @@ public class CommentForUserDaoImpl implements CommentForUserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closeResultSet(resultSet);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -88,8 +88,8 @@ public class CommentForUserDaoImpl implements CommentForUserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -106,8 +106,8 @@ public class CommentForUserDaoImpl implements CommentForUserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -125,8 +125,8 @@ public class CommentForUserDaoImpl implements CommentForUserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -155,8 +155,8 @@ public class CommentForUserDaoImpl implements CommentForUserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -173,8 +173,8 @@ public class CommentForUserDaoImpl implements CommentForUserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 

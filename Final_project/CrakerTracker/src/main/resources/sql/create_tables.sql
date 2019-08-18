@@ -64,5 +64,12 @@ CREATE TABLE IF NOT EXISTS comments_for_users
   comment         VARCHAR(2000) NOT NULL
 ) ENGINE = InnoDB;
 
+CREATE TABLE ggggg
+(
+  id        INT         NOT NULL PRIMARY KEY,
+  meal_time INT ,
+  FOREIGN KEY(meal_time) REFERENCES comments_for_users(id)
+) ENGINE = InnoDB;
+
 
 

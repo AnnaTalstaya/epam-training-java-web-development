@@ -119,8 +119,8 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -139,7 +139,6 @@ public class UserDaoImpl implements UserDao {
         } finally {
             closePreparedStatement(preparedStatement);
             ConnectionPool.getInstance().returnConnection(connection);
-
         }
     }
 
@@ -171,8 +170,8 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -214,9 +213,9 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
-            closePreparedStatement(preparedStatement);
             closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -269,9 +268,9 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closeResultSet(resultSet);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -314,9 +313,9 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closeResultSet(resultSet);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -334,8 +333,8 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -353,8 +352,8 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -401,9 +400,9 @@ public class UserDaoImpl implements UserDao {
             } catch (SQLException e) {
                 throw new DaoException(e);
             } finally {
-                ConnectionPool.getInstance().returnConnection(connection);
-                closePreparedStatement(preparedStatement);
                 closeResultSet(resultSet);
+                closePreparedStatement(preparedStatement);
+                ConnectionPool.getInstance().returnConnection(connection);
             }
         }
 
@@ -432,9 +431,9 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
-            closePreparedStatement(preparedStatement);
             closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -462,8 +461,8 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -482,8 +481,8 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -515,8 +514,8 @@ public class UserDaoImpl implements UserDao {
         }catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -548,8 +547,8 @@ public class UserDaoImpl implements UserDao {
         }catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -572,9 +571,9 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
-            closePreparedStatement(preparedStatement);
             closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -597,9 +596,9 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
-            closePreparedStatement(preparedStatement);
             closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
 
     }
@@ -617,8 +616,8 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
 
     }
@@ -645,9 +644,9 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
-            closePreparedStatement(preparedStatement);
             closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -664,8 +663,8 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -682,8 +681,8 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -729,9 +728,9 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
-            closePreparedStatement(preparedStatement);
             closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -778,9 +777,9 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
-            closePreparedStatement(preparedStatement);
             closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
 
 
@@ -808,9 +807,9 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
-            closePreparedStatement(preparedStatement);
             closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -836,9 +835,9 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
-            closePreparedStatement(preparedStatement);
             closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
 
     }
@@ -861,9 +860,9 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
-            closePreparedStatement(preparedStatement);
             closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 }

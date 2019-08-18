@@ -91,11 +91,11 @@ public class ProductDaoImpl implements ProductDao {
             return products;
 
         } catch (SQLException e) {
-            throw new DaoException(e);//DaoException
+            throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closeResultSet(resultSet);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
 
     }
@@ -134,9 +134,9 @@ public class ProductDaoImpl implements ProductDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closeResultSet(resultSet);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -188,9 +188,9 @@ public class ProductDaoImpl implements ProductDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closeResultSet(resultSet);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -236,9 +236,9 @@ public class ProductDaoImpl implements ProductDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closeResultSet(resultSet);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -263,9 +263,9 @@ public class ProductDaoImpl implements ProductDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closeResultSet(resultSet);
             closePreparedStatement(statement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -329,8 +329,8 @@ public class ProductDaoImpl implements ProductDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -347,8 +347,8 @@ public class ProductDaoImpl implements ProductDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -373,8 +373,8 @@ public class ProductDaoImpl implements ProductDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
@@ -408,9 +408,9 @@ public class ProductDaoImpl implements ProductDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            ConnectionPool.getInstance().returnConnection(connection);
             closeResultSet(resultSet);
             closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
         }
     }
 
