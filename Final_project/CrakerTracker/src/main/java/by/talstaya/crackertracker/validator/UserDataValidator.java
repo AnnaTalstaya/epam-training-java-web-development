@@ -81,4 +81,11 @@ public class UserDataValidator {
         return errorMessages;
     }
 
+    public boolean validatePass(String password) {
+        Pattern regexPassword = Pattern.compile(STRING_REGEX_PASSWORD);
+        Matcher matcherPassword = regexPassword.matcher(password);
+
+        return matcherPassword.matches();
+    }
+
 }

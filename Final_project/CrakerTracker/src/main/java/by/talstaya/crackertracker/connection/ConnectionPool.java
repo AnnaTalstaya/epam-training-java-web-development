@@ -44,7 +44,6 @@ public class ConnectionPool {
             Class.forName(ConnectorDb.obtainDriver()); //register driver
 
             init();
-
         } catch (ClassNotFoundException e) {
             throw new PoolConnectionException(e);
         }

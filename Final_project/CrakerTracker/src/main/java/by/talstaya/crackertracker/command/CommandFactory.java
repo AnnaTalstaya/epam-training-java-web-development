@@ -91,8 +91,12 @@ public class CommandFactory {
         Command command = null;
 
         try {
-            command = commandMap.get(CommandType.valueOf(commandType.toUpperCase()));
-        } catch (IllegalArgumentException | NullPointerException e) {// FIXME: 01.08.2019 
+            if(commandType!=null){
+                command = commandMap.get(CommandType.valueOf(commandType.toUpperCase()));
+            } else {
+                LOGGER.error("commandType is null. Error!!!");
+            }
+        } catch (IllegalArgumentException e) {
             LOGGER.error(e.getMessage(), e);
         }
 

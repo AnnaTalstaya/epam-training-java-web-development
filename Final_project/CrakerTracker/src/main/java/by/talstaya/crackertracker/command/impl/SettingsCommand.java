@@ -14,11 +14,8 @@ import org.mindrot.jbcrypt.BCrypt;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * This class is used to change user parameters
@@ -28,10 +25,6 @@ import java.util.regex.Pattern;
  */
 public class SettingsCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger("name");
-
-    private Map<String, String> errorMessages;
-
-    private static final String STRING_REGEX_PASSWORD = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{7,16}";
 
     private static final String USER = "User";
     private static final String FIRST_NAME = "firstName";
@@ -55,7 +48,7 @@ public class SettingsCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 
         boolean fail = false;
-        errorMessages = new HashMap<>();
+        Map<String, String> errorMessages;
 
         User user = (User) request.getSession().getAttribute(USER);
         UserService userService = new UserServiceImpl();
@@ -88,7 +81,7 @@ public class SettingsCommand implements Command {
         if (!newPassword.isEmpty()) {
             if (!confirmedNewPassword.isEmpty()) {
                 if (BCrypt.checkpw(currentPassword, user.getPassword())) {
-                    if (!validatePass(newPassword) || !validatePass(confirmedNewPassword)) {
+                    if (!userDataValidator.validatePass(newPassword) || !userDataValidator.validatePass(confirmedNewPassword)) {
                         errorMessages.put(ERROR_PASSWORD, "Password does not match the requirements");
                     } else {
                         if (Objects.equals(newPassword, confirmedNewPassword)) {
@@ -150,17 +143,6 @@ public class SettingsCommand implements Command {
         }
 
         return JspPath.SETTINGS.getUrl();
-    }
-
-    private boolean validatePass(String password) {
-        Pattern regexPassword = Pattern.compile(STRING_REGEX_PASSWORD);
-        Matcher matcherPassword = regexPassword.matcher(password);
-
-        if (!matcherPassword.matches()) {
-            errorMessages.put("errorPassword", "Password does not match the requirements");
-            return false;
-        }
-        return true;
     }
 
 }
