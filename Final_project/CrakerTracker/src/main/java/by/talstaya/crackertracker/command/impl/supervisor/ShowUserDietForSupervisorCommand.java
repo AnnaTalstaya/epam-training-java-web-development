@@ -4,7 +4,6 @@ import by.talstaya.crackertracker.command.Command;
 import by.talstaya.crackertracker.command.JspPath;
 import by.talstaya.crackertracker.entity.CommentForUser;
 import by.talstaya.crackertracker.entity.Meal;
-import by.talstaya.crackertracker.entity.UserType;
 import by.talstaya.crackertracker.exception.ServiceException;
 import by.talstaya.crackertracker.service.CommentForUserService;
 import by.talstaya.crackertracker.service.MealService;
@@ -47,17 +46,6 @@ public class ShowUserDietForSupervisorCommand implements Command {
 
     private static final String ERROR = "error";
     private static final String STATUS_CODE = "statusCode";
-
-    private List<UserType> userTypeList;
-
-    public ShowUserDietForSupervisorCommand() {
-        userTypeList = Collections.singletonList(UserType.SUPERVISOR);
-    }
-
-    @Override
-    public List<UserType> getUserTypeList() {
-        return userTypeList;
-    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {

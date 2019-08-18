@@ -2,6 +2,7 @@ package by.talstaya.crackertracker.servlet.filter;
 
 import by.talstaya.crackertracker.command.Command;
 import by.talstaya.crackertracker.command.CommandFactory;
+import by.talstaya.crackertracker.command.CommandType;
 import by.talstaya.crackertracker.entity.User;
 import by.talstaya.crackertracker.entity.UserType;
 import org.apache.logging.log4j.LogManager;
@@ -12,6 +13,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * ServletSecurityFilter is used to prohibits users from visiting pages to which they do not have rights
@@ -48,15 +50,18 @@ public class ServletSecurityFilter implements Filter {
 
             if (httpRequest.getAttribute(COMMAND) != null) {
                 Command command = commandFactory.receiveCommand((String) httpRequest.getAttribute(COMMAND));
+                List<UserType> userTypeList = CommandType
+                        .valueOf(((String) httpRequest.getAttribute(COMMAND)).toUpperCase())
+                        .getUserTypeList();
                 if (user != null) {
-                    if (command.getUserTypeList().contains(user.getUserType())) {
+                    if (userTypeList.contains(user.getUserType())){
                         chain.doFilter(request, response);
-                    } else {
+                    } else{
                         httpRequest.getSession().setAttribute(ERROR, "Sorry! You have no rights to visit this page.");
                         httpResponse.sendRedirect(httpRequest.getContextPath() + PRODUCT_LIST_PATH);
                     }
                 } else {
-                    if (command.getUserTypeList().contains(UserType.ANONYMOUS)) {
+                    if (userTypeList.contains(UserType.ANONYMOUS)) {
                         chain.doFilter(request, response);
                     } else {
                         httpRequest.getSession().setAttribute(ERROR, "Sign in for visiting this page");

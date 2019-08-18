@@ -2,7 +2,6 @@ package by.talstaya.crackertracker.command.impl;
 
 import by.talstaya.crackertracker.command.Command;
 import by.talstaya.crackertracker.entity.User;
-import by.talstaya.crackertracker.entity.UserType;
 import by.talstaya.crackertracker.exception.ServiceException;
 import by.talstaya.crackertracker.service.CommentForUserService;
 import by.talstaya.crackertracker.service.MealService;
@@ -12,8 +11,6 @@ import by.talstaya.crackertracker.service.impl.MealServiceImpl;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * This class is used to delete meal from user diet
@@ -29,21 +26,8 @@ public class DeleteMealCommand implements Command {
     private static final String TOTAL_PRODUCTS = "totalProducts";
     private static final String SELECTED_DATE = "selected_date";
 
-
     private static final String RESPONSE = "response";
     private static final String DIET_PATH = "/diet";
-
-
-    private List<UserType> userTypeList;
-
-    public DeleteMealCommand() {
-        userTypeList = Arrays.asList(UserType.USER, UserType.SUPERVISOR, UserType.ADMINISTRATOR);
-    }
-
-    @Override
-    public List<UserType> getUserTypeList() {
-        return userTypeList;
-    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {

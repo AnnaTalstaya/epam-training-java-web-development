@@ -4,7 +4,6 @@ import by.talstaya.crackertracker.command.Command;
 import by.talstaya.crackertracker.command.JspPath;
 import by.talstaya.crackertracker.entity.CommentForUser;
 import by.talstaya.crackertracker.entity.User;
-import by.talstaya.crackertracker.entity.UserType;
 import by.talstaya.crackertracker.exception.ServiceException;
 import by.talstaya.crackertracker.service.CommentForUserService;
 import by.talstaya.crackertracker.service.impl.CommentForUserServiceImpl;
@@ -12,8 +11,6 @@ import by.talstaya.crackertracker.service.impl.CommentForUserServiceImpl;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,17 +32,6 @@ public class CommentCommand implements Command {
     private static final String STATUS_CODE = "statusCode";
 
     private static final String REGEX_COMMENT = "^.{1,2000}$";
-
-    private List<UserType> userTypeList;
-
-    public CommentCommand() {
-        userTypeList = Arrays.asList(UserType.USER, UserType.SUPERVISOR, UserType.ADMINISTRATOR);
-    }
-
-    @Override
-    public List<UserType> getUserTypeList() {
-        return userTypeList;
-    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {

@@ -4,14 +4,12 @@ import by.talstaya.crackertracker.command.Command;
 import by.talstaya.crackertracker.command.JspPath;
 import by.talstaya.crackertracker.command.Pagination;
 import by.talstaya.crackertracker.entity.User;
-import by.talstaya.crackertracker.entity.UserType;
 import by.talstaya.crackertracker.exception.ServiceException;
 import by.talstaya.crackertracker.service.UserService;
 import by.talstaya.crackertracker.service.impl.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -31,17 +29,6 @@ public class ShowRequestsForSupervisorCommand implements Command, Pagination {
     private static final String START_INDEX_OF_REQUEST_LIST = "startIndexOfRequestList";
 
     private static final String REQUEST_LIST_FOR_SUPERVISOR = "requestListForSupervisor";
-
-    private List<UserType> userTypeList;
-
-    public ShowRequestsForSupervisorCommand() {
-        userTypeList = Collections.singletonList(UserType.SUPERVISOR);
-    }
-
-    @Override
-    public List<UserType> getUserTypeList() {
-        return userTypeList;
-    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {

@@ -15,8 +15,6 @@ import org.mindrot.jbcrypt.BCrypt;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -29,8 +27,6 @@ import java.util.Objects;
 public class RegistrationCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger("name");
-
-    private Map<String, String> errorMessages;
 
     private static final String USER = "User";
     private static final String FIRST_NAME = "firstName";
@@ -47,17 +43,6 @@ public class RegistrationCommand implements Command {
     private static final String ERROR_PASS_AND_CONFIRMED_PASS = "errorPassAndConfirmedPassMessage";
     private static final String RESPONSE = "response";
     private static final String PRODUCT_LIST_PATH = "/visit_product_list";
-
-    private List<UserType> userTypeList;
-
-    public RegistrationCommand() {
-        userTypeList = Collections.singletonList(UserType.ANONYMOUS);
-    }
-
-    @Override
-    public List<UserType> getUserTypeList() {
-        return userTypeList;
-    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
@@ -77,7 +62,7 @@ public class RegistrationCommand implements Command {
         String confirmedPassword = request.getParameter(CONFIRMED_PASSWORD);
 
         UserDataValidator userDataValidator = new UserDataValidator();
-        errorMessages = userDataValidator.validateData(firstName, surname, username, weight, height, password, confirmedPassword);
+        Map<String, String> errorMessages = userDataValidator.validateData(firstName, surname, username, weight, height, password, confirmedPassword);
 
         if (errorMessages.isEmpty()) {
             if (Objects.equals(password, confirmedPassword)) {

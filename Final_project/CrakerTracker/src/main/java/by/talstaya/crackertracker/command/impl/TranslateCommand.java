@@ -1,14 +1,11 @@
 package by.talstaya.crackertracker.command.impl;
 
 import by.talstaya.crackertracker.command.Command;
-import by.talstaya.crackertracker.entity.UserType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -24,17 +21,6 @@ public class TranslateCommand implements Command {
     private static final String LANGUAGE = "language";
     private static final String LOCALE = "locale";
     private static final String RESPONSE = "response";
-
-    private List<UserType> userTypeList;
-
-    public TranslateCommand() {
-        userTypeList = Arrays.asList(UserType.ANONYMOUS, UserType.USER, UserType.SUPERVISOR, UserType.ADMINISTRATOR);
-    }
-
-    @Override
-    public List<UserType> getUserTypeList() {
-        return userTypeList;
-    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

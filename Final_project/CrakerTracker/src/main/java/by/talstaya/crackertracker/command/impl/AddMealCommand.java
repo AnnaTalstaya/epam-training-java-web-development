@@ -2,7 +2,10 @@ package by.talstaya.crackertracker.command.impl;
 
 import by.talstaya.crackertracker.command.Command;
 import by.talstaya.crackertracker.command.JspPath;
-import by.talstaya.crackertracker.entity.*;
+import by.talstaya.crackertracker.entity.Meal;
+import by.talstaya.crackertracker.entity.MealTime;
+import by.talstaya.crackertracker.entity.Product;
+import by.talstaya.crackertracker.entity.User;
 import by.talstaya.crackertracker.exception.ServiceException;
 import by.talstaya.crackertracker.service.MealService;
 import by.talstaya.crackertracker.service.MealTimeService;
@@ -14,8 +17,6 @@ import by.talstaya.crackertracker.service.impl.ProductServiceImpl;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,17 +37,6 @@ public class AddMealCommand implements Command {
     private static final String STATUS_CODE = "statusCode";
     private static final String REGEX_QUANTITY = "^[1-9]\\d{0,2}$";
     private static final String RESPONSE = "response";
-
-    private List<UserType> userTypeList;
-
-    public AddMealCommand() {
-        userTypeList = Arrays.asList(UserType.USER, UserType.SUPERVISOR, UserType.ADMINISTRATOR);
-    }
-
-    @Override
-    public List<UserType> getUserTypeList() {
-        return userTypeList;
-    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

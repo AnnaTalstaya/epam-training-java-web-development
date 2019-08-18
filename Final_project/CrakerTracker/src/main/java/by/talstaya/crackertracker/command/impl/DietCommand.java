@@ -3,15 +3,12 @@ package by.talstaya.crackertracker.command.impl;
 import by.talstaya.crackertracker.command.Command;
 import by.talstaya.crackertracker.command.JspPath;
 import by.talstaya.crackertracker.entity.User;
-import by.talstaya.crackertracker.entity.UserType;
 import by.talstaya.crackertracker.exception.ServiceException;
 import by.talstaya.crackertracker.service.MealService;
 import by.talstaya.crackertracker.service.impl.MealServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -28,17 +25,6 @@ public class DietCommand implements Command {
     private final static String SHOW_DIET = "show_diet";
     private final static String SELECTED_DATE = "selected_date";
     private final static String NO_MEAL = "noMeal";
-
-    private List<UserType> userTypeList;
-
-    public DietCommand() {
-        userTypeList = Arrays.asList(UserType.USER, UserType.SUPERVISOR, UserType.ADMINISTRATOR);
-    }
-
-    @Override
-    public List<UserType> getUserTypeList() {
-        return userTypeList;
-    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {

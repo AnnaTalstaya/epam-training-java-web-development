@@ -3,7 +3,6 @@ package by.talstaya.crackertracker.command.impl.anonymous;
 import by.talstaya.crackertracker.command.Command;
 import by.talstaya.crackertracker.command.JspPath;
 import by.talstaya.crackertracker.entity.User;
-import by.talstaya.crackertracker.entity.UserType;
 import by.talstaya.crackertracker.exception.ServiceException;
 import by.talstaya.crackertracker.service.UserService;
 import by.talstaya.crackertracker.service.impl.UserServiceImpl;
@@ -12,8 +11,6 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * This class is used for to sign in
@@ -33,17 +30,6 @@ public class SignInCommand implements Command {
     private static final String PRODUCT_LIST_PATH = "/visit_product_list";
     private static final String ERROR = "error";
     private static final String STATUS_CODE = "statusCode";
-
-    private List<UserType> userTypeList;
-
-    public SignInCommand() {
-        userTypeList = Collections.singletonList(UserType.ANONYMOUS);
-    }
-
-    @Override
-    public List<UserType> getUserTypeList() {
-        return userTypeList;
-    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {

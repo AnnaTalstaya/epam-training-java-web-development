@@ -3,7 +3,6 @@ package by.talstaya.crackertracker.command.impl.supervisor;
 import by.talstaya.crackertracker.command.Command;
 import by.talstaya.crackertracker.command.JspPath;
 import by.talstaya.crackertracker.entity.User;
-import by.talstaya.crackertracker.entity.UserType;
 import by.talstaya.crackertracker.exception.ServiceException;
 import by.talstaya.crackertracker.service.MealService;
 import by.talstaya.crackertracker.service.UserService;
@@ -12,8 +11,6 @@ import by.talstaya.crackertracker.service.impl.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -36,17 +33,6 @@ public class UserDietForSupervisorCommand implements Command {
     private static final String STATUS_CODE = "statusCode";
     private static final String REGEX_ID = "^[1-9]\\d*$";
     private final static String USER_ID_FOR_SUPERVISOR = "userIdForSupervisor";
-
-    private List<UserType> userTypeList;
-
-    public UserDietForSupervisorCommand() {
-        userTypeList = Collections.singletonList(UserType.SUPERVISOR);
-    }
-
-    @Override
-    public List<UserType> getUserTypeList() {
-        return userTypeList;
-    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {

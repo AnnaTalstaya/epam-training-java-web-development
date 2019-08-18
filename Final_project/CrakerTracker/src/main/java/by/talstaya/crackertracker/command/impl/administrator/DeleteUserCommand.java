@@ -14,8 +14,6 @@ import by.talstaya.crackertracker.service.impl.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * This class is used to delete user
@@ -29,17 +27,6 @@ public class DeleteUserCommand implements Command {
     private static final String USER_ID = "userId";
     private static final String RESPONSE = "response";
     private static final String USER_LIST_PATH = "/user_list";
-
-    private List<UserType> userTypeList;
-
-    public DeleteUserCommand() {
-        userTypeList = Collections.singletonList(UserType.ADMINISTRATOR);
-    }
-
-    @Override
-    public List<UserType> getUserTypeList() {
-        return userTypeList;
-    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
