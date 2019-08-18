@@ -89,39 +89,41 @@
             </thead>
             <tbody>
 
-            <c:forEach begin="${startIndexOfRequestList}" end="${startIndexOfRequestList + requestsPerPage - 1}"
-                       var="user"
-                       items="${requestListForSupervisor}">
-                <tr>
-                    <td>${user.firstName}</td>
-                    <td>${user.surname}</td>
-                    <td>${user.username}</td>
+            <c:if test="${requestListForSupervisor.size() > 0}">
+                <c:forEach begin="${startIndexOfRequestList}" end="${startIndexOfRequestList + requestsPerPage - 1}"
+                           var="user"
+                           items="${requestListForSupervisor}">
+                    <tr>
+                        <td>${user.firstName}</td>
+                        <td>${user.surname}</td>
+                        <td>${user.username}</td>
 
-                    <!--Accept -->
-                    <td>
-                        <form method="post" action="supervisor_accepts_request">
-                            <input type="hidden" name="command" value="supervisor_accepts_request">
-                            <input type="hidden" name="userId" value="${user.userId}">
+                        <!--Accept -->
+                        <td>
+                            <form method="post" action="supervisor_accepts_request">
+                                <input type="hidden" name="command" value="supervisor_accepts_request">
+                                <input type="hidden" name="userId" value="${user.userId}">
 
-                            <button type="submit" class="btn btn-success center-block">
-                                <fmt:message key="supervisor.accept"/>
-                            </button>
-                        </form>
-                    </td>
+                                <button type="submit" class="btn btn-success center-block">
+                                    <fmt:message key="supervisor.accept"/>
+                                </button>
+                            </form>
+                        </td>
 
-                    <!--Reject-->
-                    <td>
-                        <form method="post" action="supervisor_rejects_request">
-                            <input type="hidden" name="command" value="supervisor_rejects_request">
-                            <input type="hidden" name="userId" value="${user.userId}">
+                        <!--Reject-->
+                        <td>
+                            <form method="post" action="supervisor_rejects_request">
+                                <input type="hidden" name="command" value="supervisor_rejects_request">
+                                <input type="hidden" name="userId" value="${user.userId}">
 
-                            <button type="submit" class="btn btn-danger center-block">
-                                <fmt:message key="supervisor.reject"/>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            </c:forEach>
+                                <button type="submit" class="btn btn-danger center-block">
+                                    <fmt:message key="supervisor.reject"/>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </c:if>
 
             </tbody>
         </table>

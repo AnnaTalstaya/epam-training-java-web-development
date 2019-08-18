@@ -185,25 +185,27 @@
                                         ${searchError}
                                     </c:when>
                                     <c:otherwise>
-                                        <c:forEach begin="${startIndexOfProductList}"
-                                                   end="${startIndexOfProductList + productsPerPage - 1}"
-                                                   var="product"
-                                                   items="${products}">
+                                        <c:if test="${products.size() > 0}">
+                                            <c:forEach begin="${startIndexOfProductList}"
+                                                       end="${startIndexOfProductList + productsPerPage - 1}"
+                                                       var="product"
+                                                       items="${products}">
 
-                                            <div class="col-xs-6 col-sm-4 col-lg-3 ex2">
-                                                <form method="get" action="show_product_details">
-                                                    <input type="hidden" name="productId" value="${product.productId}">
+                                                <div class="col-xs-6 col-sm-4 col-lg-3 ex2">
+                                                    <form method="get" action="show_product_details">
+                                                        <input type="hidden" name="productId" value="${product.productId}">
 
-                                                    <img src="${pageContext.request.contextPath}/images/products/${product.imageURL}"
-                                                         alt=""
-                                                         width="200" height="250">
-                                                    <p>${product.name}</p>
-                                                    <button type="submit" class="btn btn-primary center-block">
-                                                        <fmt:message key="product.details"/>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </c:forEach>
+                                                        <img src="${pageContext.request.contextPath}/images/products/${product.imageURL}"
+                                                             alt=""
+                                                             width="200" height="250">
+                                                        <p>${product.name}</p>
+                                                        <button type="submit" class="btn btn-primary center-block">
+                                                            <fmt:message key="product.details"/>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </c:forEach>
+                                        </c:if>
                                     </c:otherwise>
                                 </c:choose>
 

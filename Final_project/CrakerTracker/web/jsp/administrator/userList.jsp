@@ -63,44 +63,20 @@
             </thead>
             <tbody>
 
-            <c:forEach begin="${startIndexOfUserList}" end="${startIndexOfUserList + usersPerPage - 1}" var="user"
-                       items="${userList}">
-                <tr>
-                    <td>${user.username}</td>
+            <c:if test="${userList.size() > 0}">
+                <c:forEach begin="${startIndexOfUserList}" end="${startIndexOfUserList + usersPerPage - 1}" var="user"
+                           items="${userList}">
+                    <tr>
+                        <td>${user.username}</td>
 
-                    <td>
-                        <c:choose>
-                            <c:when test="${not greaterThanOneAdmin and user.userType.name() == 'ADMINISTRATOR'}">
-                                <label>
-                                    <select class="custom-select" name="userType" onchange="this.form.submit()" required
-                                            disabled>
-                                        <option ${user.userType.name()=="USER"?"selected":""} value="USER"><fmt:message
-                                                key="user.type.user"/>
-                                        </option>
-                                        <!-- value отправляется на сервер-->
-                                        <option ${user.userType.name()=="ADMINISTRATOR"?"selected":""}
-                                                value="ADMINISTRATOR">
-                                            <fmt:message
-                                                    key="user.type.administrator"/>
-                                        </option>
-                                        <option ${user.userType.name()=="SUPERVISOR"?"selected":""} value="SUPERVISOR">
-                                            <fmt:message
-                                                    key="user.type.supervisor"/>
-                                        </option>
-                                    </select>
-                                </label>
-                            </c:when>
-                            <c:otherwise>
-                                <form method="post" action="change_user_type" class="form-horizontal">
-                                    <input type="hidden" name="command" value="change_user_type">
-                                    <input type="hidden" name="userId" value="${user.userId}">
-
+                        <td>
+                            <c:choose>
+                                <c:when test="${not greaterThanOneAdmin and user.userType.name() == 'ADMINISTRATOR'}">
                                     <label>
-                                        <select class="custom-select" name="userType" onchange="this.form.submit()"
-                                                required>
-                                            <option ${user.userType.name()=="USER"?"selected":""} value="USER">
-                                                <fmt:message
-                                                        key="user.type.user"/>
+                                        <select class="custom-select" name="userType" onchange="this.form.submit()" required
+                                                disabled>
+                                            <option ${user.userType.name()=="USER"?"selected":""} value="USER"><fmt:message
+                                                    key="user.type.user"/>
                                             </option>
                                             <!-- value отправляется на сервер-->
                                             <option ${user.userType.name()=="ADMINISTRATOR"?"selected":""}
@@ -108,47 +84,74 @@
                                                 <fmt:message
                                                         key="user.type.administrator"/>
                                             </option>
-                                            <option ${user.userType.name()=="SUPERVISOR"?"selected":""}
-                                                    value="SUPERVISOR">
+                                            <option ${user.userType.name()=="SUPERVISOR"?"selected":""} value="SUPERVISOR">
                                                 <fmt:message
                                                         key="user.type.supervisor"/>
                                             </option>
                                         </select>
                                     </label>
-                                </form>
-                            </c:otherwise>
-                        </c:choose>
-                    </td>
+                                </c:when>
+                                <c:otherwise>
+                                    <form method="post" action="change_user_type" class="form-horizontal">
+                                        <input type="hidden" name="command" value="change_user_type">
+                                        <input type="hidden" name="userId" value="${user.userId}">
 
-                    <td>
-                        <form method="get" action="show_user_details">
-                            <input type="hidden" name="userId" value="${user.userId}">
+                                        <label>
+                                            <select class="custom-select" name="userType" onchange="this.form.submit()"
+                                                    required>
+                                                <option ${user.userType.name()=="USER"?"selected":""} value="USER">
+                                                    <fmt:message
+                                                            key="user.type.user"/>
+                                                </option>
+                                                <!-- value отправляется на сервер-->
+                                                <option ${user.userType.name()=="ADMINISTRATOR"?"selected":""}
+                                                        value="ADMINISTRATOR">
+                                                    <fmt:message
+                                                            key="user.type.administrator"/>
+                                                </option>
+                                                <option ${user.userType.name()=="SUPERVISOR"?"selected":""}
+                                                        value="SUPERVISOR">
+                                                    <fmt:message
+                                                            key="user.type.supervisor"/>
+                                                </option>
+                                            </select>
+                                        </label>
+                                    </form>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
 
-                            <button type="submit" class="btn btn-primary center-block"><fmt:message
-                                    key="product.details"/></button>
-                        </form>
-                    </td>
-                    <!--Delete -->
-                    <td>
-                        <c:choose>
-                            <c:when test="${not greaterThanOneAdmin and user.userType.name() == 'ADMINISTRATOR'}">
+                        <td>
+                            <form method="get" action="show_user_details">
+                                <input type="hidden" name="userId" value="${user.userId}">
 
-                                <button type="submit" class="btn btn-danger center-block" disabled><fmt:message
-                                        key="user.delete"/></button>
-                            </c:when>
-                            <c:otherwise>
-                                <form method="post" action="delete_user">
-                                    <input type="hidden" name="command" value="delete_user">
-                                    <input type="hidden" name="userId" value="${user.userId}">
+                                <button type="submit" class="btn btn-primary center-block"><fmt:message
+                                        key="product.details"/></button>
+                            </form>
+                        </td>
+                        <!--Delete -->
+                        <td>
+                            <c:choose>
+                                <c:when test="${not greaterThanOneAdmin and user.userType.name() == 'ADMINISTRATOR'}">
 
-                                    <button type="submit" class="btn btn-danger center-block"><fmt:message
+                                    <button type="submit" class="btn btn-danger center-block" disabled><fmt:message
                                             key="user.delete"/></button>
-                                </form>
-                            </c:otherwise>
-                        </c:choose>
-                    </td>
-                </tr>
-            </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <form method="post" action="delete_user">
+                                        <input type="hidden" name="command" value="delete_user">
+                                        <input type="hidden" name="userId" value="${user.userId}">
+
+                                        <button type="submit" class="btn btn-danger center-block"><fmt:message
+                                                key="user.delete"/></button>
+                                    </form>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </c:if>
+
 
             </tbody>
         </table>

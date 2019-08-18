@@ -89,38 +89,40 @@
             </thead>
             <tbody>
 
-            <c:forEach begin="${startIndexOfUserList}" end="${startIndexOfUserList + usersPerPage - 1}" var="user"
-                       items="${usersOfSupervisor}">
-                <tr>
-                    <td>${user.firstName}</td>
-                    <td>${user.surname}</td>
-                    <td>${user.username}</td>
-                    <td>${user.dateOfBirth}</td>
-                    <td>${user.weight}</td>
-                    <td>${user.height}</td>
+            <c:if test="${usersOfSupervisor.size() > 0}">
+                <c:forEach begin="${startIndexOfUserList}" end="${startIndexOfUserList + usersPerPage - 1}" var="user"
+                           items="${usersOfSupervisor}">
+                    <tr>
+                        <td>${user.firstName}</td>
+                        <td>${user.surname}</td>
+                        <td>${user.username}</td>
+                        <td>${user.dateOfBirth}</td>
+                        <td>${user.weight}</td>
+                        <td>${user.height}</td>
 
-                    <!--Show diet-->
-                    <td>
-                        <form method="get" action="user_diet_for_supervisor">
-                            <input type="hidden" name="userIdForSupervisor" value="${user.userId}">
+                        <!--Show diet-->
+                        <td>
+                            <form method="get" action="user_diet_for_supervisor">
+                                <input type="hidden" name="userIdForSupervisor" value="${user.userId}">
 
-                            <button type="submit" class="btn btn-primary center-block"><fmt:message
-                                    key="header.profile.diet"/></button>
-                        </form>
-                    </td>
+                                <button type="submit" class="btn btn-primary center-block"><fmt:message
+                                        key="header.profile.diet"/></button>
+                            </form>
+                        </td>
 
-                    <!--Delete -->
-                    <td>
-                        <form method="post" action="delete_user_of_supervisor">
-                            <input type="hidden" name="command" value="delete_user_of_supervisor">
-                            <input type="hidden" name="userId" value="${user.userId}">
+                        <!--Delete -->
+                        <td>
+                            <form method="post" action="delete_user_of_supervisor">
+                                <input type="hidden" name="command" value="delete_user_of_supervisor">
+                                <input type="hidden" name="userId" value="${user.userId}">
 
-                            <button type="submit" class="btn btn-danger center-block"><fmt:message
-                                    key="user.delete"/></button>
-                        </form>
-                    </td>
-                </tr>
-            </c:forEach>
+                                <button type="submit" class="btn btn-danger center-block"><fmt:message
+                                        key="user.delete"/></button>
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </c:if>
 
             </tbody>
         </table>
