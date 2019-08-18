@@ -14,6 +14,8 @@ import by.talstaya.crackertracker.service.UserService;
 import by.talstaya.crackertracker.service.impl.MealTimeServiceImpl;
 import by.talstaya.crackertracker.service.impl.ProductServiceImpl;
 import by.talstaya.crackertracker.service.impl.UserServiceImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -28,6 +30,8 @@ import java.util.TreeSet;
  * @version 1.0
  */
 public class MealDaoImpl implements MealDao {
+
+    private static final Logger LOGGER = LogManager.getLogger("name");
 
     private static final String SQL_INSERT = "INSERT INTO meals (user_id, product_id, date, meal_time_id, quantity) VALUES (?, ?, ?, ?, ?)";
     private static final String SQL_DELETE_MEAL = "DELETE FROM meals WHERE id=?";
@@ -47,6 +51,10 @@ public class MealDaoImpl implements MealDao {
             "SELECT id, user_id, product_id, date, meal_time_id, quantity" +
                     " FROM meals" +
                     " WHERE user_id=? AND product_id=? AND date=? AND meal_time_id=?";
+
+    private static final String SQL_FIND_MEAL_BY_ID =
+            "SELECT id, user_id, product_id, date, meal_time_id, quantity" +
+                    " FROM meals WHERE id=?";
 
 
     private static final String SQL_COUNT_TOTAL_CALORIES_BY_USER_ID_AND_MEAL_DATE =
@@ -156,7 +164,37 @@ public class MealDaoImpl implements MealDao {
 
     @Override
     public Meal findById(int mealId) throws DaoException {
-        return null;         //todo
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        Connection connection = ConnectionPool.getInstance().takeConnection();
+        try {
+            preparedStatement = connection.prepareStatement(SQL_FIND_MEAL_BY_ID);
+            preparedStatement.setInt(1, mealId);
+
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+
+                return new Meal.Builder()
+                        .setMealId(resultSet.getInt(1))
+                        .setUser(findUserById(resultSet.getInt(2)))
+                        .setProduct(findProductById(resultSet.getInt(3)))
+                        .setDate(resultSet.getDate(4).toLocalDate())
+                        .setMealTime(findMealTimeById(resultSet.getInt(5)))
+                        .setQuantity(resultSet.getInt(6))
+                        .build();
+            } else {
+                throw new DaoException("No comment with such id");
+            }
+
+        } catch (SQLException | ServiceException e) {
+            throw new DaoException(e);
+        } finally {
+            closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
+        }
 
     }
 

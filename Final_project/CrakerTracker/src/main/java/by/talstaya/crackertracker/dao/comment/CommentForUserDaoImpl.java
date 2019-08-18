@@ -238,10 +238,7 @@ public class CommentForUserDaoImpl implements CommentForUserDao {
                 throw new DaoException("No comment with such id");
             }
 
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        } catch (ServiceException e) {
-            LOGGER.error(e);
+        } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
         } finally {
             closeResultSet(resultSet);
