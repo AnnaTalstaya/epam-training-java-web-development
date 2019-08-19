@@ -1,6 +1,6 @@
 package by.talstaya.crackertracker.dao;
 
-import by.talstaya.crackertracker.entity.CommentForUser;
+import by.talstaya.crackertracker.entity.UserComment;
 import by.talstaya.crackertracker.exception.DaoException;
 
 import java.time.LocalDate;
@@ -12,9 +12,9 @@ import java.util.List;
  * @author Anna Talstaya
  * @version 1.0
  */
-public interface CommentForUserDao extends BasicDao<CommentForUser> {
+public interface UserCommentDao extends BasicDao<UserComment> {
 
-    List<CommentForUser> findComments(int userId, String mealDate) throws DaoException;
+    List<UserComment> findComments(int userId, String mealDate) throws DaoException;
 
     void deleteCommentsForUser(int userId) throws DaoException;
 

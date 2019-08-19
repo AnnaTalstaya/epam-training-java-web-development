@@ -5,12 +5,12 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
- * CommentForUser is a entity of comment
+ * UserComment is a entity of comment
  *
  * @author Anna Talstaya
  * @version 1.0
  */
-public class CommentForUser implements Entity {
+public class UserComment implements Entity {
 
     private int commentId;
     private LocalDateTime dateOfComment;
@@ -19,7 +19,7 @@ public class CommentForUser implements Entity {
     private User commentator;
     private String comment;
 
-    public CommentForUser() {
+    public UserComment() {
     }
 
     public int getCommentId() {
@@ -49,8 +49,8 @@ public class CommentForUser implements Entity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof CommentForUser)) return false;
-        CommentForUser comment = (CommentForUser) o;
+        if (!(o instanceof UserComment)) return false;
+        UserComment comment = (UserComment) o;
         return commentId == comment.commentId;
     }
 
@@ -60,44 +60,44 @@ public class CommentForUser implements Entity {
     }
 
     public static class Builder {
-        private CommentForUser commentForUser;
+        private UserComment userComment;
 
         public Builder() {
-            commentForUser = new CommentForUser();
+            userComment = new UserComment();
         }
 
         public Builder setCommentId(int commentId){
-            commentForUser.commentId = commentId;
+            userComment.commentId = commentId;
             return this;
         }
 
         public Builder setDateOfComment(LocalDateTime dateOfComment){
-            commentForUser.dateOfComment = dateOfComment;
+            userComment.dateOfComment = dateOfComment;
             return this;
         }
 
         public Builder setMealDate(LocalDate mealDate) {
-            commentForUser.mealDate = mealDate;
+            userComment.mealDate = mealDate;
             return this;
         }
 
         public Builder setUserId(int userId) {
-            commentForUser.userId = userId;
+            userComment.userId = userId;
             return this;
         }
 
         public Builder setCommentator(User commentator) {
-            commentForUser.commentator = commentator;
+            userComment.commentator = commentator;
             return this;
         }
 
         public Builder setComment(String comment) {
-            commentForUser.comment = comment;
+            userComment.comment = comment;
             return this;
         }
 
-        public CommentForUser build() {
-            return commentForUser;
+        public UserComment build() {
+            return userComment;
         }
 
     }

@@ -1,9 +1,9 @@
 package by.talstaya.crackertracker.dao.comment;
 
 import by.talstaya.crackertracker.connection.ConnectionPool;
-import by.talstaya.crackertracker.dao.CommentForUserDao;
-import by.talstaya.crackertracker.entity.CommentForUser;
+import by.talstaya.crackertracker.dao.UserCommentDao;
 import by.talstaya.crackertracker.entity.User;
+import by.talstaya.crackertracker.entity.UserComment;
 import by.talstaya.crackertracker.exception.DaoException;
 import by.talstaya.crackertracker.exception.ServiceException;
 import by.talstaya.crackertracker.service.UserService;
@@ -17,46 +17,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class is an implementation of CommentForUserDao
+ * This class is an implementation of UserCommentDao
  *
  * @author Anna Talstaya
  * @version 1.0
  */
-public class CommentForUserDaoImpl implements CommentForUserDao {
+public class UserCommentDaoImpl implements UserCommentDao {
 
     private static final Logger LOGGER = LogManager.getLogger("name");
 
     private static final String SQL_FIND_COMMENTS = "SELECT id, date_of_comment, mealDate, user_id, commentator_id, comment" +
-            " FROM comments_for_users" +
+            " FROM user_comments" +
             " WHERE user_id=? AND mealDate=?";
 
-    private static final String SQL_INSERT_COMMENT = "INSERT into comments_for_users (date_of_comment, mealDate, user_id, commentator_id, comment)" +
+    private static final String SQL_INSERT_COMMENT = "INSERT into user_comments (date_of_comment, mealDate, user_id, commentator_id, comment)" +
             " VALUES (NOW(),?,?,?,?)";
 
-    private static final String SQL_UPDATE = "UPDATE comments_for_users" +
+    private static final String SQL_UPDATE = "UPDATE user_comments" +
             " SET date_of_comment=?, mealDate=?, user_id=?, commentator_id=?, comment=?" +
             " WHERE id=?";
 
     private static final String SQL_FIND_COMMENT_BY_ID =
             "SELECT id, date_of_comment, mealDate, user_id, commentator_id, comment" +
-            " FROM comments_for_users WHERE id=?";
+            " FROM user_comments WHERE id=?";
 
-    private static final String SQL_DELETE_COMMENT = "DELETE FROM comments_for_users WHERE id=?";
+    private static final String SQL_DELETE_COMMENT = "DELETE FROM user_comments WHERE id=?";
 
-    private static final String SQL_DELETE_COMMENTS_FOR_USER = "DELETE FROM comments_for_users WHERE user_id=?";
+    private static final String SQL_DELETE_COMMENTS_FOR_USER = "DELETE FROM user_comments WHERE user_id=?";
 
-    private static final String SQL_DELETE_COMMENTS_BY_COMMENTATOR = "DELETE FROM comments_for_users WHERE commentator_id=?";
+    private static final String SQL_DELETE_COMMENTS_BY_COMMENTATOR = "DELETE FROM user_comments WHERE commentator_id=?";
 
-    private static final String SQL_DELETE_COMMENTS_FOR_USER_BY_DATE = "DELETE FROM comments_for_users WHERE user_id=? AND mealDate=?";
+    private static final String SQL_DELETE_COMMENTS_FOR_USER_BY_DATE = "DELETE FROM user_comments WHERE user_id=? AND mealDate=?";
 
     @Override
-    public List<CommentForUser> findComments(int userId, String mealDate) throws DaoException {
+    public List<UserComment> findComments(int userId, String mealDate) throws DaoException {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
         Connection connection = ConnectionPool.getInstance().takeConnection();
 
-        List<CommentForUser> commentForUserList = new ArrayList<>();
+        List<UserComment> userCommentList = new ArrayList<>();
 
         try {
             preparedStatement = connection.prepareStatement(SQL_FIND_COMMENTS);
@@ -66,7 +66,7 @@ public class CommentForUserDaoImpl implements CommentForUserDao {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                commentForUserList.add(new CommentForUser.Builder()
+                userCommentList.add(new UserComment.Builder()
                         .setCommentId(resultSet.getInt(1))
                         .setDateOfComment(resultSet.getTimestamp(2).toLocalDateTime())
                         .setMealDate(resultSet.getDate(3).toLocalDate())
@@ -76,7 +76,7 @@ public class CommentForUserDaoImpl implements CommentForUserDao {
                         .build()
                 );
             }
-            return commentForUserList;
+            return userCommentList;
 
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -152,16 +152,16 @@ public class CommentForUserDaoImpl implements CommentForUserDao {
     }
 
     @Override
-    public void insert(CommentForUser commentForUser) throws DaoException {
+    public void insert(UserComment userComment) throws DaoException {
         PreparedStatement preparedStatement = null;
         Connection connection = ConnectionPool.getInstance().takeConnection();
 
         try {
             preparedStatement = connection.prepareStatement(SQL_INSERT_COMMENT);
-            preparedStatement.setDate(1, Date.valueOf(commentForUser.getMealDate()));
-            preparedStatement.setInt(2, commentForUser.getUserId());
-            preparedStatement.setInt(3, commentForUser.getCommentator().getUserId());
-            preparedStatement.setString(4, commentForUser.getComment());
+            preparedStatement.setDate(1, Date.valueOf(userComment.getMealDate()));
+            preparedStatement.setInt(2, userComment.getUserId());
+            preparedStatement.setInt(3, userComment.getCommentator().getUserId());
+            preparedStatement.setString(4, userComment.getComment());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -191,17 +191,17 @@ public class CommentForUserDaoImpl implements CommentForUserDao {
     }
 
     @Override
-    public void update(CommentForUser commentForUser) throws DaoException {
+    public void update(UserComment userComment) throws DaoException {
         PreparedStatement preparedStatement = null;
         Connection connection = ConnectionPool.getInstance().takeConnection();
 
         try {
             preparedStatement = connection.prepareStatement(SQL_UPDATE);
-            preparedStatement.setTimestamp(1, Timestamp.valueOf(commentForUser.getDateOfComment()));
-            preparedStatement.setDate(2, Date.valueOf(commentForUser.getMealDate()));
-            preparedStatement.setInt(3, commentForUser.getUserId());
-            preparedStatement.setInt(4, commentForUser.getCommentator().getUserId());
-            preparedStatement.setString(5, commentForUser.getComment());
+            preparedStatement.setTimestamp(1, Timestamp.valueOf(userComment.getDateOfComment()));
+            preparedStatement.setDate(2, Date.valueOf(userComment.getMealDate()));
+            preparedStatement.setInt(3, userComment.getUserId());
+            preparedStatement.setInt(4, userComment.getCommentator().getUserId());
+            preparedStatement.setString(5, userComment.getComment());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -213,7 +213,7 @@ public class CommentForUserDaoImpl implements CommentForUserDao {
     }
 
     @Override
-    public CommentForUser findById(int id) throws DaoException {
+    public UserComment findById(int id) throws DaoException {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
@@ -226,7 +226,7 @@ public class CommentForUserDaoImpl implements CommentForUserDao {
 
             if (resultSet.next()) {
 
-                return new CommentForUser.Builder()
+                return new UserComment.Builder()
                         .setCommentId(resultSet.getInt(1))
                         .setDateOfComment(resultSet.getTimestamp(2).toLocalDateTime())
                         .setMealDate(resultSet.getDate(3).toLocalDate())

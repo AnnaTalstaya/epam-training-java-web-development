@@ -19,8 +19,11 @@ import java.sql.SQLException;
 public class MealTimeDaoImpl implements MealTimeDao {
 
     private static final String SQL_FIND_BY_MEAL_TIME = "SELECT id, meal_time FROM meal_time WHERE meal_time = ?";
-    private static final String SQL_FIND_BY_ID = "SELECT id, meal_time FROM meal_time WHERE id=?";
 
+    private static final String SQL_INSERT = "INSERT INTO meal_time (meal_time) VALUES (?)";
+    private static final String SQL_UPDATE = "UPDATE meal_time SET meal_time=? WHERE id=?";
+    private static final String SQL_DELETE = "DELETE FROM meal_time WHERE id=?";
+    private static final String SQL_FIND_BY_ID = "SELECT id, meal_time FROM meal_time WHERE id=?";
 
     @Override
     public int findIdByMealTime(String mealTime) throws DaoException {
@@ -51,7 +54,63 @@ public class MealTimeDaoImpl implements MealTimeDao {
     }
 
     @Override
-    public MealTime findMealTimeById(int mealTimeId) throws DaoException {
+    public void insert(MealTime mealTime) throws DaoException {
+        PreparedStatement preparedStatement = null;
+        Connection connection = ConnectionPool.getInstance().takeConnection();
+
+        try {
+            preparedStatement = connection.prepareStatement(SQL_INSERT);
+            preparedStatement.setString(1, mealTime.getMealTime());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
+        }
+    }
+
+    @Override
+    public void delete(int id) throws DaoException {
+        PreparedStatement preparedStatement = null;
+        Connection connection = ConnectionPool.getInstance().takeConnection();
+
+        try {
+            preparedStatement = connection.prepareStatement(SQL_DELETE);
+            preparedStatement.setInt(1, id);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
+        }
+    }
+
+    @Override
+    public void update(MealTime mealTime) throws DaoException {
+        PreparedStatement preparedStatement = null;
+        Connection connection = ConnectionPool.getInstance().takeConnection();
+
+        try {
+            preparedStatement = connection.prepareStatement(SQL_UPDATE);
+            preparedStatement.setString(1, mealTime.getMealTime());
+            preparedStatement.setInt(2, mealTime.getMealTimeId());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
+        }
+
+    }
+
+    @Override
+    public MealTime findById(int mealTimeId) throws DaoException {
         PreparedStatement preparedStatement = null;
 
         ResultSet resultSet = null;
@@ -79,28 +138,5 @@ public class MealTimeDaoImpl implements MealTimeDao {
             closePreparedStatement(preparedStatement);
             ConnectionPool.getInstance().returnConnection(connection);
         }
-    }
-
-    @Override
-    public void insert(MealTime entity) throws DaoException {
-        //todo
-    }
-
-    @Override
-    public void delete(int id) throws DaoException {
-        //todo
-
-    }
-
-    @Override
-    public void update(MealTime entity) throws DaoException {
-        //todo
-
-    }
-
-    @Override
-    public MealTime findById(int id) throws DaoException {
-        return null;        //todo
-
     }
 }

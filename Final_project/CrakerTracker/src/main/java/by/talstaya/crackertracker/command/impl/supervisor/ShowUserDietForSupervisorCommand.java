@@ -2,13 +2,13 @@ package by.talstaya.crackertracker.command.impl.supervisor;
 
 import by.talstaya.crackertracker.command.Command;
 import by.talstaya.crackertracker.command.JspPath;
-import by.talstaya.crackertracker.entity.CommentForUser;
 import by.talstaya.crackertracker.entity.Meal;
+import by.talstaya.crackertracker.entity.UserComment;
 import by.talstaya.crackertracker.exception.ServiceException;
-import by.talstaya.crackertracker.service.CommentForUserService;
 import by.talstaya.crackertracker.service.MealService;
-import by.talstaya.crackertracker.service.impl.CommentForUserServiceImpl;
+import by.talstaya.crackertracker.service.UserCommentService;
 import by.talstaya.crackertracker.service.impl.MealServiceImpl;
+import by.talstaya.crackertracker.service.impl.UserCommentServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,7 +41,7 @@ public class ShowUserDietForSupervisorCommand implements Command {
     private static final String TOTAL_LIPIDS = "totalLipids";
     private static final String TOTAL_CARBOHYDRATES = "totalCarbohydrates";
     private static final String TOTAL_PRODUCTS = "totalProducts";
-    private static final String COMMENTS_FOR_USER_LIST = "commentForUserList";
+    private static final String USER_COMMENT_LIST = "userCommentList";
     private static final String REGEX_ID = "^[1-9]\\d*$";
 
     private static final String ERROR = "error";
@@ -84,11 +84,11 @@ public class ShowUserDietForSupervisorCommand implements Command {
                 int totalLipids = mealService.totalLipidsByUserIdAndMealDate(userId, mealDate);
                 int totalCarbohydrates = mealService.totalCarbohydratesByUserIdAndMealDate(userId, mealDate);
 
-                CommentForUserService commentForUserService = new CommentForUserServiceImpl();
-                List<CommentForUser> commentForUserList = commentForUserService.findComments(userId, mealDate);
-                Collections.reverse(commentForUserList);
+                UserCommentService userCommentService = new UserCommentServiceImpl();
+                List<UserComment> userCommentList = userCommentService.findComments(userId, mealDate);
+                Collections.reverse(userCommentList);
 
-                request.setAttribute(COMMENTS_FOR_USER_LIST, commentForUserList);
+                request.setAttribute(USER_COMMENT_LIST, userCommentList);
 
                 request.setAttribute(SHOW_DIET, true);
                 request.setAttribute(MEAL_DATE, mealDate);

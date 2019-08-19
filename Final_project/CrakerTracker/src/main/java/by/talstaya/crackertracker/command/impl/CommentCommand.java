@@ -2,11 +2,11 @@ package by.talstaya.crackertracker.command.impl;
 
 import by.talstaya.crackertracker.command.Command;
 import by.talstaya.crackertracker.command.JspPath;
-import by.talstaya.crackertracker.entity.CommentForUser;
 import by.talstaya.crackertracker.entity.User;
+import by.talstaya.crackertracker.entity.UserComment;
 import by.talstaya.crackertracker.exception.ServiceException;
-import by.talstaya.crackertracker.service.CommentForUserService;
-import by.talstaya.crackertracker.service.impl.CommentForUserServiceImpl;
+import by.talstaya.crackertracker.service.UserCommentService;
+import by.talstaya.crackertracker.service.impl.UserCommentServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -51,8 +51,8 @@ public class CommentCommand implements Command {
                 userId = user.getUserId();
             }
 
-            CommentForUserService commentForUserService = new CommentForUserServiceImpl();
-            commentForUserService.insertComment(new CommentForUser.Builder()
+            UserCommentService userCommentService = new UserCommentServiceImpl();
+            userCommentService.insertComment(new UserComment.Builder()
                     .setMealDate(LocalDate.parse(selectedDate))
                     .setUserId(userId)
                     .setCommentator(new User.Builder().setUserId(user.getUserId()).build())

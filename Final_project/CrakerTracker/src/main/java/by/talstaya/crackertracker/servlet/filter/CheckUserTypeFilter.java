@@ -50,7 +50,7 @@ public class CheckUserTypeFilter implements Filter {
                 }
 
             } catch (ServiceException e) {
-                e.printStackTrace(); //log //todo
+                LOGGER.error(e.getMessage(), e);
             }
 
             chain.doFilter(request, response);

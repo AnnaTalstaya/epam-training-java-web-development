@@ -13,5 +13,4 @@ public interface MealTimeDao extends BasicDao<MealTime> {
 
     int findIdByMealTime(String mealTime) throws DaoException;
 
-    MealTime findMealTimeById(int mealTimeId) throws DaoException;
 }

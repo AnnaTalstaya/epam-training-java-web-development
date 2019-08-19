@@ -33,7 +33,7 @@ public class MealTimeServiceImpl implements MealTimeService {
     @Override
     public MealTime findMealTimeById(int mealTimeId) throws ServiceException {
         try {
-            return mealTimeDao.findMealTimeById(mealTimeId);
+            return mealTimeDao.findById(mealTimeId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

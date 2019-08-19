@@ -195,7 +195,6 @@ public class MealDaoImpl implements MealDao {
             closePreparedStatement(preparedStatement);
             ConnectionPool.getInstance().returnConnection(connection);
         }
-
     }
 
     @Override

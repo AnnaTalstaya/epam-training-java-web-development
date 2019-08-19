@@ -3,10 +3,10 @@ package by.talstaya.crackertracker.command.impl;
 import by.talstaya.crackertracker.command.Command;
 import by.talstaya.crackertracker.entity.User;
 import by.talstaya.crackertracker.exception.ServiceException;
-import by.talstaya.crackertracker.service.CommentForUserService;
 import by.talstaya.crackertracker.service.MealService;
-import by.talstaya.crackertracker.service.impl.CommentForUserServiceImpl;
+import by.talstaya.crackertracker.service.UserCommentService;
 import by.talstaya.crackertracker.service.impl.MealServiceImpl;
+import by.talstaya.crackertracker.service.impl.UserCommentServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,8 +45,8 @@ public class DeleteMealCommand implements Command {
             User user = (User)request.getSession().getAttribute(USER);
             LocalDate selectedDate = LocalDate.parse(request.getParameter(SELECTED_DATE));
 
-            CommentForUserService commentForUserService = new CommentForUserServiceImpl();
-            commentForUserService.deleteCommentsForUserByDate(user.getUserId(), selectedDate);
+            UserCommentService userCommentService = new UserCommentServiceImpl();
+            userCommentService.deleteCommentsForUserByDate(user.getUserId(), selectedDate);
             return request.getContextPath() + DIET_PATH;
         }
     }

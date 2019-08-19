@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS ratings
   rating        DOUBLE NOT NULL
 ) ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS comments_for_users
+CREATE TABLE IF NOT EXISTS user_comments
 (
   id              INT           NOT NULL AUTO_INCREMENT PRIMARY KEY,
   date_of_comment TIMESTAMP     NOT NULL,
@@ -68,7 +68,7 @@ CREATE TABLE ggggg
 (
   id        INT         NOT NULL PRIMARY KEY,
   meal_time INT ,
-  FOREIGN KEY(meal_time) REFERENCES comments_for_users(id)
+  FOREIGN KEY(meal_time) REFERENCES user_comments (id)
 ) ENGINE = InnoDB;
 
 

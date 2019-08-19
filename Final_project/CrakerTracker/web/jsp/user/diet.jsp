@@ -313,19 +313,19 @@
                                 <div class="tab-pane active" id="comments-logout">
                                     <ul class="media-list">
 
-                                        <c:if test="${commentForUserList.isEmpty()}">
+                                        <c:if test="${userCommentList.isEmpty()}">
                                             <fmt:message key="profile.message.no_comments"/>
                                         </c:if>
 
                                         <!--Comment -->
-                                        <c:forEach var="commentForUser" items="${commentForUserList}">
+                                        <c:forEach var="userComment" items="${userCommentList}">
                                             <li class="media">
                                                 <div class="media-body" style="padding-bottom: 15px;">
-                                                    <c:if test="${User.userId == commentForUser.commentator.userId or User.userId == commentForUser.userId}">
+                                                    <c:if test="${User.userId == userComment.commentator.userId or User.userId == userComment.userId}">
                                                         <form method="post" action="delete_comment">
                                                             <input type="hidden" name="command" value="delete_comment">
                                                             <input type="hidden" name="commentId"
-                                                                   value="${commentForUser.commentId}">
+                                                                   value="${userComment.commentId}">
                                                             <input type="hidden" name="mealDate"
                                                                    value="${selected_date}">
                                                             <input type="hidden" name="userIdForSupervisor"
@@ -342,15 +342,15 @@
                                                         <div>
                                                             <h4 class="media-heading text-uppercase"
                                                                 style="display:inline-block">
-                                                                    ${commentForUser.commentator.firstName} ${commentForUser.commentator.surname}
+                                                                    ${userComment.commentator.firstName} ${userComment.commentator.surname}
                                                             </h4>
                                                             <span class="float-right"
-                                                                  style="display:inline-block">${commentForUser.dateOfComment}</span>
+                                                                  style="display:inline-block">${userComment.dateOfComment}</span>
 
                                                         </div>
 
                                                         <p class="media-comment">
-                                                                ${commentForUser.comment}
+                                                                ${userComment.comment}
                                                         </p>
                                                     </div>
                                                 </div>

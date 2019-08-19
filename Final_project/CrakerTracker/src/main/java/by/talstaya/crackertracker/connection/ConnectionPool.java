@@ -5,10 +5,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -32,7 +32,7 @@ public class ConnectionPool {
     private static final String CONNECTION_URL;
 
     private BlockingQueue<ProxyConnection> availableConnections;
-    private BlockingQueue<ProxyConnection> usedConnections;
+    private Set<ProxyConnection> usedConnections;
 
     static {
         MAX_POOL_SIZE = ConnectorDb.obtainMaxPoolSize();
@@ -49,9 +49,13 @@ public class ConnectionPool {
         }
     }
 
+    /**
+     * This method initialize parameters of connection pool
+     * @throws PoolConnectionException if connection pool does not have connections
+     */
     private void init() throws PoolConnectionException {
         availableConnections = new LinkedBlockingQueue<>(MAX_POOL_SIZE);
-        usedConnections = new LinkedBlockingQueue<>(MAX_POOL_SIZE);
+        usedConnections = new HashSet<>(MAX_POOL_SIZE);
 
         for (int i = 0; i < MAX_POOL_SIZE; i++) {
             try {
@@ -117,7 +121,7 @@ public class ConnectionPool {
         lock.lock();
         try {
             connection = availableConnections.take();
-            usedConnections.put(connection);
+            usedConnections.add(connection);
 
             LOGGER.debug("================= Take =================");
             LOGGER.debug("Available connections = " + availableConnections.size());
@@ -166,18 +170,26 @@ public class ConnectionPool {
 
     /**
      * This method close all connection from pool and deregister driver
+     * @throws PoolConnectionException if problem with in correct connection closing happens
      */
     public void closePool() throws PoolConnectionException {
         try {
             lock.lock();
             for (int i = 0; i < MAX_POOL_SIZE; i++) {
-                ProxyConnection connection = null;
 
                 try {
-                    connection = availableConnections.take();
+                    ProxyConnection connection = availableConnections.take();
                     connection.realClose();
 
-                    DriverManager.deregisterDriver(DriverManager.getDriver(ConnectorDb.obtainDriver()));
+                    Enumeration<Driver> drivers = DriverManager.getDrivers();
+                    while (drivers.hasMoreElements()) {
+                        try {
+                            Driver driver = drivers.nextElement();
+                            DriverManager.deregisterDriver(driver);
+                        } catch (Exception e) {
+                            LOGGER.error(e.toString(), e);
+                        }
+                    }
                 } catch (InterruptedException e) {
                     LOGGER.error(e.getMessage(), e);
                     Thread.currentThread().interrupt();
