@@ -37,6 +37,7 @@ public class AddMealCommand implements Command {
     private static final String STATUS_CODE = "statusCode";
     private static final String REGEX_QUANTITY = "^[1-9]\\d{0,2}$";
     private static final String RESPONSE = "response";
+    private static final String OK = "ok";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -72,6 +73,8 @@ public class AddMealCommand implements Command {
                         .setQuantity(quantity)
                         .build();
                 mealService.insertMeal(meal);
+
+                request.getSession().setAttribute(OK, "Added successfully");
 
             } catch (ServiceException e) {
                 request.setAttribute(ERROR, e.getMessage());

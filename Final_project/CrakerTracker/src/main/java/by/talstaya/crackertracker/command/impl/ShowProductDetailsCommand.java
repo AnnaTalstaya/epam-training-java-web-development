@@ -27,11 +27,18 @@ public class ShowProductDetailsCommand implements Command {
     private static final String STATUS_CODE = "statusCode";
     private static final String PRODUCT = "product";
     private static final String QUANTITY = "quantity";
+    private static final String OK = "ok";
 
     private static final String REGEX_ID = "^[1-9]\\d*$";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+
+        if (request.getSession().getAttribute(OK) != null) {
+            request.setAttribute(OK, request.getSession().getAttribute(OK));
+            request.getSession().setAttribute(OK, null);
+        }
+
         String page;
 
         if (request.getParameter(PRODUCT_ID) != null) {

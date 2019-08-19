@@ -42,6 +42,12 @@
 
 <jsp:include page="header.jsp"/>
 
+<c:if test="${ok != null}">
+    <div class="alert alert-success block1" role="alert">
+            ${ok}
+    </div>
+</c:if>
+
 <div id="page-container">
     <div id="content-wrap">
         <div class="container">

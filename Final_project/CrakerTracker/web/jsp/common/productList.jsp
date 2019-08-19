@@ -96,13 +96,13 @@
                                                 <label><fmt:message key="products.filter.min"/></label>
                                                 <input name="minCalories" value="${minCalories}"
                                                        type="number" min="0" max="999999"
-                                                       class="form-control" placeholder="${minCalories}">
+                                                       class="form-control" placeholder="${minCalories}" required>
                                             </div>
                                             <div class="form-group col-md-6 text-right">
                                                 <label><fmt:message key="products.filter.max"/></label>
                                                 <input name="maxCalories" value="${maxCalories}"
                                                        type="number" min="0" max="999999"
-                                                       class="form-control" placeholder="${maxCalories}">
+                                                       class="form-control" placeholder="${maxCalories}" required>
                                             </div>
                                         </div>
                                     </li>
@@ -115,13 +115,13 @@
                                                 <label><fmt:message key="products.filter.min"/></label>
                                                 <input name="minProteins" value="${minProteins}"
                                                        type="number" min="0" max="999999"
-                                                       class="form-control" placeholder="${minProteins}">
+                                                       class="form-control" placeholder="${minProteins}" required>
                                             </div>
                                             <div class="form-group col-md-6 text-right">
                                                 <label><fmt:message key="products.filter.max"/></label>
                                                 <input name="maxProteins" value="${maxProteins}"
                                                        type="number" min="0" max="999999"
-                                                       class="form-control" placeholder="${maxProteins}">
+                                                       class="form-control" placeholder="${maxProteins}" required>
                                             </div>
                                         </div>
                                     </li>
@@ -135,14 +135,14 @@
                                                 <input name="minLipids" value="${minLipids}"
                                                        type="number" min="0" max="999999"
                                                        class="form-control"
-                                                       placeholder="${minLipids}">
+                                                       placeholder="${minLipids}" required>
                                             </div>
                                             <div class="form-group col-md-6 text-right">
                                                 <label><fmt:message key="products.filter.max"/></label>
                                                 <input name="maxLipids" value="${maxLipids}"
                                                        type="number" min="0" max="999999"
                                                        class="form-control"
-                                                       placeholder="${maxLipids}">
+                                                       placeholder="${maxLipids}" required>
                                             </div>
                                         </div>
                                     </li>
@@ -155,13 +155,13 @@
                                                 <label><fmt:message key="products.filter.min"/></label>
                                                 <input name="minCarbohydrates" value="${minCarbohydrates}"
                                                        type="number" min="0" max="999999"
-                                                       class="form-control" placeholder="${minCarbohydrates}">
+                                                       class="form-control" placeholder="${minCarbohydrates}" required>
                                             </div>
                                             <div class="form-group col-md-6 text-right">
                                                 <label><fmt:message key="products.filter.max"/></label>
                                                 <input name="maxCarbohydrates" value="${maxCarbohydrates}"
                                                        type="number" min="0" max="999999"
-                                                       class="form-control" placeholder="${maxCarbohydrates}">
+                                                       class="form-control" placeholder="${maxCarbohydrates}" required>
                                             </div>
                                         </div>
                                     </li>
