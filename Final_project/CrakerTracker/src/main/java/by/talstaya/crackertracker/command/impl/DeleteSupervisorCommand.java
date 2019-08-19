@@ -26,8 +26,8 @@ public class DeleteSupervisorCommand implements Command {
         User user = (User)request.getSession().getAttribute(USER);
         UserService userService = new UserServiceImpl();
         userService.deleteSupervisorOfUser(user.getUserId());
-        user.setSupervisorId(0);
 
+        user.setSupervisorId(0);
         request.getSession().setAttribute(USER, user);
 
         request.setAttribute(RESPONSE, true);

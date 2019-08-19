@@ -103,6 +103,8 @@ public class RegistrationCommand implements Command {
 
                     request.getSession().setAttribute(USER, user);
 
+                    LOGGER.info("New user. Username = " + user.getUsername());
+
                     request.setAttribute(RESPONSE, true);
                     page = request.getContextPath() + PRODUCT_LIST_PATH;
 

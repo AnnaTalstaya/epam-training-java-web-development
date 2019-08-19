@@ -55,15 +55,19 @@ public class SignInCommand implements Command {
             }
 
             if(user!=null){
+                LOGGER.info("User " + user.getUsername() + " signed in.");
+
                 request.getSession().setAttribute(USER, user);
                 request.setAttribute(RESPONSE, true);
                 page = request.getContextPath() + PRODUCT_LIST_PATH;
             }else{
+                LOGGER.error("SignInCommand. Incorrect username or email or password");
                 request.setAttribute(ERROR_INPUT_DATA, "Incorrect username or email or password");
                 request.setAttribute(EMAIL_OR_USERNAME, emailOrUsername);
                 page = JspPath.SIGN_IN.getUrl();
             }
         } else {
+            LOGGER.error("SignInCommand. Error request");
             request.setAttribute(ERROR, "Error request");
             request.setAttribute(STATUS_CODE, 404);
             page = JspPath.ERROR.getUrl();

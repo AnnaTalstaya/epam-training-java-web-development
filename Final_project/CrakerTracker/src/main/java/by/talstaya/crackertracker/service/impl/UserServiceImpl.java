@@ -7,6 +7,8 @@ import by.talstaya.crackertracker.entity.UserType;
 import by.talstaya.crackertracker.exception.DaoException;
 import by.talstaya.crackertracker.exception.ServiceException;
 import by.talstaya.crackertracker.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
@@ -17,6 +19,8 @@ import java.util.List;
  * @version 1.0
  */
 public class UserServiceImpl implements UserService {
+
+    private static final Logger LOGGER = LogManager.getLogger("name");
 
     private UserDao userDao;
 
@@ -82,7 +86,12 @@ public class UserServiceImpl implements UserService {
     public User findSupervisorOfUser(int userId) throws ServiceException {
         try {
             int supervisorId = userDao.findSupervisorId(userId);
-            return userDao.findById(supervisorId);
+            if (supervisorId != 0) {
+                return userDao.findById(supervisorId);
+            } else {
+                LOGGER.info("User with id=" + userId + " does not have a supervisor");
+                return null;
+            }
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
