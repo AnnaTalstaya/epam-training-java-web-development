@@ -1,9 +1,9 @@
+package regexTest;
+
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegistrationTest {
