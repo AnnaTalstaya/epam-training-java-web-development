@@ -73,10 +73,12 @@
                             <c:choose>
                                 <c:when test="${not greaterThanOneAdmin and user.userType.name() == 'ADMINISTRATOR'}">
                                     <label>
-                                        <select class="custom-select" name="userType" onchange="this.form.submit()" required
+                                        <select class="custom-select" name="userType" onchange="this.form.submit()"
+                                                required
                                                 disabled>
-                                            <option ${user.userType.name()=="USER"?"selected":""} value="USER"><fmt:message
-                                                    key="user.type.user"/>
+                                            <option ${user.userType.name()=="USER"?"selected":""} value="USER">
+                                                <fmt:message
+                                                        key="user.type.user"/>
                                             </option>
                                             <!-- value отправляется на сервер-->
                                             <option ${user.userType.name()=="ADMINISTRATOR"?"selected":""}
@@ -84,7 +86,8 @@
                                                 <fmt:message
                                                         key="user.type.administrator"/>
                                             </option>
-                                            <option ${user.userType.name()=="SUPERVISOR"?"selected":""} value="SUPERVISOR">
+                                            <option ${user.userType.name()=="SUPERVISOR"?"selected":""}
+                                                    value="SUPERVISOR">
                                                 <fmt:message
                                                         key="user.type.supervisor"/>
                                             </option>
@@ -156,10 +159,9 @@
             </tbody>
         </table>
 
-        <ctg:pagination startIndexOfObjectList="${startIndexOfUserList}"
-                        objectsPerPage="${usersPerPage}"
+        <ctg:pagination objectsPerPage="${usersPerPage}"
                         indexOfPage="${indexOfPage}"
-                        numberOfObjects="${userList.size()}"
+                        numberOfObjects="${userListSize}"
                         locale="${locale}"
                         commandValue="user_list"/>
 

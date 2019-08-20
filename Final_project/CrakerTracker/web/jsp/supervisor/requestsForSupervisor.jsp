@@ -128,10 +128,9 @@
             </tbody>
         </table>
 
-        <ctg:pagination startIndexOfObjectList="${startIndexOfRequestList}"
-                        objectsPerPage="${requestsPerPage}"
+        <ctg:pagination objectsPerPage="${requestsPerPage}"
                         indexOfPage="${indexOfPage}"
-                        numberOfObjects="${requestListForSupervisor.size()}"
+                        numberOfObjects="${requestListSize}"
                         locale="${locale}"
                         commandValue="show_requests_for_supervisor"/>
 

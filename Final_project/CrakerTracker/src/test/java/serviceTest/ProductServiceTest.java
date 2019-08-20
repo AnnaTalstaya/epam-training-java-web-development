@@ -26,7 +26,7 @@ public class ProductServiceTest {
     public void findByNameOrWordInName(final String name, final int size) throws ServiceException {
         ConnectionPool.getInstance();
         ProductService productService = new ProductServiceImpl();
-        List<Product> products = productService.findByNameOrWordInName(name);
+        List<Product> products = productService.findByNameOrWordInNameWithLimit(name, 0, 8);
         Assert.assertEquals(size, products.size());
     }
 
