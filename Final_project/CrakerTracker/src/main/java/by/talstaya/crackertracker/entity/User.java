@@ -1,6 +1,7 @@
 package by.talstaya.crackertracker.entity;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * User is a entity of user
@@ -120,6 +121,19 @@ public class User implements Entity {
 
     public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return userId == user.userId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId);
     }
 
     public static class Builder {
