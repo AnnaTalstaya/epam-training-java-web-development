@@ -10,6 +10,8 @@ import by.talstaya.crackertracker.service.impl.ProductServiceImpl;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This class is used for to visit page with all products with default params
@@ -38,7 +40,10 @@ public class VisitProductListCommand implements Command {
     private static final String MAX_LIPIDS = "maxLipids";
     private static final String MAX_CARBOHYDRATES = "maxCarbohydrates";
 
+    private static final String REGEX_INDEX = "^[1-9]\\d{0,5}$";
+
     private static final String ERROR = "error";
+    private static final String STATUS_CODE = "statusCode";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
@@ -50,7 +55,16 @@ public class VisitProductListCommand implements Command {
 
         int indexOfPage;
         if (request.getParameter(INDEX_OF_PAGE) != null) {
-            indexOfPage = Integer.parseInt(request.getParameter(INDEX_OF_PAGE));
+            Pattern pattern = Pattern.compile(REGEX_INDEX);
+            Matcher matcher = pattern.matcher(request.getParameter(INDEX_OF_PAGE));
+
+            if(matcher.matches()){
+                indexOfPage = Integer.parseInt(request.getParameter(INDEX_OF_PAGE));
+            } else {
+                request.setAttribute(ERROR, "Error request");
+                request.setAttribute(STATUS_CODE, 404);
+                return JspPath.ERROR.getUrl();
+            }
         } else {
             indexOfPage = 1;
         }

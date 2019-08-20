@@ -11,6 +11,8 @@ import by.talstaya.crackertracker.validator.ProductDataValidator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This class is used to show all products
@@ -43,6 +45,8 @@ public class ProductListCommand implements Command {
     private static final String MAX_LIPIDS = "maxLipids";
     private static final String MAX_CARBOHYDRATES = "maxCarbohydrates";
 
+    private static final String REGEX_INDEX = "^[1-9]\\d{0,5}$";
+
     private static final String ERROR = "error";
     private static final String STATUS_CODE = "statusCode";
 
@@ -51,7 +55,16 @@ public class ProductListCommand implements Command {
 
         int indexOfPage;
         if (request.getParameter(INDEX_OF_PAGE) != null) {
-            indexOfPage = Integer.parseInt(request.getParameter(INDEX_OF_PAGE));
+            Pattern pattern = Pattern.compile(REGEX_INDEX);
+            Matcher matcher = pattern.matcher(request.getParameter(INDEX_OF_PAGE));
+
+            if(matcher.matches()){
+                indexOfPage = Integer.parseInt(request.getParameter(INDEX_OF_PAGE));
+            } else {
+                request.setAttribute(ERROR, "Error request");
+                request.setAttribute(STATUS_CODE, 404);
+                return JspPath.ERROR.getUrl();
+            }
         } else {
             indexOfPage = 1;
         }
