@@ -127,10 +127,9 @@
             </tbody>
         </table>
 
-        <ctg:pagination startIndexOfObjectList="${startIndexOfUserList}"
-                        objectsPerPage="${usersPerPage}"
+        <ctg:pagination objectsPerPage="${usersPerPage}"
                         indexOfPage="${indexOfPage}"
-                        numberOfObjects="${usersOfSupervisor.size()}"
+                        numberOfObjects="${userListSize}"
                         locale="${locale}"
                         commandValue="user_list_of_supervisor"/>
     </div>

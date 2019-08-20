@@ -32,6 +32,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> findByNameOrWordInNameWithLimit(String nameOrWordInName, int startIndex, int endIndex) throws ServiceException {
+        try {
+            return productDao.findByNameOrWordInNameWithLimit(nameOrWordInName, startIndex, endIndex);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public List<Product> findByNameOrWordInName(String nameOrWordInName) throws ServiceException {
         try {
             return productDao.findByNameOrWordInName(nameOrWordInName);
@@ -41,7 +50,33 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findProductsByFilter(String nameOrWordInName, int minCalories, int maxCalories, int minProteins, int maxProteins, int minLipids, int maxLipids, int minCarbohydrates, int maxCarbohydrates) throws ServiceException {
+    public List<Product> findProductsByFilterWithLimit(String nameOrWordInName, int minCalories, int maxCalories,
+                                                       int minProteins, int maxProteins,
+                                                       int minLipids, int maxLipids,
+                                                       int minCarbohydrates, int maxCarbohydrates,
+                                                       int startIndex, int endIndex) throws ServiceException {
+        try {
+            if (nameOrWordInName.isEmpty()) {
+                return productDao.findProductsByFilterWithoutSearchParamWithLimit(minCalories, maxCalories,
+                        minProteins, maxProteins,
+                        minLipids, maxLipids,
+                        minCarbohydrates, maxCarbohydrates,
+                        startIndex, endIndex);
+            } else {
+                return productDao.findProductsByFilterWithLimit(nameOrWordInName,
+                        minCalories, maxCalories,
+                        minProteins, maxProteins,
+                        minLipids, maxLipids,
+                        minCarbohydrates, maxCarbohydrates,
+                        startIndex, endIndex);
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<Product> findAllProductsByFilter(String nameOrWordInName, int minCalories, int maxCalories, int minProteins, int maxProteins, int minLipids, int maxLipids, int minCarbohydrates, int maxCarbohydrates) throws ServiceException {
         try {
             if (nameOrWordInName.isEmpty()) {
                 return productDao.findProductsByFilterWithoutSearchParam(minCalories, maxCalories,
@@ -55,6 +90,15 @@ public class ProductServiceImpl implements ProductService {
                         minLipids, maxLipids,
                         minCarbohydrates, maxCarbohydrates);
             }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<Product> findProductsByLimit(int startIndex, int endIndex) throws ServiceException {
+        try {
+            return productDao.findProductsByLimit(startIndex, endIndex);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

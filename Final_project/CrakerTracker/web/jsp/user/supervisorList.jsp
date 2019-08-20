@@ -176,10 +176,9 @@
             </tbody>
         </table>
 
-        <ctg:pagination startIndexOfObjectList="${startIndexOfSupervisorList}"
-                        objectsPerPage="${supervisorsPerPage}"
+        <ctg:pagination objectsPerPage="${supervisorsPerPage}"
                         indexOfPage="${indexOfPage}"
-                        numberOfObjects="${supervisorList.size()}"
+                        numberOfObjects="${supervisorListSize}"
                         locale="${locale}"
                         commandValue="supervisor_list"/>
 

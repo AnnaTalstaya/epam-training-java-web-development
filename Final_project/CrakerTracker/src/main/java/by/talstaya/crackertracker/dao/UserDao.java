@@ -16,15 +16,23 @@ public interface UserDao extends BasicDao<User> {
 
     List<User> takeAllUsers() throws DaoException;
 
+    List<User> takeAllUsersWithLimit(int startIndex, int endIndex) throws DaoException;
+
     List<User> findByUsernameAndPass(String username, String password) throws DaoException;
 
     List<User> findByEmailAndPass(String email, String password) throws DaoException;
 
     List<User> findAllSupervisors() throws DaoException;
 
+    List<User> findAllSupervisorsWithLimit(int startIndex, int endIndex) throws DaoException;
+
     List<User> findUsersOfSupervisor(int supervisorId) throws DaoException;
 
+    List<User> findUsersOfSupervisorWithLimit(int supervisorId, int startIndex, int endIndex) throws DaoException;
+
     List<User> findRequestsForSupervisor(int supervisorId) throws DaoException;
+
+    List<User> findRequestsForSupervisorWithLimit(int supervisorId, int startIndex, int endIndex) throws DaoException;
 
     int findRequestedSupervisorId(int userId) throws DaoException;
 

@@ -15,14 +15,26 @@ public interface ProductService {
 
     List<Product> takeAllProducts() throws ServiceException;
 
+    List<Product> findByNameOrWordInNameWithLimit(String nameOrWordInName, int startIndex, int endIndex) throws ServiceException;
+
     List<Product> findByNameOrWordInName(String nameOrWordInName) throws ServiceException;
 
-    List<Product> findProductsByFilter(
+    List<Product> findProductsByFilterWithLimit(
+            String nameOrWordInName,
+            int minCalories, int maxCalories,
+            int minProteins, int maxProteins,
+            int minLipids, int maxLipids,
+            int minCarbohydrates, int maxCarbohydrates,
+            int startIndex, int endIndex) throws ServiceException;
+
+    List<Product> findAllProductsByFilter(
             String nameOrWordInName,
             int minCalories, int maxCalories,
             int minProteins, int maxProteins,
             int minLipids, int maxLipids,
             int minCarbohydrates, int maxCarbohydrates) throws ServiceException;
+
+    List<Product> findProductsByLimit(int startIndex, int endIndex) throws ServiceException;
 
     Product findByProductId(int productId) throws ServiceException;
 

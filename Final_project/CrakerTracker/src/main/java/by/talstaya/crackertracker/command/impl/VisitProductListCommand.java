@@ -2,7 +2,6 @@ package by.talstaya.crackertracker.command.impl;
 
 import by.talstaya.crackertracker.command.Command;
 import by.talstaya.crackertracker.command.JspPath;
-import by.talstaya.crackertracker.command.Pagination;
 import by.talstaya.crackertracker.entity.Product;
 import by.talstaya.crackertracker.exception.ServiceException;
 import by.talstaya.crackertracker.service.ProductService;
@@ -18,7 +17,7 @@ import java.util.List;
  * @author Anna Talstaya
  * @version 1.0
  */
-public class VisitProductListCommand implements Command, Pagination {
+public class VisitProductListCommand implements Command {
 
     private static final String PRODUCTS = "products";
 
@@ -26,8 +25,9 @@ public class VisitProductListCommand implements Command, Pagination {
 
     private static final String PRODUCTS_PER_PAGE = "productsPerPage";
     private static final String INDEX_OF_PAGE = "indexOfPage";
-    private static final String START_INDEX_OF_PRODUCT_LIST = "startIndexOfProductList";
-    private static final String CHANGE_PAGE = "changePage";
+    private static final String PRODUCT_LIST_SIZE = "productListSize";
+    private static final String VISIT_PRODUCT_LIST_COMMAND = "visit_product_list";
+    private static final String COMMAND_VALUE = "commandValue";
 
     private static final String MIN_CALORIES = "minCalories";
     private static final String MIN_PROTEINS = "minProteins";
@@ -48,15 +48,18 @@ public class VisitProductListCommand implements Command, Pagination {
             request.getSession().setAttribute(ERROR, null);
         }
 
-        initPaginationParams(request,
-                NUMBER_PRODUCTS_PER_PAGE,
-                PRODUCTS_PER_PAGE,
-                INDEX_OF_PAGE,
-                START_INDEX_OF_PRODUCT_LIST,
-                CHANGE_PAGE);
+        int indexOfPage;
+        if (request.getParameter(INDEX_OF_PAGE) != null) {
+            indexOfPage = Integer.parseInt(request.getParameter(INDEX_OF_PAGE));
+        } else {
+            indexOfPage = 1;
+        }
 
         ProductService productService = new ProductServiceImpl();
-        List<Product> products = productService.takeAllProducts();
+        List<Product> products = productService.findProductsByLimit(
+                (indexOfPage - 1) * NUMBER_PRODUCTS_PER_PAGE,
+                indexOfPage * NUMBER_PRODUCTS_PER_PAGE
+        );
 
         if (!products.isEmpty()) {
             request.setAttribute(MIN_CALORIES, productService.findMinCalories());
@@ -71,6 +74,10 @@ public class VisitProductListCommand implements Command, Pagination {
         }
 
         request.setAttribute(PRODUCTS, products);
+        request.setAttribute(INDEX_OF_PAGE, indexOfPage);
+        request.setAttribute(PRODUCT_LIST_SIZE, productService.takeAllProducts().size());
+        request.setAttribute(COMMAND_VALUE, VISIT_PRODUCT_LIST_COMMAND);
+        request.setAttribute(PRODUCTS_PER_PAGE, NUMBER_PRODUCTS_PER_PAGE);
 
         return JspPath.PRODUCT_LIST.getUrl();
     }

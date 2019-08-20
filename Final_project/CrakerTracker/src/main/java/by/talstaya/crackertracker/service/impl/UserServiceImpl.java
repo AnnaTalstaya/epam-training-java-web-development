@@ -56,9 +56,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> findAllSupervisorsWithLimit(int startIndex, int endIndex) throws ServiceException {
+        try {
+            return userDao.findAllSupervisorsWithLimit(startIndex, endIndex);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public List<User> findUsersOfSupervisor(int supervisorId) throws ServiceException {
         try {
             return userDao.findUsersOfSupervisor(supervisorId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<User> findUsersOfSupervisorWithLimit(int supervisorId, int startIndex, int endIndex) throws ServiceException {
+        try {
+            return userDao.findUsersOfSupervisorWithLimit(supervisorId, startIndex, endIndex);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -206,9 +224,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> takeAllUsersWithLimit(int startIndex, int endIndex) throws ServiceException {
+        try {
+            return userDao.takeAllUsersWithLimit(startIndex, endIndex);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public List<User> findRequestsForSupervisor(int supervisorId) throws ServiceException {
         try {
             return userDao.findRequestsForSupervisor(supervisorId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<User> findRequestsForSupervisorWithLimit(int supervisorId, int startIndex, int endIndex) throws ServiceException {
+        try {
+            return userDao.findRequestsForSupervisorWithLimit(supervisorId, startIndex, endIndex);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

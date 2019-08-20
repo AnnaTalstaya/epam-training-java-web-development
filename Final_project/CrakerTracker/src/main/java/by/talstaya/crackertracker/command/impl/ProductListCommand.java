@@ -2,7 +2,6 @@ package by.talstaya.crackertracker.command.impl;
 
 import by.talstaya.crackertracker.command.Command;
 import by.talstaya.crackertracker.command.JspPath;
-import by.talstaya.crackertracker.command.Pagination;
 import by.talstaya.crackertracker.entity.Product;
 import by.talstaya.crackertracker.exception.ServiceException;
 import by.talstaya.crackertracker.service.ProductService;
@@ -19,7 +18,7 @@ import java.util.List;
  * @author Anna Talstaya
  * @version 1.0
  */
-public class ProductListCommand implements Command, Pagination {
+public class ProductListCommand implements Command {
 
     private static final String SEARCH_ERROR = "searchError";
     private static final String SEARCH = "search";
@@ -30,8 +29,9 @@ public class ProductListCommand implements Command, Pagination {
 
     private static final String PRODUCTS_PER_PAGE = "productsPerPage";
     private static final String INDEX_OF_PAGE = "indexOfPage";
-    private static final String START_INDEX_OF_PRODUCT_LIST = "startIndexOfProductList";
-    private static final String CHANGE_PAGE = "changePage";
+    private static final String PRODUCT_LIST_SIZE = "productListSize";
+    private static final String PRODUCT_LIST_COMMAND = "product_list";
+    private static final String COMMAND_VALUE = "commandValue";
 
     private static final String NAME_OR_WORD_IN_NAME = "nameOrWordInName";
     private static final String MIN_CALORIES = "minCalories";
@@ -49,12 +49,12 @@ public class ProductListCommand implements Command, Pagination {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 
-        initPaginationParams(request,
-                NUMBER_PRODUCTS_PER_PAGE,
-                PRODUCTS_PER_PAGE,
-                INDEX_OF_PAGE,
-                START_INDEX_OF_PRODUCT_LIST,
-                CHANGE_PAGE);
+        int indexOfPage;
+        if (request.getParameter(INDEX_OF_PAGE) != null) {
+            indexOfPage = Integer.parseInt(request.getParameter(INDEX_OF_PAGE));
+        } else {
+            indexOfPage = 1;
+        }
 
         ProductService productService = new ProductServiceImpl();
 
@@ -108,25 +108,35 @@ public class ProductListCommand implements Command, Pagination {
                     int maxCarbohydrates = productService.checkCarbohydrates(Integer.parseInt(strMaxCarbohydrates));
 
 
-                    if(minCalories > maxCalories){
+                    if (minCalories > maxCalories) {
                         minCalories = maxCalories;
                     }
-                    if(minProteins > maxProteins){
+                    if (minProteins > maxProteins) {
                         minProteins = maxProteins;
                     }
-                    if(minLipids > maxLipids){
+                    if (minLipids > maxLipids) {
                         minLipids = maxLipids;
                     }
-                    if(minCarbohydrates > maxCarbohydrates){
+                    if (minCarbohydrates > maxCarbohydrates) {
                         minCarbohydrates = maxCarbohydrates;
                     }
 
-                    products = productService.findProductsByFilter(
+                    products = productService.findProductsByFilterWithLimit(
                             nameOrWordInName,
                             minCalories, maxCalories,
                             minProteins, maxProteins,
                             minLipids, maxLipids,
-                            minCarbohydrates, maxCarbohydrates);
+                            minCarbohydrates, maxCarbohydrates,
+                            (indexOfPage - 1) * NUMBER_PRODUCTS_PER_PAGE,
+                            indexOfPage * NUMBER_PRODUCTS_PER_PAGE
+                    );
+
+                    request.setAttribute(COMMAND_VALUE, PRODUCT_LIST_COMMAND);
+                    request.setAttribute(PRODUCT_LIST_SIZE, productService.findAllProductsByFilter(nameOrWordInName,
+                            minCalories, maxCalories,
+                            minProteins, maxProteins,
+                            minLipids, maxLipids,
+                            minCarbohydrates, maxCarbohydrates).size());
 
                     request.setAttribute(NAME_OR_WORD_IN_NAME, nameOrWordInName);
                     request.setAttribute(MIN_CALORIES, minCalories);
@@ -156,6 +166,9 @@ public class ProductListCommand implements Command, Pagination {
         } else {
             request.setAttribute(PRODUCTS, products);
         }
+
+        request.setAttribute(INDEX_OF_PAGE, indexOfPage);
+        request.setAttribute(PRODUCTS_PER_PAGE, NUMBER_PRODUCTS_PER_PAGE);
 
         return JspPath.PRODUCT_LIST.getUrl();
     }

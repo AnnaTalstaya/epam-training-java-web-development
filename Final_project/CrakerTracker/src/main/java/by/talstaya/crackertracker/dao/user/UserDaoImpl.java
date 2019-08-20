@@ -34,12 +34,22 @@ public class UserDaoImpl implements UserDao {
             "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
                     " FROM users";
 
+    private static final String SQL_TAKE_ALL_USERS_WITH_LIMIT =
+            "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
+                    " FROM users LIMIT ?,?";
+
     private static final String SQL_TAKE_USER_TYPE = "SELECT userType FROM users WHERE id=?";
 
     private static final String SQL_FIND_ALL_SUPERVISORS =
             "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
                     " FROM users" +
                     " WHERE userType='SUPERVISOR'";
+
+    private static final String SQL_FIND_ALL_SUPERVISORS_WITH_LIMIT =
+            "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
+                    " FROM users" +
+                    " WHERE userType='SUPERVISOR'" +
+                    " LIMIT ?,?";
 
     private static final String SQL_FIND_USER_BY_USERNAME_AND_PASS = "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
             " FROM users WHERE username = ? AND password = ? ";
@@ -84,8 +94,16 @@ public class UserDaoImpl implements UserDao {
     private static final String SQL_FIND_USERS_OF_SUPERVISOR = "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
             " FROM users WHERE supervisor_id=?";
 
+    private static final String SQL_FIND_USERS_OF_SUPERVISOR_WITH_LIMIT = "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
+            " FROM users WHERE supervisor_id=?" +
+            " LIMIT ?,?";
+
     private static final String SQL_FIND_REQUESTS_FOR_SUPERVISOR = "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
             " FROM users WHERE requested_supervisor_id=?";
+
+    private static final String SQL_FIND_REQUESTS_FOR_SUPERVISOR_WITH_LIMIT = "SELECT id, userType, first_name, surname, email, username, password, date_of_birth, weight, height, rating, supervisor_id" +
+            " FROM users WHERE requested_supervisor_id=?" +
+            " LIMIT ?,?";
 
     private static final String SQL_FIND_REQUESTED_SUPERVISOR_ID = "SELECT requested_supervisor_id FROM users WHERE id=?";
 
@@ -275,6 +293,55 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public List<User> takeAllUsersWithLimit(int startIndex, int endIndex) throws DaoException {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        Connection connection = ConnectionPool.getInstance().takeConnection();
+
+        List<User> userList = new ArrayList<>();
+
+        try {
+            preparedStatement = connection.prepareStatement(SQL_TAKE_ALL_USERS_WITH_LIMIT);
+
+            preparedStatement.setInt(1, startIndex);
+            preparedStatement.setInt(2, endIndex);
+
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+
+                User.Builder userBuilder = new User.Builder()
+                        .setUserId(resultSet.getInt(1))
+                        .setUserType(UserType.valueOf(resultSet.getString(2)))
+                        .setFirstName(resultSet.getString(3))
+                        .setSurname(resultSet.getString(4))
+                        .setEmail(resultSet.getString(5))
+                        .setUsername(resultSet.getString(6))
+                        .setPassword(resultSet.getString(7))
+                        .setWeight(resultSet.getDouble(9))
+                        .setHeight(resultSet.getDouble(10))
+                        .setRating(resultSet.getDouble(11))
+                        .setSupervisorId(resultSet.getInt(12));
+
+                if (resultSet.getDate(8) != null) {
+                    userBuilder.setDateOfBirth(resultSet.getDate(8).toLocalDate());
+                }
+
+                userList.add(userBuilder.build());
+            }
+            return userList;
+
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
+        }
+    }
+
+    @Override
     public List<User> findAllSupervisors() throws DaoException {
 
         PreparedStatement preparedStatement = null;
@@ -283,6 +350,53 @@ public class UserDaoImpl implements UserDao {
 
         try {
             preparedStatement = connection.prepareStatement(SQL_FIND_ALL_SUPERVISORS);
+            resultSet = preparedStatement.executeQuery();
+
+            List<User> supervisorList = new ArrayList<>();
+
+            while (resultSet.next()) {
+
+                User.Builder userBuilder = new User.Builder()
+                        .setUserId(resultSet.getInt(1))
+                        .setUserType(UserType.valueOf(resultSet.getString(2)))
+                        .setFirstName(resultSet.getString(3))
+                        .setSurname(resultSet.getString(4))
+                        .setEmail(resultSet.getString(5))
+                        .setUsername(resultSet.getString(6))
+                        .setPassword(resultSet.getString(7))
+                        .setWeight(resultSet.getDouble(9))
+                        .setHeight(resultSet.getDouble(10))
+                        .setRating(resultSet.getDouble(11))
+                        .setSupervisorId(resultSet.getInt(12));
+
+                if (resultSet.getDate(8) != null) {
+                    userBuilder.setDateOfBirth(resultSet.getDate(8).toLocalDate());
+                }
+
+                supervisorList.add(userBuilder.build());
+            }
+            return supervisorList;
+
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
+        }
+    }
+
+    @Override
+    public List<User> findAllSupervisorsWithLimit(int startIndex, int endIndex) throws DaoException {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Connection connection = ConnectionPool.getInstance().takeConnection();
+
+        try {
+            preparedStatement = connection.prepareStatement(SQL_FIND_ALL_SUPERVISORS_WITH_LIMIT);
+            preparedStatement.setInt(1, startIndex);
+            preparedStatement.setInt(2, endIndex);
+
             resultSet = preparedStatement.executeQuery();
 
             List<User> supervisorList = new ArrayList<>();
@@ -735,6 +849,57 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public List<User> findUsersOfSupervisorWithLimit(int supervisorId, int startIndex, int endIndex) throws DaoException {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        Connection connection = ConnectionPool.getInstance().takeConnection();
+
+        List<User> usersOfSupervisor = new ArrayList<>();
+
+        try {
+            preparedStatement = connection.prepareStatement(SQL_FIND_USERS_OF_SUPERVISOR_WITH_LIMIT);
+
+            preparedStatement.setInt(1, supervisorId);
+            preparedStatement.setInt(2, startIndex);
+            preparedStatement.setInt(3, endIndex);
+
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+
+                User.Builder userBuilder = new User.Builder()
+                        .setUserId(resultSet.getInt(1))
+                        .setUserType(UserType.valueOf(resultSet.getString(2)))
+                        .setFirstName(resultSet.getString(3))
+                        .setSurname(resultSet.getString(4))
+                        .setEmail(resultSet.getString(5))
+                        .setUsername(resultSet.getString(6))
+                        .setPassword(resultSet.getString(7))
+                        .setWeight(resultSet.getDouble(9))
+                        .setHeight(resultSet.getDouble(10))
+                        .setRating(resultSet.getDouble(11))
+                        .setSupervisorId(resultSet.getInt(12));
+
+                if (resultSet.getDate(8) != null) {
+                    userBuilder.setDateOfBirth(resultSet.getDate(8).toLocalDate());
+                }
+
+                usersOfSupervisor.add(userBuilder.build());
+            }
+
+            return usersOfSupervisor;
+
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
+        }
+    }
+
+    @Override
     public List<User> findRequestsForSupervisor(int supervisorId) throws DaoException {
 
         PreparedStatement preparedStatement = null;
@@ -781,8 +946,57 @@ public class UserDaoImpl implements UserDao {
             closePreparedStatement(preparedStatement);
             ConnectionPool.getInstance().returnConnection(connection);
         }
+    }
 
+    @Override
+    public List<User> findRequestsForSupervisorWithLimit(int supervisorId, int startIndex, int endIndex) throws DaoException {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
+        Connection connection = ConnectionPool.getInstance().takeConnection();
+
+        List<User> usersOfSupervisor = new ArrayList<>();
+
+        try {
+            preparedStatement = connection.prepareStatement(SQL_FIND_REQUESTS_FOR_SUPERVISOR_WITH_LIMIT);
+
+            preparedStatement.setInt(1, supervisorId);
+            preparedStatement.setInt(2, startIndex);
+            preparedStatement.setInt(3, endIndex);
+
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+
+                User.Builder userBuilder = new User.Builder()
+                        .setUserId(resultSet.getInt(1))
+                        .setUserType(UserType.valueOf(resultSet.getString(2)))
+                        .setFirstName(resultSet.getString(3))
+                        .setSurname(resultSet.getString(4))
+                        .setEmail(resultSet.getString(5))
+                        .setUsername(resultSet.getString(6))
+                        .setPassword(resultSet.getString(7))
+                        .setWeight(resultSet.getDouble(9))
+                        .setHeight(resultSet.getDouble(10))
+                        .setRating(resultSet.getDouble(11))
+                        .setSupervisorId(resultSet.getInt(12));
+
+                if (resultSet.getDate(8) != null) {
+                    userBuilder.setDateOfBirth(resultSet.getDate(8).toLocalDate());
+                }
+
+                usersOfSupervisor.add(userBuilder.build());
+            }
+
+            return usersOfSupervisor;
+
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+            ConnectionPool.getInstance().returnConnection(connection);
+        }
     }
 
     @Override

@@ -8,14 +8,13 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * PaginationTag is used to implement pagination
+ * PaginationTag2 is used to implement pagination
  *
  * @author Anna Talstaya
  * @version 1.0
  */
 public class PaginationTag extends TagSupport {
 
-    private int startIndexOfObjectList;
     private int objectsPerPage;
     private int indexOfPage;
     private int numberOfObjects;
@@ -46,28 +45,31 @@ public class PaginationTag extends TagSupport {
             out.write("<nav aria-label=\"...\">");
             out.write("<ul class=\"pagination justify-content-center\">");
 
-            if(startIndexOfObjectList == 0) {
+            if (indexOfPage == 1) {
                 out.write("<li class=\"page-item disabled\">");
                 out.write("<a class=\"page-link\">" + rb.getString("pagination.previous") + "</a>");
                 out.write("</li>");
             }
 
-            if(startIndexOfObjectList > 0) {
+            if (indexOfPage > 1) {
                 out.write("<li class=\"page-item\">");
-                out.write("<form id=\"previousPageForm\" method=\"post\" action=\"" + commandValue + "\">");
-                out.write("<input type=\"hidden\" name=\"command\" value=\"" + commandValue + "\">");
-                out.write("<input type=\"hidden\" name=\"changePage\" value=\"-1\">");
-                out.write("<input type=\"hidden\" name=\"indexOfPage\" value=\"" + (startIndexOfObjectList/objectsPerPage + 1) + "\">");
-                out.write("<input type=\"hidden\" name=\"objectsPerPage\" value=\"" + objectsPerPage + "\">");
-                out.write("<input type=\"hidden\" name=\"nameOrWordInName\" value=\"" + nameOrWordInName + "\">");
-                out.write("<input type=\"hidden\" name=\"minCalories\" value=\"" + minCalories + "\">");
-                out.write("<input type=\"hidden\" name=\"minProteins\" value=\"" + minProteins + "\">");
-                out.write("<input type=\"hidden\" name=\"minLipids\" value=\"" + minLipids + "\">");
-                out.write("<input type=\"hidden\" name=\"minCarbohydrates\" value=\"" + minCarbohydrates + "\">");
-                out.write("<input type=\"hidden\" name=\"maxCalories\" value=\"" + maxCalories + "\">");
-                out.write("<input type=\"hidden\" name=\"maxProteins\" value=\"" + maxProteins + "\">");
-                out.write("<input type=\"hidden\" name=\"maxLipids\" value=\"" + maxLipids + "\">");
-                out.write("<input type=\"hidden\" name=\"maxCarbohydrates\" value=\"" + maxCarbohydrates + "\">");
+                out.write("<form id=\"previousPageForm\" method=\"get\" action=\"" + commandValue + "\">");
+                out.write("<input type=\"hidden\" name=\"indexOfPage\" value=\"" + (indexOfPage - 1) + "\">");
+
+                if (commandValue.equals("search")) {
+                    out.write("<input type=\"hidden\" name=\"nameOrWordInName\" value=\"" + nameOrWordInName + "\">");
+                } else if (commandValue.equals("product_list")) {
+                    out.write("<input type=\"hidden\" name=\"nameOrWordInName\" value=\"" + nameOrWordInName + "\">");
+                    out.write("<input type=\"hidden\" name=\"minCalories\" value=\"" + minCalories + "\">");
+                    out.write("<input type=\"hidden\" name=\"minProteins\" value=\"" + minProteins + "\">");
+                    out.write("<input type=\"hidden\" name=\"minLipids\" value=\"" + minLipids + "\">");
+                    out.write("<input type=\"hidden\" name=\"minCarbohydrates\" value=\"" + minCarbohydrates + "\">");
+                    out.write("<input type=\"hidden\" name=\"maxCalories\" value=\"" + maxCalories + "\">");
+                    out.write("<input type=\"hidden\" name=\"maxProteins\" value=\"" + maxProteins + "\">");
+                    out.write("<input type=\"hidden\" name=\"maxLipids\" value=\"" + maxLipids + "\">");
+                    out.write("<input type=\"hidden\" name=\"maxCarbohydrates\" value=\"" + maxCarbohydrates + "\">");
+                }
+
                 out.write("<a class=\"page-link\" onclick=\"document.getElementById('previousPageForm').submit();\">" + rb.getString("pagination.previous") + "</a>");
                 out.write("</form>");
                 out.write("</li>");
@@ -75,28 +77,31 @@ public class PaginationTag extends TagSupport {
 
             out.write("<li class=\"page-item\"><a class=\"page-link\">" + indexOfPage + "</a></li>");
 
-            if(startIndexOfObjectList + objectsPerPage < numberOfObjects){
+            if ((indexOfPage - 1) * objectsPerPage + objectsPerPage < numberOfObjects) {
                 out.write("<li class=\"page-item\">");
-                out.write("<form id=\"nextPageForm\" method=\"post\" action=\"" + commandValue + "\">");
-                out.write("<input type=\"hidden\" name=\"command\" value=\"" + commandValue + "\">");
-                out.write("<input type=\"hidden\" name=\"changePage\" value=\"1\">");
-                out.write("<input type=\"hidden\" name=\"indexOfPage\" value=\"" + (startIndexOfObjectList/objectsPerPage + 1) + "\">");
-                out.write("<input type=\"hidden\" name=\"objectsPerPage\" value=\"" + objectsPerPage + "\">");
-                out.write("<input type=\"hidden\" name=\"nameOrWordInName\" value=\"" + nameOrWordInName + "\">");
-                out.write("<input type=\"hidden\" name=\"minCalories\" value=\"" + minCalories + "\">");
-                out.write("<input type=\"hidden\" name=\"minProteins\" value=\"" + minProteins + "\">");
-                out.write("<input type=\"hidden\" name=\"minLipids\" value=\"" + minLipids + "\">");
-                out.write("<input type=\"hidden\" name=\"minCarbohydrates\" value=\"" + minCarbohydrates + "\">");
-                out.write("<input type=\"hidden\" name=\"maxCalories\" value=\"" + maxCalories + "\">");
-                out.write("<input type=\"hidden\" name=\"maxProteins\" value=\"" + maxProteins + "\">");
-                out.write("<input type=\"hidden\" name=\"maxLipids\" value=\"" + maxLipids + "\">");
-                out.write("<input type=\"hidden\" name=\"maxCarbohydrates\" value=\"" + maxCarbohydrates + "\">");
+                out.write("<form id=\"nextPageForm\" method=\"get\" action=\"" + commandValue + "\">");
+                out.write("<input type=\"hidden\" name=\"indexOfPage\" value=\"" + (indexOfPage + 1) + "\">");
+
+                if (commandValue.equals("search")) {
+                    out.write("<input type=\"hidden\" name=\"nameOrWordInName\" value=\"" + nameOrWordInName + "\">");
+                } else if (commandValue.equals("product_list")) {
+                    out.write("<input type=\"hidden\" name=\"nameOrWordInName\" value=\"" + nameOrWordInName + "\">");
+                    out.write("<input type=\"hidden\" name=\"minCalories\" value=\"" + minCalories + "\">");
+                    out.write("<input type=\"hidden\" name=\"minProteins\" value=\"" + minProteins + "\">");
+                    out.write("<input type=\"hidden\" name=\"minLipids\" value=\"" + minLipids + "\">");
+                    out.write("<input type=\"hidden\" name=\"minCarbohydrates\" value=\"" + minCarbohydrates + "\">");
+                    out.write("<input type=\"hidden\" name=\"maxCalories\" value=\"" + maxCalories + "\">");
+                    out.write("<input type=\"hidden\" name=\"maxProteins\" value=\"" + maxProteins + "\">");
+                    out.write("<input type=\"hidden\" name=\"maxLipids\" value=\"" + maxLipids + "\">");
+                    out.write("<input type=\"hidden\" name=\"maxCarbohydrates\" value=\"" + maxCarbohydrates + "\">");
+                }
+
                 out.write("<a class=\"page-link\" onclick=\"document.getElementById('nextPageForm').submit();\">" + rb.getString("pagination.next") + "</a>");
                 out.write("</form>");
                 out.write("</li>");
             }
 
-            if(startIndexOfObjectList + objectsPerPage >= numberOfObjects) {
+            if ((indexOfPage - 1) * objectsPerPage + objectsPerPage >= numberOfObjects) {
                 out.write("<li class=\"page-item disabled\">");
                 out.write("<a class=\"page-link\">" + rb.getString("pagination.next") + "</a>");
                 out.write("</li>");
@@ -110,10 +115,6 @@ public class PaginationTag extends TagSupport {
         }
 
         return SKIP_BODY;
-    }
-
-    public void setStartIndexOfObjectList(int startIndexOfObjectList) {
-        this.startIndexOfObjectList = startIndexOfObjectList;
     }
 
     public void setObjectsPerPage(int objectsPerPage) {

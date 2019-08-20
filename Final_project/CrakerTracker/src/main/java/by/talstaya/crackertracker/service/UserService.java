@@ -20,7 +20,11 @@ public interface UserService {
 
     List<User> findAllSupervisors() throws ServiceException;
 
+    List<User> findAllSupervisorsWithLimit(int startIndex, int endIndex) throws ServiceException;
+
     List<User> findUsersOfSupervisor(int supervisorId) throws ServiceException;
+
+    List<User> findUsersOfSupervisorWithLimit(int supervisorId, int startIndex, int endIndex) throws ServiceException;
 
     User findUserById(int userId) throws ServiceException;
 
@@ -52,7 +56,11 @@ public interface UserService {
 
     List<User> takeAllUsers() throws ServiceException;
 
+    List<User> takeAllUsersWithLimit(int startIndex, int endIndex) throws ServiceException;
+
     List<User> findRequestsForSupervisor(int supervisorId) throws ServiceException;
+
+    List<User> findRequestsForSupervisorWithLimit(int supervisorId, int startIndex, int endIndex) throws ServiceException;
 
     void supervisorAcceptsRequestFromUser(int supervisorId, int userId) throws ServiceException;
 

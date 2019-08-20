@@ -193,7 +193,8 @@
 
                                                 <div class="col-xs-6 col-sm-4 col-lg-3 ex2">
                                                     <form method="get" action="show_product_details">
-                                                        <input type="hidden" name="productId" value="${product.productId}">
+                                                        <input type="hidden" name="productId"
+                                                               value="${product.productId}">
 
                                                         <img src="${pageContext.request.contextPath}/images/products/${product.imageURL}"
                                                              alt=""
@@ -218,12 +219,11 @@
         </div>
 
         <c:if test="${searchError == null}">
-            <ctg:pagination startIndexOfObjectList="${startIndexOfProductList}"
-                            objectsPerPage="${productsPerPage}"
+            <ctg:pagination objectsPerPage="${productsPerPage}"
+                            commandValue="${commandValue}"
                             indexOfPage="${indexOfPage}"
-                            numberOfObjects="${products.size()}"
+                            numberOfObjects="${productListSize}"
                             locale="${locale}"
-                            commandValue="product_list"
                             nameOrWordInName="${nameOrWordInName}"
                             minCalories="${minCalories}"
                             minProteins="${minProteins}"

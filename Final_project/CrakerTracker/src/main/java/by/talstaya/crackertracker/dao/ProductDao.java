@@ -15,13 +15,29 @@ public interface ProductDao extends BasicDao<Product> {
 
     List<Product> takeAllProducts() throws DaoException;
 
+    List<Product> findByNameOrWordInNameWithLimit(String nameOrWordInName, int startIndex, int endIndex) throws DaoException;
+
     List<Product> findByNameOrWordInName(String nameOrWordInName) throws DaoException;
 
+    List<Product> findProductsByFilterWithLimit(String nameOrWordInName,
+                                                int minCalories, int maxCalories,
+                                                int minProteins, int maxProteins,
+                                                int minLipids, int maxLipids,
+                                                int minCarbohydrates, int maxCarbohydrates,
+                                                int startIndex, int endIndex) throws DaoException;
+
     List<Product> findProductsByFilter(String nameOrWordInName,
-                                       int minCalories, int maxCalories,
-                                       int minProteins, int maxProteins,
-                                       int minLipids, int maxLipids,
-                                       int minCarbohydrates, int maxCarbohydrates) throws DaoException;
+                                                int minCalories, int maxCalories,
+                                                int minProteins, int maxProteins,
+                                                int minLipids, int maxLipids,
+                                                int minCarbohydrates, int maxCarbohydrates) throws DaoException;
+
+    List<Product> findProductsByFilterWithoutSearchParamWithLimit(
+            int minCalories, int maxCalories,
+            int minProteins, int maxProteins,
+            int minLipids, int maxLipids,
+            int minCarbohydrates, int maxCarbohydrates,
+            int startIndex, int endIndex) throws DaoException;
 
     List<Product> findProductsByFilterWithoutSearchParam(
             int minCalories, int maxCalories,
@@ -29,6 +45,7 @@ public interface ProductDao extends BasicDao<Product> {
             int minLipids, int maxLipids,
             int minCarbohydrates, int maxCarbohydrates) throws DaoException;
 
+    List<Product> findProductsByLimit(int startIndex, int endIndex) throws DaoException;
 
     int findMinCalories() throws DaoException;
 
