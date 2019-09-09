@@ -8,7 +8,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * PaginationTag2 is used to implement pagination
+ * PaginationTag is used to implement pagination
  *
  * @author Anna Talstaya
  * @version 1.0
